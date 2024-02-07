@@ -17,8 +17,6 @@ This repository contains a set of programs developed for the Linear Algebra cour
 ### 1. Complex Calculator
 - **Description:** This project implements a complex calculator capable of executing operations and solving step-by-step with imaginary inputs. It's designed to handle complex numbers and provide a clear breakdown of the solution process.
 
-### 2. Project Name
-- **Description:** Add your description here.
+### 2. Basic matrix operation
+- **Description:** Edit matrix.txt to declare matrix and after solve create all operations with matrix, ex: A+B/(C-D)
 
-### 3. Project Name
-- **Description:** Add your description here.
