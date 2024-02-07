@@ -1,0 +1,341 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> expression PLUS term
+Rule 2     expression -> expression MINUS term
+Rule 3     expression -> term
+Rule 4     term -> term TIMES factor
+Rule 5     term -> term DIVIDE factor
+Rule 6     term -> factor
+Rule 7     factor -> NUMBER
+Rule 8     factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+Rule 9     factor -> IMAGINARY_UNIT
+Rule 10    factor -> O_PAREN expression C_PAREN
+
+Terminals, with rules where they appear
+
+COMPLEMENT_VALUE     : 8 8
+C_PAREN              : 10
+DIVIDE               : 5
+IMAGINARY_UNIT       : 9
+MINUS                : 2
+NUMBER               : 7
+O_PAREN              : 10
+PLUS                 : 1
+TIMES                : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 2 8 10 0
+factor               : 4 5 6
+term                 : 1 2 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression MINUS term
+    (3) expression -> . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    expression                     shift and go to state 1
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 1
+
+    (0) S' -> expression .
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . MINUS term
+
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 2
+
+    (3) expression -> term .
+    (4) term -> term . TIMES factor
+    (5) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 3 (expression -> term .)
+    MINUS           reduce using rule 3 (expression -> term .)
+    $end            reduce using rule 3 (expression -> term .)
+    COMPLEMENT_VALUE reduce using rule 3 (expression -> term .)
+    C_PAREN         reduce using rule 3 (expression -> term .)
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+
+
+state 3
+
+    (6) term -> factor .
+
+    TIMES           reduce using rule 6 (term -> factor .)
+    DIVIDE          reduce using rule 6 (term -> factor .)
+    PLUS            reduce using rule 6 (term -> factor .)
+    MINUS           reduce using rule 6 (term -> factor .)
+    $end            reduce using rule 6 (term -> factor .)
+    COMPLEMENT_VALUE reduce using rule 6 (term -> factor .)
+    C_PAREN         reduce using rule 6 (term -> factor .)
+
+
+state 4
+
+    (7) factor -> NUMBER .
+
+    TIMES           reduce using rule 7 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 7 (factor -> NUMBER .)
+    PLUS            reduce using rule 7 (factor -> NUMBER .)
+    MINUS           reduce using rule 7 (factor -> NUMBER .)
+    $end            reduce using rule 7 (factor -> NUMBER .)
+    COMPLEMENT_VALUE reduce using rule 7 (factor -> NUMBER .)
+    C_PAREN         reduce using rule 7 (factor -> NUMBER .)
+
+
+state 5
+
+    (8) factor -> COMPLEMENT_VALUE . expression COMPLEMENT_VALUE
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression MINUS term
+    (3) expression -> . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    expression                     shift and go to state 12
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 6
+
+    (9) factor -> IMAGINARY_UNIT .
+
+    TIMES           reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    DIVIDE          reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    PLUS            reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    MINUS           reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    $end            reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    COMPLEMENT_VALUE reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+    C_PAREN         reduce using rule 9 (factor -> IMAGINARY_UNIT .)
+
+
+state 7
+
+    (10) factor -> O_PAREN . expression C_PAREN
+    (1) expression -> . expression PLUS term
+    (2) expression -> . expression MINUS term
+    (3) expression -> . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    expression                     shift and go to state 13
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 8
+
+    (1) expression -> expression PLUS . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    term                           shift and go to state 14
+    factor                         shift and go to state 3
+
+state 9
+
+    (2) expression -> expression MINUS . term
+    (4) term -> . term TIMES factor
+    (5) term -> . term DIVIDE factor
+    (6) term -> . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    term                           shift and go to state 15
+    factor                         shift and go to state 3
+
+state 10
+
+    (4) term -> term TIMES . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    factor                         shift and go to state 16
+
+state 11
+
+    (5) term -> term DIVIDE . factor
+    (7) factor -> . NUMBER
+    (8) factor -> . COMPLEMENT_VALUE expression COMPLEMENT_VALUE
+    (9) factor -> . IMAGINARY_UNIT
+    (10) factor -> . O_PAREN expression C_PAREN
+
+    NUMBER          shift and go to state 4
+    COMPLEMENT_VALUE shift and go to state 5
+    IMAGINARY_UNIT  shift and go to state 6
+    O_PAREN         shift and go to state 7
+
+    factor                         shift and go to state 17
+
+state 12
+
+    (8) factor -> COMPLEMENT_VALUE expression . COMPLEMENT_VALUE
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . MINUS term
+
+    COMPLEMENT_VALUE shift and go to state 18
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 13
+
+    (10) factor -> O_PAREN expression . C_PAREN
+    (1) expression -> expression . PLUS term
+    (2) expression -> expression . MINUS term
+
+    C_PAREN         shift and go to state 19
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 14
+
+    (1) expression -> expression PLUS term .
+    (4) term -> term . TIMES factor
+    (5) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 1 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 1 (expression -> expression PLUS term .)
+    $end            reduce using rule 1 (expression -> expression PLUS term .)
+    COMPLEMENT_VALUE reduce using rule 1 (expression -> expression PLUS term .)
+    C_PAREN         reduce using rule 1 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+
+
+state 15
+
+    (2) expression -> expression MINUS term .
+    (4) term -> term . TIMES factor
+    (5) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 2 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 2 (expression -> expression MINUS term .)
+    $end            reduce using rule 2 (expression -> expression MINUS term .)
+    COMPLEMENT_VALUE reduce using rule 2 (expression -> expression MINUS term .)
+    C_PAREN         reduce using rule 2 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 10
+    DIVIDE          shift and go to state 11
+
+
+state 16
+
+    (4) term -> term TIMES factor .
+
+    TIMES           reduce using rule 4 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 4 (term -> term TIMES factor .)
+    PLUS            reduce using rule 4 (term -> term TIMES factor .)
+    MINUS           reduce using rule 4 (term -> term TIMES factor .)
+    $end            reduce using rule 4 (term -> term TIMES factor .)
+    COMPLEMENT_VALUE reduce using rule 4 (term -> term TIMES factor .)
+    C_PAREN         reduce using rule 4 (term -> term TIMES factor .)
+
+
+state 17
+
+    (5) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 5 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 5 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 5 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 5 (term -> term DIVIDE factor .)
+    $end            reduce using rule 5 (term -> term DIVIDE factor .)
+    COMPLEMENT_VALUE reduce using rule 5 (term -> term DIVIDE factor .)
+    C_PAREN         reduce using rule 5 (term -> term DIVIDE factor .)
+
+
+state 18
+
+    (8) factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .
+
+    TIMES           reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    DIVIDE          reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    PLUS            reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    MINUS           reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    $end            reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    COMPLEMENT_VALUE reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+    C_PAREN         reduce using rule 8 (factor -> COMPLEMENT_VALUE expression COMPLEMENT_VALUE .)
+
+
+state 19
+
+    (10) factor -> O_PAREN expression C_PAREN .
+
+    TIMES           reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    DIVIDE          reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    PLUS            reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    MINUS           reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    $end            reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    COMPLEMENT_VALUE reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+    C_PAREN         reduce using rule 10 (factor -> O_PAREN expression C_PAREN .)
+
