@@ -5,9 +5,10 @@ class PrinterManager:
 
     @staticmethod
     def custom_print(data: str):
-        # TODO CUSTOM PRINT
-        print(data)
+        if(data is not None):
+            print(data)
 
     @staticmethod
     def custom_print_array(data: ndarray):
-        print(data)
+        if(data is not None):
+            print(data)

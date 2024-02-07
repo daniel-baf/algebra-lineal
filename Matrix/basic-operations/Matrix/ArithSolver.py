@@ -28,7 +28,7 @@ class ArithSolver:
                         f'Matrices missmatch, matrix a has {matrix_a.shape[1]} columns and matrix b has {matrix_b.shape[0]} rows. Must be equals']
 
             # Validate dimensions for division (inverse exists only for square matrices)
-            if operation == Operation.DIVIDE and matrix_a.shape[0] != matrix_a.shape[1] or matrix_b.shape[0] != matrix_b.shape[1]:
+            if operation == Operation.DIVIDE and (matrix_a.shape[0] != matrix_a.shape[1] or matrix_b.shape[0] != matrix_b.shape[1]):
                 return [False, 'Cannot perform division. Matrices must be square.']
 
             return [True, 'OK']
@@ -44,13 +44,13 @@ class ArithSolver:
 
         # Perform matrix operation
         if operation == Operation.ADD:
-            self._sum_matrices(matrix_a, matrix_b)
+            return self._sum_matrices(matrix_a, matrix_b)
         elif operation == Operation.SUBTRACT:
-            self._sub_matrices(matrix_a, matrix_b)
+            return self._sub_matrices(matrix_a, matrix_b)
         elif operation == Operation.MULTIPLY:
-            self._multiply_matrices(matrix_a, matrix_b)
+            return self._multiply_matrices(matrix_a, matrix_b)
         elif operation == Operation.DIVIDE:
-            self._divide_matrices(matrix_a, matrix_b)
+            return self._divide_matrices(matrix_a, matrix_b)
         else:
             Printer.custom_print('Invalid operation')
             return
@@ -71,11 +71,10 @@ class ArithSolver:
                     result[i, j] = matrix_a[i, j] + matrix_b[i, j]
                     # Print each step
                     Printer.custom_print(f"A[{i},{j}] + B[{i},{j}] = {matrix_a[i, j]} + {matrix_b[i, j]} = {result[i, j]}")
-
-            Printer.custom_print("RESULT: ")
-            Printer.custom_print_array(result)
+            return result
         except Exception as e:
             Printer.custom_print(f'Unable to execute values: {e}')
+            return None
 
     @staticmethod
     def _sub_matrices(matrix_a: np.ndarray, matrix_b: np.ndarray):
@@ -95,10 +94,10 @@ class ArithSolver:
                     Printer.custom_print(
                         f"A[{i},{j}] + B[{i},{j}] = {matrix_a[i, j]} - {matrix_b[i, j]} = {result[i, j]}")
 
-            Printer.custom_print("RESULT: ")
-            Printer.custom_print_array(result)
+            return result
         except Exception as e:
             Printer.custom_print(f'Unable to execute values: {e}')
+            return None
 
     @staticmethod
     def _multiply_matrices(matrix_a: np.ndarray, matrix_b: np.ndarray):
@@ -119,10 +118,10 @@ class ArithSolver:
                         Printer.custom_print(f"R[{i},{j}] += A[{i},{k}] * B[{k},{j}] = "
                                              f"{result[i, j]} + {matrix_a[i, k]} * {matrix_b[k, j]} = {result[i, j]}")
             # Print the final result
-            Printer.custom_print("Final Result:")
-            Printer.custom_print_array(result)
+            return result
         except Exception as e:
             Printer.custom_print(f'Unable to execute multiplication, {e}')
+            return None
 
     def _divide_matrices(self, matrix_a: np.ndarray, matrix_b: np.ndarray):
         Printer.custom_print("--------- DIVISION ---------")
@@ -134,8 +133,8 @@ class ArithSolver:
             Printer.custom_print("Inverse of Matrix B:")
             Printer.custom_print(inverse_matrix_b)
             # Step 2: Multiply matrix_a by the inverse of matrix_b
-            self._multiply_matrices(matrix_a, inverse_matrix_b)
-
+            result = self._multiply_matrices(matrix_a, inverse_matrix_b)
+            return result
         except np.linalg.LinAlgError:
             Printer.custom_print("Matrix B is not invertible. Cannot perform division.")
-            return
+            return None
