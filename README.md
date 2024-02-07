@@ -20,5 +20,3 @@ This repository contains a set of programs developed for the Linear Algebra cour
 ### 2. Project Name
 - **Description:** Add your description here.
 
-### 3. Project Name
-- **Description:** Add your description here.
