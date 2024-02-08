@@ -20,3 +20,6 @@ This repository contains a set of programs developed for the Linear Algebra cour
 ### 2. Basic matrix operation
 - **Description:** Edit matrix.txt to declare matrix and after solve create all operations with matrix, ex: A+B/(C-D)
 
+### 3. Matrix transpose
+- **Description:** Calculate the transpose of a matrix step by stem using a txt file with sintax at example matrix.txt
+
