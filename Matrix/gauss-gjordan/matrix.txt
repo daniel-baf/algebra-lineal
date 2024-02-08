@@ -1,0 +1,27 @@
+matrix A
+    1 2 4 4
+    3 0 4 -1
+    1 1 -4 1
+matrix B
+    5 6 1 0
+    7 8 8 9 
+    3 -2 0 -1
+matrix C
+    1 2 1 2
+    3 0 0 0
+    1 1 2 -10
+matrix D
+    7 8 8
+    3 -2 0
+matrix E
+    1 2 4 1 9
+    3 0 0 4 20
+    1 1 -2 6 -12
+    9 -2 -1 8 3
+matrix F
+    1 2 4 1 0
+    3 3 1 9 -1
+    1 1 1 1 2
+    0 -11 2 1 2
+gauss           A B C D E F
+gjordan         A B C D E F
