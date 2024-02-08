@@ -1,3 +1,4 @@
 # deactivate after ending project
 # use pin install -r requirements.txt
 numpy
+ply
