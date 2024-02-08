@@ -1,0 +1,471 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> code_file
+Rule 1     code_file -> middleware_section solve_section
+Rule 2     middleware_section -> matrix_section
+Rule 3     matrix_section -> matrix_declaration
+Rule 4     matrix_section -> matrix_declaration matrix_section
+Rule 5     matrix_declaration -> MATRIX ID NEWLINE matrix_content
+Rule 6     matrix_content -> matrix_row NEWLINE
+Rule 7     matrix_content -> matrix_row NEWLINE matrix_content
+Rule 8     matrix_row -> NUMBER
+Rule 9     matrix_row -> NUMBER matrix_row
+Rule 10    solve_section -> SOLVE NEWLINE solve_list
+Rule 11    solve_list -> expression NEWLINE
+Rule 12    solve_list -> expression NEWLINE solve_list
+Rule 13    expression -> expression PLUS term
+Rule 14    expression -> expression MINUS term
+Rule 15    expression -> term
+Rule 16    term -> term TIMES factor
+Rule 17    term -> term DIVIDE factor
+Rule 18    term -> factor
+Rule 19    factor -> ID
+Rule 20    factor -> O_PAREN expression C_PAREN
+
+Terminals, with rules where they appear
+
+C_PAREN              : 20
+DIVIDE               : 17
+ID                   : 5 19
+MATRIX               : 5
+MINUS                : 14
+NEWLINE              : 5 6 7 10 11 12
+NUMBER               : 8 9
+O_PAREN              : 20
+PLUS                 : 13
+SOLVE                : 10
+TIMES                : 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+code_file            : 0
+expression           : 11 12 13 14 20
+factor               : 16 17 18
+matrix_content       : 5 7
+matrix_declaration   : 3 4
+matrix_row           : 6 7 9
+matrix_section       : 2 4
+middleware_section   : 1
+solve_list           : 10 12
+solve_section        : 1
+term                 : 13 14 15 16 17
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . code_file
+    (1) code_file -> . middleware_section solve_section
+    (2) middleware_section -> . matrix_section
+    (3) matrix_section -> . matrix_declaration
+    (4) matrix_section -> . matrix_declaration matrix_section
+    (5) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    MATRIX          shift and go to state 5
+
+    code_file                      shift and go to state 1
+    middleware_section             shift and go to state 2
+    matrix_section                 shift and go to state 3
+    matrix_declaration             shift and go to state 4
+
+state 1
+
+    (0) S' -> code_file .
+
+
+
+state 2
+
+    (1) code_file -> middleware_section . solve_section
+    (10) solve_section -> . SOLVE NEWLINE solve_list
+
+    SOLVE           shift and go to state 7
+
+    solve_section                  shift and go to state 6
+
+state 3
+
+    (2) middleware_section -> matrix_section .
+
+    SOLVE           reduce using rule 2 (middleware_section -> matrix_section .)
+
+
+state 4
+
+    (3) matrix_section -> matrix_declaration .
+    (4) matrix_section -> matrix_declaration . matrix_section
+    (3) matrix_section -> . matrix_declaration
+    (4) matrix_section -> . matrix_declaration matrix_section
+    (5) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    SOLVE           reduce using rule 3 (matrix_section -> matrix_declaration .)
+    MATRIX          shift and go to state 5
+
+    matrix_declaration             shift and go to state 4
+    matrix_section                 shift and go to state 8
+
+state 5
+
+    (5) matrix_declaration -> MATRIX . ID NEWLINE matrix_content
+
+    ID              shift and go to state 9
+
+
+state 6
+
+    (1) code_file -> middleware_section solve_section .
+
+    $end            reduce using rule 1 (code_file -> middleware_section solve_section .)
+
+
+state 7
+
+    (10) solve_section -> SOLVE . NEWLINE solve_list
+
+    NEWLINE         shift and go to state 10
+
+
+state 8
+
+    (4) matrix_section -> matrix_declaration matrix_section .
+
+    SOLVE           reduce using rule 4 (matrix_section -> matrix_declaration matrix_section .)
+
+
+state 9
+
+    (5) matrix_declaration -> MATRIX ID . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 11
+
+
+state 10
+
+    (10) solve_section -> SOLVE NEWLINE . solve_list
+    (11) solve_list -> . expression NEWLINE
+    (12) solve_list -> . expression NEWLINE solve_list
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (15) expression -> . term
+    (16) term -> . term TIMES factor
+    (17) term -> . term DIVIDE factor
+    (18) term -> . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    solve_list                     shift and go to state 12
+    expression                     shift and go to state 13
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 11
+
+    (5) matrix_declaration -> MATRIX ID NEWLINE . matrix_content
+    (6) matrix_content -> . matrix_row NEWLINE
+    (7) matrix_content -> . matrix_row NEWLINE matrix_content
+    (8) matrix_row -> . NUMBER
+    (9) matrix_row -> . NUMBER matrix_row
+
+    NUMBER          shift and go to state 20
+
+    matrix_content                 shift and go to state 18
+    matrix_row                     shift and go to state 19
+
+state 12
+
+    (10) solve_section -> SOLVE NEWLINE solve_list .
+
+    $end            reduce using rule 10 (solve_section -> SOLVE NEWLINE solve_list .)
+
+
+state 13
+
+    (11) solve_list -> expression . NEWLINE
+    (12) solve_list -> expression . NEWLINE solve_list
+    (13) expression -> expression . PLUS term
+    (14) expression -> expression . MINUS term
+
+    NEWLINE         shift and go to state 21
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+
+
+state 14
+
+    (15) expression -> term .
+    (16) term -> term . TIMES factor
+    (17) term -> term . DIVIDE factor
+
+    NEWLINE         reduce using rule 15 (expression -> term .)
+    PLUS            reduce using rule 15 (expression -> term .)
+    MINUS           reduce using rule 15 (expression -> term .)
+    C_PAREN         reduce using rule 15 (expression -> term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 15
+
+    (18) term -> factor .
+
+    TIMES           reduce using rule 18 (term -> factor .)
+    DIVIDE          reduce using rule 18 (term -> factor .)
+    NEWLINE         reduce using rule 18 (term -> factor .)
+    PLUS            reduce using rule 18 (term -> factor .)
+    MINUS           reduce using rule 18 (term -> factor .)
+    C_PAREN         reduce using rule 18 (term -> factor .)
+
+
+state 16
+
+    (19) factor -> ID .
+
+    TIMES           reduce using rule 19 (factor -> ID .)
+    DIVIDE          reduce using rule 19 (factor -> ID .)
+    NEWLINE         reduce using rule 19 (factor -> ID .)
+    PLUS            reduce using rule 19 (factor -> ID .)
+    MINUS           reduce using rule 19 (factor -> ID .)
+    C_PAREN         reduce using rule 19 (factor -> ID .)
+
+
+state 17
+
+    (20) factor -> O_PAREN . expression C_PAREN
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (15) expression -> . term
+    (16) term -> . term TIMES factor
+    (17) term -> . term DIVIDE factor
+    (18) term -> . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    expression                     shift and go to state 26
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 18
+
+    (5) matrix_declaration -> MATRIX ID NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 5 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+    SOLVE           reduce using rule 5 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+
+
+state 19
+
+    (6) matrix_content -> matrix_row . NEWLINE
+    (7) matrix_content -> matrix_row . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 27
+
+
+state 20
+
+    (8) matrix_row -> NUMBER .
+    (9) matrix_row -> NUMBER . matrix_row
+    (8) matrix_row -> . NUMBER
+    (9) matrix_row -> . NUMBER matrix_row
+
+    NEWLINE         reduce using rule 8 (matrix_row -> NUMBER .)
+    NUMBER          shift and go to state 20
+
+    matrix_row                     shift and go to state 28
+
+state 21
+
+    (11) solve_list -> expression NEWLINE .
+    (12) solve_list -> expression NEWLINE . solve_list
+    (11) solve_list -> . expression NEWLINE
+    (12) solve_list -> . expression NEWLINE solve_list
+    (13) expression -> . expression PLUS term
+    (14) expression -> . expression MINUS term
+    (15) expression -> . term
+    (16) term -> . term TIMES factor
+    (17) term -> . term DIVIDE factor
+    (18) term -> . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    $end            reduce using rule 11 (solve_list -> expression NEWLINE .)
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    expression                     shift and go to state 13
+    solve_list                     shift and go to state 29
+    term                           shift and go to state 14
+    factor                         shift and go to state 15
+
+state 22
+
+    (13) expression -> expression PLUS . term
+    (16) term -> . term TIMES factor
+    (17) term -> . term DIVIDE factor
+    (18) term -> . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    term                           shift and go to state 30
+    factor                         shift and go to state 15
+
+state 23
+
+    (14) expression -> expression MINUS . term
+    (16) term -> . term TIMES factor
+    (17) term -> . term DIVIDE factor
+    (18) term -> . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    term                           shift and go to state 31
+    factor                         shift and go to state 15
+
+state 24
+
+    (16) term -> term TIMES . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    factor                         shift and go to state 32
+
+state 25
+
+    (17) term -> term DIVIDE . factor
+    (19) factor -> . ID
+    (20) factor -> . O_PAREN expression C_PAREN
+
+    ID              shift and go to state 16
+    O_PAREN         shift and go to state 17
+
+    factor                         shift and go to state 33
+
+state 26
+
+    (20) factor -> O_PAREN expression . C_PAREN
+    (13) expression -> expression . PLUS term
+    (14) expression -> expression . MINUS term
+
+    C_PAREN         shift and go to state 34
+    PLUS            shift and go to state 22
+    MINUS           shift and go to state 23
+
+
+state 27
+
+    (6) matrix_content -> matrix_row NEWLINE .
+    (7) matrix_content -> matrix_row NEWLINE . matrix_content
+    (6) matrix_content -> . matrix_row NEWLINE
+    (7) matrix_content -> . matrix_row NEWLINE matrix_content
+    (8) matrix_row -> . NUMBER
+    (9) matrix_row -> . NUMBER matrix_row
+
+    MATRIX          reduce using rule 6 (matrix_content -> matrix_row NEWLINE .)
+    SOLVE           reduce using rule 6 (matrix_content -> matrix_row NEWLINE .)
+    NUMBER          shift and go to state 20
+
+    matrix_row                     shift and go to state 19
+    matrix_content                 shift and go to state 35
+
+state 28
+
+    (9) matrix_row -> NUMBER matrix_row .
+
+    NEWLINE         reduce using rule 9 (matrix_row -> NUMBER matrix_row .)
+
+
+state 29
+
+    (12) solve_list -> expression NEWLINE solve_list .
+
+    $end            reduce using rule 12 (solve_list -> expression NEWLINE solve_list .)
+
+
+state 30
+
+    (13) expression -> expression PLUS term .
+    (16) term -> term . TIMES factor
+    (17) term -> term . DIVIDE factor
+
+    NEWLINE         reduce using rule 13 (expression -> expression PLUS term .)
+    PLUS            reduce using rule 13 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 13 (expression -> expression PLUS term .)
+    C_PAREN         reduce using rule 13 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 31
+
+    (14) expression -> expression MINUS term .
+    (16) term -> term . TIMES factor
+    (17) term -> term . DIVIDE factor
+
+    NEWLINE         reduce using rule 14 (expression -> expression MINUS term .)
+    PLUS            reduce using rule 14 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 14 (expression -> expression MINUS term .)
+    C_PAREN         reduce using rule 14 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 24
+    DIVIDE          shift and go to state 25
+
+
+state 32
+
+    (16) term -> term TIMES factor .
+
+    TIMES           reduce using rule 16 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 16 (term -> term TIMES factor .)
+    NEWLINE         reduce using rule 16 (term -> term TIMES factor .)
+    PLUS            reduce using rule 16 (term -> term TIMES factor .)
+    MINUS           reduce using rule 16 (term -> term TIMES factor .)
+    C_PAREN         reduce using rule 16 (term -> term TIMES factor .)
+
+
+state 33
+
+    (17) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 17 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 17 (term -> term DIVIDE factor .)
+    NEWLINE         reduce using rule 17 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 17 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 17 (term -> term DIVIDE factor .)
+    C_PAREN         reduce using rule 17 (term -> term DIVIDE factor .)
+
+
+state 34
+
+    (20) factor -> O_PAREN expression C_PAREN .
+
+    TIMES           reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+    DIVIDE          reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+    NEWLINE         reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+    PLUS            reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+    MINUS           reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+    C_PAREN         reduce using rule 20 (factor -> O_PAREN expression C_PAREN .)
+
+
+state 35
+
+    (7) matrix_content -> matrix_row NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 7 (matrix_content -> matrix_row NEWLINE matrix_content .)
+    SOLVE           reduce using rule 7 (matrix_content -> matrix_row NEWLINE matrix_content .)
+
