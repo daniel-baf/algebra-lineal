@@ -1,0 +1,216 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> code_file
+Rule 1     code_file -> matrix_section solve_section
+Rule 2     matrix_section -> matrix_declaration
+Rule 3     matrix_section -> matrix_declaration matrix_section
+Rule 4     matrix_declaration -> MATRIX ID NEWLINE matrix_content
+Rule 5     matrix_content -> matrix_row NEWLINE
+Rule 6     matrix_content -> matrix_row NEWLINE matrix_content
+Rule 7     matrix_row -> NUMBER
+Rule 8     matrix_row -> NUMBER matrix_row
+Rule 9     solve_section -> SOLVE solve_list
+Rule 10    solve_list -> ID
+Rule 11    solve_list -> ID solve_list
+
+Terminals, with rules where they appear
+
+ID                   : 4 10 11
+MATRIX               : 4
+NEWLINE              : 4 5 6
+NUMBER               : 7 8
+SOLVE                : 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+code_file            : 0
+matrix_content       : 4 6
+matrix_declaration   : 2 3
+matrix_row           : 5 6 8
+matrix_section       : 1 3
+solve_list           : 9 11
+solve_section        : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . code_file
+    (1) code_file -> . matrix_section solve_section
+    (2) matrix_section -> . matrix_declaration
+    (3) matrix_section -> . matrix_declaration matrix_section
+    (4) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    MATRIX          shift and go to state 4
+
+    code_file                      shift and go to state 1
+    matrix_section                 shift and go to state 2
+    matrix_declaration             shift and go to state 3
+
+state 1
+
+    (0) S' -> code_file .
+
+
+
+state 2
+
+    (1) code_file -> matrix_section . solve_section
+    (9) solve_section -> . SOLVE solve_list
+
+    SOLVE           shift and go to state 6
+
+    solve_section                  shift and go to state 5
+
+state 3
+
+    (2) matrix_section -> matrix_declaration .
+    (3) matrix_section -> matrix_declaration . matrix_section
+    (2) matrix_section -> . matrix_declaration
+    (3) matrix_section -> . matrix_declaration matrix_section
+    (4) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    SOLVE           reduce using rule 2 (matrix_section -> matrix_declaration .)
+    MATRIX          shift and go to state 4
+
+    matrix_declaration             shift and go to state 3
+    matrix_section                 shift and go to state 7
+
+state 4
+
+    (4) matrix_declaration -> MATRIX . ID NEWLINE matrix_content
+
+    ID              shift and go to state 8
+
+
+state 5
+
+    (1) code_file -> matrix_section solve_section .
+
+    $end            reduce using rule 1 (code_file -> matrix_section solve_section .)
+
+
+state 6
+
+    (9) solve_section -> SOLVE . solve_list
+    (10) solve_list -> . ID
+    (11) solve_list -> . ID solve_list
+
+    ID              shift and go to state 10
+
+    solve_list                     shift and go to state 9
+
+state 7
+
+    (3) matrix_section -> matrix_declaration matrix_section .
+
+    SOLVE           reduce using rule 3 (matrix_section -> matrix_declaration matrix_section .)
+
+
+state 8
+
+    (4) matrix_declaration -> MATRIX ID . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 11
+
+
+state 9
+
+    (9) solve_section -> SOLVE solve_list .
+
+    $end            reduce using rule 9 (solve_section -> SOLVE solve_list .)
+
+
+state 10
+
+    (10) solve_list -> ID .
+    (11) solve_list -> ID . solve_list
+    (10) solve_list -> . ID
+    (11) solve_list -> . ID solve_list
+
+    $end            reduce using rule 10 (solve_list -> ID .)
+    ID              shift and go to state 10
+
+    solve_list                     shift and go to state 12
+
+state 11
+
+    (4) matrix_declaration -> MATRIX ID NEWLINE . matrix_content
+    (5) matrix_content -> . matrix_row NEWLINE
+    (6) matrix_content -> . matrix_row NEWLINE matrix_content
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    NUMBER          shift and go to state 15
+
+    matrix_content                 shift and go to state 13
+    matrix_row                     shift and go to state 14
+
+state 12
+
+    (11) solve_list -> ID solve_list .
+
+    $end            reduce using rule 11 (solve_list -> ID solve_list .)
+
+
+state 13
+
+    (4) matrix_declaration -> MATRIX ID NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 4 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+    SOLVE           reduce using rule 4 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+
+
+state 14
+
+    (5) matrix_content -> matrix_row . NEWLINE
+    (6) matrix_content -> matrix_row . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 16
+
+
+state 15
+
+    (7) matrix_row -> NUMBER .
+    (8) matrix_row -> NUMBER . matrix_row
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    NEWLINE         reduce using rule 7 (matrix_row -> NUMBER .)
+    NUMBER          shift and go to state 15
+
+    matrix_row                     shift and go to state 17
+
+state 16
+
+    (5) matrix_content -> matrix_row NEWLINE .
+    (6) matrix_content -> matrix_row NEWLINE . matrix_content
+    (5) matrix_content -> . matrix_row NEWLINE
+    (6) matrix_content -> . matrix_row NEWLINE matrix_content
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    MATRIX          reduce using rule 5 (matrix_content -> matrix_row NEWLINE .)
+    SOLVE           reduce using rule 5 (matrix_content -> matrix_row NEWLINE .)
+    NUMBER          shift and go to state 15
+
+    matrix_row                     shift and go to state 14
+    matrix_content                 shift and go to state 18
+
+state 17
+
+    (8) matrix_row -> NUMBER matrix_row .
+
+    NEWLINE         reduce using rule 8 (matrix_row -> NUMBER matrix_row .)
+
+
+state 18
+
+    (6) matrix_content -> matrix_row NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 6 (matrix_content -> matrix_row NEWLINE matrix_content .)
+    SOLVE           reduce using rule 6 (matrix_content -> matrix_row NEWLINE matrix_content .)
+
