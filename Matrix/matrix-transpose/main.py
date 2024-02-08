@@ -22,7 +22,7 @@ def read_file(file_path: str) -> str:
 def gen_transpose(matrix: Matrix):
     print(f"-------- Transposing matrix {matrix.name} --------\n")
     print(matrix)
-    print(matrix.transpose())
+    matrix.transpose()
     print(matrix)
 
 def main():

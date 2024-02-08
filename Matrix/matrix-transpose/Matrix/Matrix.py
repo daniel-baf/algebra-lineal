@@ -21,9 +21,6 @@ class Matrix:
                 print(f"transposed_matrix[{j}][{i}] = matrix[{i}][{j}]")
                 transposed_matrix[j][i] = self.matrix[i][j]
 
-        for i in range(rows):
-            for j in range(cols):
-                transposed_matrix[j][i] = self.matrix[i][j]
         self.matrix = transposed_matrix
         # check if current names contains ', if not, ad d it, otherwise, remote it
         if "'" not in self.name:
