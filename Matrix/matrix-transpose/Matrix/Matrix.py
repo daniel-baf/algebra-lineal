@@ -1,5 +1,6 @@
 import numpy as np
 
+# Class used to manage oeprations, save name and nparray for matrix
 class Matrix:
 
     def __init__(self, name: str, matrix: np.ndarray):
@@ -10,6 +11,7 @@ class Matrix:
         return f"Matrix {self.name}:\n{self.matrix}"
     
 
+    # calculates the transpose of a matrix
     def transpose(self):
         rows = self.matrix.shape[0]
         cols = self.matrix.shape[1]

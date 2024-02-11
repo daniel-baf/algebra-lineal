@@ -3,6 +3,7 @@ from Utils.PrinterManager import PrinterManager as Printer
 from Parser.MatrixLexer import make_lexer
 from Parser.MatrixParser import make_parser
 
+# READ DATA from file, file must be named 
 def read_file(file_path: str) -> str:
     try:
         with open(file_path, "r") as file:
@@ -11,8 +12,10 @@ def read_file(file_path: str) -> str:
         Printer.custom_print(f'Error reading file {e}')
 
 
+# execute the app, creates lexer, parser, handle data and print steps
 def execute():
     try:
+        # lexer & parser generation and execution
         lexer = make_lexer()
         parser = make_parser()
         data = read_file("matrix.txt")

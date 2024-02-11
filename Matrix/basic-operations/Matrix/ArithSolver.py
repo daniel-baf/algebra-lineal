@@ -3,6 +3,7 @@ from enum import Enum
 from Utils.PrinterManager import PrinterManager as Printer
 
 
+# ENUM USED TO DEFINE THE OPERATIONS and avoid using strings
 class Operation(Enum):
     ADD = '+'
     SUBTRACT = '-'
@@ -13,8 +14,10 @@ class Operation(Enum):
         return self.value
 
 
+# Solves the equations from an derivation node
 class ArithSolver:
 
+    # check the matrix is valid to execute any OPERATION
     @staticmethod
     def _validate_matrices(operation: Operation, matrix_a: np.ndarray, matrix_b: np.ndarray):
         try:
@@ -35,6 +38,8 @@ class ArithSolver:
         except Exception as e:
             return [False, f'Unexpected problem encountered, error {e}']
 
+
+    #  solve a basi operation for matrices, ADD, SUM, MULT, DIV
     def solve_basic_operation(self, operation: Operation, matrix_a: np.ndarray, matrix_b: np.ndarray):
         # Validate matrices
         validation_result = self._validate_matrices(operation, matrix_a, matrix_b)

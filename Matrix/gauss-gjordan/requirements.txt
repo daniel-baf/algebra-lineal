@@ -1,2 +1,4 @@
 ply
 numpy
+
+# NOTE F letter for matrix bugss the app, use other ID

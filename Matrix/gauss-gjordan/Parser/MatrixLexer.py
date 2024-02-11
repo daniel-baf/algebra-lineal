@@ -30,14 +30,9 @@ def t_MATRIX(t):
     return t
 
 
-def t_SOLVE(t):
-    r"""solve"""
-    return t
-
-
 # catches a string id for matrix creation
 def t_ID(t):
-    r"""[a-zA-Z_]"""
+    r"""[a-zA-Z_]+"""
     return t
 
 

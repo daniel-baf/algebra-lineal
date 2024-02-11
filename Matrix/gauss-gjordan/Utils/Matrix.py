@@ -7,4 +7,4 @@ class Matrix:
         self.matrix = matrix
         
     def __str__(self):
-        return f"Matrix {self.name}:\n{self.matrix}"
+        return f"Matrix {self.name} = \n{self.matrix}"

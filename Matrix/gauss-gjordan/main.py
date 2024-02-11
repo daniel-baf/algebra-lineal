@@ -10,6 +10,11 @@ def read_file(file_path: str) -> str:
     except Exception as e:
         Printer.custom_print('Error trying to read file', e)
 
+def find_matrix(matrix_name: str, matrices: list):
+    for matrix in matrices:
+        if matrix.name == matrix_name:
+            return matrix
+    return None
 
 def execute():
     try:
@@ -18,12 +23,8 @@ def execute():
         data = read_file("matrix.txt")
         # check if data ends with \n if not, add it
         result = parser.parse(f"{data}", lexer=lexer)
-        # PRINT A SUMMARY OF MATRICES
-        Printer.custom_print("------- MATRICES -------\n")
-        for matrix in result["matrices"]:
-            print(matrix)
-        for gauss_operation in result["operations"]:
-            print(gauss_operation)
+        for gauss_token in result["operations"]:
+            gauss_token.solve(result["matrices"])
     except Exception as e:
         Printer.custom_print(f'Error executing code {e} ensure there is a JUMPLINE at end of file')
 
