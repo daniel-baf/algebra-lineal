@@ -23,5 +23,5 @@ This repository contains a set of programs developed for the Linear Algebra cour
 ### 3. Matrix transpose
 - **Description:** Calculate the transpose of a matrix step by stem using a txt file with sintax at example matrix.txt
 
-### 3. Gauss Gauss Jordan
+### 4. Gauss Gauss Jordan
 - **Description:** resolve a extended matrix by using gauss or gauss Jordan, read txt matrix.txt as input to solve problems
