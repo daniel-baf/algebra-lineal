@@ -40,7 +40,6 @@ def t_NUMBER(t):
     return t
 
 
-
 # Error management, TODO manage this error
 def t_error(t):
     print(f"Illegal character '{t.value[0]}'")
@@ -58,4 +57,3 @@ def test():
     lexer.input(input_string)
     for token in lexer:
         print(token)
-

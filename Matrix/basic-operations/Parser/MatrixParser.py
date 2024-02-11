@@ -4,6 +4,42 @@ from Utils.Matrix import Matrix
 from Utils.DerivationTree.DerivationNode import DerivationNode
 import numpy as np
 
+# 
+"""
+SOLVES GRAMMAR TO EXECUTE OPERATIONS WITH MATRIXES
+EJ:
+matrix A
+    1 2 3
+    4 5 6
+solve
+    A + A
+
+
+GRAMMAR
+
+code_file : middleware_section solve_section
+middleware_section : matrix_section
+matrix_section : matrix_declaration
+                | matrix_declaration matrix_section
+matrix_declaration : MATRIX ID NEWLINE matrix_content
+matrix_content : matrix_row NEWLINE
+                | matrix_row NEWLINE matrix_content
+matrix_row : NUMBER
+            | NUMBER matrix_row
+solve_section : SOLVE NEWLINE solve_list
+solve_list : expression NEWLINE
+            | expression NEWLINE solve_list
+expression : expression PLUS term
+            | expression MINUS term
+            | term
+term : term TIMES factor
+        | term DIVIDE factor
+        | factor    
+factor : ID
+        | O_PAREN expression C_PAREN
+        | NUMBER
+"""
+
 # array of matrices and operations (derivationNode with str or Matrix as node)
 _data = {"matrices": [], "operations": []}
 

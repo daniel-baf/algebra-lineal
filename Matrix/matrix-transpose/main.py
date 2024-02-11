@@ -11,6 +11,7 @@ def find_matrix_by_id(id: str, _data: dict):
     return None
 
 
+# READ DATA from file, file must be in local path
 def read_file(file_path: str) -> str:
     try:
         with open(file_path, "r") as file:
@@ -19,12 +20,14 @@ def read_file(file_path: str) -> str:
         print(f'Error reading file {e}')
 
 
+# execute the app, creates lexer, parser, handle data and print steps
 def gen_transpose(matrix: Matrix):
     print(f"-------- Transposing matrix {matrix.name} --------\n")
     print(matrix)
     matrix.transpose()
     print(matrix)
 
+# main function
 def main():
     data = f"{read_file('matrix.txt')}"
     lexer = make_lexer()

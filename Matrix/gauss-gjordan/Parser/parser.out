@@ -1,0 +1,319 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> code_file
+Rule 1     code_file -> matrix_section solve_section
+Rule 2     matrix_section -> matrix_declaration
+Rule 3     matrix_section -> matrix_declaration matrix_section
+Rule 4     matrix_declaration -> MATRIX ID NEWLINE matrix_content
+Rule 5     matrix_content -> matrix_row NEWLINE
+Rule 6     matrix_content -> matrix_row NEWLINE matrix_content
+Rule 7     matrix_row -> NUMBER
+Rule 8     matrix_row -> NUMBER matrix_row
+Rule 9     solve_section -> gauss_operations
+Rule 10    solve_section -> gauss_operations solve_section
+Rule 11    gauss_operations -> gauss_section
+Rule 12    gauss_operations -> gausss_jordan_section
+Rule 13    gauss_section -> GAUSS id_list NEWLINE
+Rule 14    gausss_jordan_section -> GAUSS_JORDAN id_list NEWLINE
+Rule 15    id_list -> ID
+Rule 16    id_list -> ID id_list
+
+Terminals, with rules where they appear
+
+GAUSS                : 13
+GAUSS_JORDAN         : 14
+ID                   : 4 15 16
+MATRIX               : 4
+NEWLINE              : 4 5 6 13 14
+NUMBER               : 7 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+code_file            : 0
+gauss_operations     : 9 10
+gauss_section        : 11
+gausss_jordan_section : 12
+id_list              : 13 14 16
+matrix_content       : 4 6
+matrix_declaration   : 2 3
+matrix_row           : 5 6 8
+matrix_section       : 1 3
+solve_section        : 1 10
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . code_file
+    (1) code_file -> . matrix_section solve_section
+    (2) matrix_section -> . matrix_declaration
+    (3) matrix_section -> . matrix_declaration matrix_section
+    (4) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    MATRIX          shift and go to state 4
+
+    code_file                      shift and go to state 1
+    matrix_section                 shift and go to state 2
+    matrix_declaration             shift and go to state 3
+
+state 1
+
+    (0) S' -> code_file .
+
+
+
+state 2
+
+    (1) code_file -> matrix_section . solve_section
+    (9) solve_section -> . gauss_operations
+    (10) solve_section -> . gauss_operations solve_section
+    (11) gauss_operations -> . gauss_section
+    (12) gauss_operations -> . gausss_jordan_section
+    (13) gauss_section -> . GAUSS id_list NEWLINE
+    (14) gausss_jordan_section -> . GAUSS_JORDAN id_list NEWLINE
+
+    GAUSS           shift and go to state 9
+    GAUSS_JORDAN    shift and go to state 10
+
+    solve_section                  shift and go to state 5
+    gauss_operations               shift and go to state 6
+    gauss_section                  shift and go to state 7
+    gausss_jordan_section          shift and go to state 8
+
+state 3
+
+    (2) matrix_section -> matrix_declaration .
+    (3) matrix_section -> matrix_declaration . matrix_section
+    (2) matrix_section -> . matrix_declaration
+    (3) matrix_section -> . matrix_declaration matrix_section
+    (4) matrix_declaration -> . MATRIX ID NEWLINE matrix_content
+
+    GAUSS           reduce using rule 2 (matrix_section -> matrix_declaration .)
+    GAUSS_JORDAN    reduce using rule 2 (matrix_section -> matrix_declaration .)
+    MATRIX          shift and go to state 4
+
+    matrix_declaration             shift and go to state 3
+    matrix_section                 shift and go to state 11
+
+state 4
+
+    (4) matrix_declaration -> MATRIX . ID NEWLINE matrix_content
+
+    ID              shift and go to state 12
+
+
+state 5
+
+    (1) code_file -> matrix_section solve_section .
+
+    $end            reduce using rule 1 (code_file -> matrix_section solve_section .)
+
+
+state 6
+
+    (9) solve_section -> gauss_operations .
+    (10) solve_section -> gauss_operations . solve_section
+    (9) solve_section -> . gauss_operations
+    (10) solve_section -> . gauss_operations solve_section
+    (11) gauss_operations -> . gauss_section
+    (12) gauss_operations -> . gausss_jordan_section
+    (13) gauss_section -> . GAUSS id_list NEWLINE
+    (14) gausss_jordan_section -> . GAUSS_JORDAN id_list NEWLINE
+
+    $end            reduce using rule 9 (solve_section -> gauss_operations .)
+    GAUSS           shift and go to state 9
+    GAUSS_JORDAN    shift and go to state 10
+
+    gauss_operations               shift and go to state 6
+    solve_section                  shift and go to state 13
+    gauss_section                  shift and go to state 7
+    gausss_jordan_section          shift and go to state 8
+
+state 7
+
+    (11) gauss_operations -> gauss_section .
+
+    GAUSS           reduce using rule 11 (gauss_operations -> gauss_section .)
+    GAUSS_JORDAN    reduce using rule 11 (gauss_operations -> gauss_section .)
+    $end            reduce using rule 11 (gauss_operations -> gauss_section .)
+
+
+state 8
+
+    (12) gauss_operations -> gausss_jordan_section .
+
+    GAUSS           reduce using rule 12 (gauss_operations -> gausss_jordan_section .)
+    GAUSS_JORDAN    reduce using rule 12 (gauss_operations -> gausss_jordan_section .)
+    $end            reduce using rule 12 (gauss_operations -> gausss_jordan_section .)
+
+
+state 9
+
+    (13) gauss_section -> GAUSS . id_list NEWLINE
+    (15) id_list -> . ID
+    (16) id_list -> . ID id_list
+
+    ID              shift and go to state 15
+
+    id_list                        shift and go to state 14
+
+state 10
+
+    (14) gausss_jordan_section -> GAUSS_JORDAN . id_list NEWLINE
+    (15) id_list -> . ID
+    (16) id_list -> . ID id_list
+
+    ID              shift and go to state 15
+
+    id_list                        shift and go to state 16
+
+state 11
+
+    (3) matrix_section -> matrix_declaration matrix_section .
+
+    GAUSS           reduce using rule 3 (matrix_section -> matrix_declaration matrix_section .)
+    GAUSS_JORDAN    reduce using rule 3 (matrix_section -> matrix_declaration matrix_section .)
+
+
+state 12
+
+    (4) matrix_declaration -> MATRIX ID . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 17
+
+
+state 13
+
+    (10) solve_section -> gauss_operations solve_section .
+
+    $end            reduce using rule 10 (solve_section -> gauss_operations solve_section .)
+
+
+state 14
+
+    (13) gauss_section -> GAUSS id_list . NEWLINE
+
+    NEWLINE         shift and go to state 18
+
+
+state 15
+
+    (15) id_list -> ID .
+    (16) id_list -> ID . id_list
+    (15) id_list -> . ID
+    (16) id_list -> . ID id_list
+
+    NEWLINE         reduce using rule 15 (id_list -> ID .)
+    ID              shift and go to state 15
+
+    id_list                        shift and go to state 19
+
+state 16
+
+    (14) gausss_jordan_section -> GAUSS_JORDAN id_list . NEWLINE
+
+    NEWLINE         shift and go to state 20
+
+
+state 17
+
+    (4) matrix_declaration -> MATRIX ID NEWLINE . matrix_content
+    (5) matrix_content -> . matrix_row NEWLINE
+    (6) matrix_content -> . matrix_row NEWLINE matrix_content
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    NUMBER          shift and go to state 23
+
+    matrix_content                 shift and go to state 21
+    matrix_row                     shift and go to state 22
+
+state 18
+
+    (13) gauss_section -> GAUSS id_list NEWLINE .
+
+    GAUSS           reduce using rule 13 (gauss_section -> GAUSS id_list NEWLINE .)
+    GAUSS_JORDAN    reduce using rule 13 (gauss_section -> GAUSS id_list NEWLINE .)
+    $end            reduce using rule 13 (gauss_section -> GAUSS id_list NEWLINE .)
+
+
+state 19
+
+    (16) id_list -> ID id_list .
+
+    NEWLINE         reduce using rule 16 (id_list -> ID id_list .)
+
+
+state 20
+
+    (14) gausss_jordan_section -> GAUSS_JORDAN id_list NEWLINE .
+
+    GAUSS           reduce using rule 14 (gausss_jordan_section -> GAUSS_JORDAN id_list NEWLINE .)
+    GAUSS_JORDAN    reduce using rule 14 (gausss_jordan_section -> GAUSS_JORDAN id_list NEWLINE .)
+    $end            reduce using rule 14 (gausss_jordan_section -> GAUSS_JORDAN id_list NEWLINE .)
+
+
+state 21
+
+    (4) matrix_declaration -> MATRIX ID NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 4 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+    GAUSS           reduce using rule 4 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+    GAUSS_JORDAN    reduce using rule 4 (matrix_declaration -> MATRIX ID NEWLINE matrix_content .)
+
+
+state 22
+
+    (5) matrix_content -> matrix_row . NEWLINE
+    (6) matrix_content -> matrix_row . NEWLINE matrix_content
+
+    NEWLINE         shift and go to state 24
+
+
+state 23
+
+    (7) matrix_row -> NUMBER .
+    (8) matrix_row -> NUMBER . matrix_row
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    NEWLINE         reduce using rule 7 (matrix_row -> NUMBER .)
+    NUMBER          shift and go to state 23
+
+    matrix_row                     shift and go to state 25
+
+state 24
+
+    (5) matrix_content -> matrix_row NEWLINE .
+    (6) matrix_content -> matrix_row NEWLINE . matrix_content
+    (5) matrix_content -> . matrix_row NEWLINE
+    (6) matrix_content -> . matrix_row NEWLINE matrix_content
+    (7) matrix_row -> . NUMBER
+    (8) matrix_row -> . NUMBER matrix_row
+
+    MATRIX          reduce using rule 5 (matrix_content -> matrix_row NEWLINE .)
+    GAUSS           reduce using rule 5 (matrix_content -> matrix_row NEWLINE .)
+    GAUSS_JORDAN    reduce using rule 5 (matrix_content -> matrix_row NEWLINE .)
+    NUMBER          shift and go to state 23
+
+    matrix_row                     shift and go to state 22
+    matrix_content                 shift and go to state 26
+
+state 25
+
+    (8) matrix_row -> NUMBER matrix_row .
+
+    NEWLINE         reduce using rule 8 (matrix_row -> NUMBER matrix_row .)
+
+
+state 26
+
+    (6) matrix_content -> matrix_row NEWLINE matrix_content .
+
+    MATRIX          reduce using rule 6 (matrix_content -> matrix_row NEWLINE matrix_content .)
+    GAUSS           reduce using rule 6 (matrix_content -> matrix_row NEWLINE matrix_content .)
+    GAUSS_JORDAN    reduce using rule 6 (matrix_content -> matrix_row NEWLINE matrix_content .)
+

@@ -2,6 +2,7 @@ import numpy as np
 from Matrix.ArithSolver import Operation, ArithSolver as Solver
 from Utils.PrinterManager import PrinterManager as Printer
 
+# THIS CLASS IF FOR TESTING, ENTRE MANUALLY THE MATRICES
 
 def test_sub():
     matrix_a = np.array([[1, 2, 4], [3, 0, 4], [1, 1, -4]])

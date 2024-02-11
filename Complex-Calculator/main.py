@@ -4,14 +4,8 @@ from Parser.ComplexLexer import make_lexer
 from Parser.ComplexParser import make_parser
 
 
-def main():
-    menu()
-
-
-def clear_screen():
-    pass  # TODO implement a clear screen
-
-
+# solves the equation, if it can't solve it, it will print an error
+# receive string to solve, called from enter_equation and read_file
 def solve_equation(data):
     try:
         lexer = make_lexer()
@@ -24,17 +18,17 @@ def solve_equation(data):
         print(f"Unable to solve eqq {data}, error: {e}")
 
 
+# reads data from the console eqq as 1+2/(21-1)...
 def enter_equation():
     equation = input("Enter the equation: ")
     print(equation)
-    clear_screen()
     solve_equation(equation)
 
 
+# reads data from input.txt (must be a local path file, same level as main.py)
 def read_file():
     try:
         file_path = 'input.txt'  # Replace with your actual file path
-        clear_screen()
         with open(file_path, 'r') as file:
             # Iterate over each line in the file
             for line in file:
@@ -44,6 +38,7 @@ def read_file():
         print("eqq.txt not found.")
 
 
+# display a menu and exit when the user selects 0
 def menu():
     while True:
         print("Menu:")
