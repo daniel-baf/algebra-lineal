@@ -41,7 +41,7 @@ def main():
         # test_mult()
         # test_division()
     except Exception as e:
-        Printer.custom_print(f'Error unrecoverable at program {e}')
+        Printer.custom_print(f'No se ha podido recuperar el sistema del error ocurrido\nError {e}')
 
 
 # Press the green button in the gutter to run the script.

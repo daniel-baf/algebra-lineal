@@ -9,7 +9,7 @@ def read_file(file_path: str) -> str:
         with open(file_path, "r") as file:
             return file.read()
     except Exception as e:
-        Printer.custom_print(f'Error reading file {e}')
+        Printer.custom_print(f'Error al leer el archivo {file_path}\n Error: {e}')
 
 
 # execute the app, creates lexer, parser, handle data and print steps
@@ -33,7 +33,7 @@ def execute():
             Printer.custom_print(f"\n++++++ RESULTADO OPERACION {index + 1} ++++++\n")
             Printer.custom_print(result)
     except Exception as e:
-        Printer.custom_print(f'Error executing code {e} ensure there is a JUMPLINE at end of file')
+        Printer.custom_print(f'Uy, hay un error al ejecutar el codigo {e} Asegurate de que el archivo matrix.txt exista y tenga el formato correcto.\nDebe terminar con un SALTO DE LINEA [JMPLN]')
 
 def main():
     try:

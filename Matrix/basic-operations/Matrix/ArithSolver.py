@@ -44,7 +44,7 @@ class ArithSolver:
         # Validate matrices
         validation_result = self._validate_matrices(operation, matrix_a, matrix_b)
         if not validation_result[0]:
-            Printer.custom_print(f"Invalid matrices for the operation. {validation_result[1]}")
+            Printer.custom_print(f"Matriz no valida para las operaciones. {validation_result[1]}")
             return
 
         # Perform matrix operation
@@ -57,14 +57,14 @@ class ArithSolver:
         elif operation == Operation.DIVIDE:
             return self._divide_matrices(matrix_a, matrix_b)
         else:
-            Printer.custom_print('Invalid operation')
+            Printer.custom_print(f"Operacion no valida {operation}")
             return
 
     @staticmethod
     def _sum_matrices(matrix_a: np.ndarray, matrix_b: np.ndarray):
         try:
             # PRINT INIT
-            Printer.custom_print("--------- ADDITION ---------")
+            Printer.custom_print("--------- SUMA ---------")
             Printer.custom_print(f"A = \n{matrix_a}\nB =\n{matrix_b}")
 
             # Initialize a matrix for the result
@@ -78,14 +78,14 @@ class ArithSolver:
                     Printer.custom_print(f"A[{i},{j}] + B[{i},{j}] = {matrix_a[i, j]} + {matrix_b[i, j]} = {result[i, j]}")
             return result
         except Exception as e:
-            Printer.custom_print(f'Unable to execute values: {e}')
+            Printer.custom_print(f'No se puede operar con los valores obtenidos: {e}')
             return None
 
     @staticmethod
     def _sub_matrices(matrix_a: np.ndarray, matrix_b: np.ndarray):
         try:
             # PRINT INIT
-            Printer.custom_print("--------- SUBTRACTION ---------")
+            Printer.custom_print("--------- SUBSTRACCION ---------")
             Printer.custom_print(f"A = \n{matrix_a}\nB =\n{matrix_b}")
 
             # Initialize a matrix for the result
@@ -101,14 +101,14 @@ class ArithSolver:
 
             return result
         except Exception as e:
-            Printer.custom_print(f'Unable to execute values: {e}')
+            Printer.custom_print(f'No se puede operar con los valores obtenidos: {e}')
             return None
 
     @staticmethod
     def _multiply_matrices(matrix_a: np.ndarray, matrix_b: np.ndarray):
         try:
             # PRINT INIT
-            Printer.custom_print("--------- MULTIPLICATION ---------")
+            Printer.custom_print("--------- MULTIPLICACION ---------")
             Printer.custom_print(f"A = \n{matrix_a}\nB =\n{matrix_b}")
 
             # Initialize a matrix for the result
@@ -125,7 +125,7 @@ class ArithSolver:
             # Print the final result
             return result
         except Exception as e:
-            Printer.custom_print(f'Unable to execute multiplication, {e}')
+            Printer.custom_print(f'No se puede operar la multiplicacion, {e}')
             return None
 
     def _divide_matrices(self, matrix_a: np.ndarray, matrix_b: np.ndarray):
@@ -135,11 +135,11 @@ class ArithSolver:
             # step 1: inverse
             inverse_matrix_b = np.linalg.inv(matrix_b)
             # Print the inverse matrix
-            Printer.custom_print("Inverse of Matrix B:")
+            Printer.custom_print("Matriz inversa de B:")
             Printer.custom_print(inverse_matrix_b)
             # Step 2: Multiply matrix_a by the inverse of matrix_b
             result = self._multiply_matrices(matrix_a, inverse_matrix_b)
             return result
         except np.linalg.LinAlgError:
-            Printer.custom_print("Matrix B is not invertible. Cannot perform division.")
+            Printer.custom_print("No se puede calcular la inversa de la matriz B.\nEl determinante dicta que es no inverso.")
             return None

@@ -37,7 +37,7 @@ def t_NUMBER(t):
 
 # Error management, TODO manage this error
 def t_error(t):
-    print(f"Illegal character '{t.value[0]}'")
+    print(f"Caracter invalido '{t.value[0]}'")
     t.lexer.skip(1)
 
 

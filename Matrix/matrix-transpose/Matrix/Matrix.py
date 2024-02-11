@@ -20,7 +20,7 @@ class Matrix:
         # create a new matrix to make it transposed and print the step by step process
         for i in range(rows):
             for j in range(cols):
-                print(f"transposed_matrix[{j}][{i}] = matrix[{i}][{j}]")
+                print(f"Transpuesta[{j}][{i}] = matrix[{i}][{j}]")
                 transposed_matrix[j][i] = self.matrix[i][j]
 
         self.matrix = transposed_matrix

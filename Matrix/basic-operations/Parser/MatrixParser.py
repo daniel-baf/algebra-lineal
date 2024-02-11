@@ -149,7 +149,7 @@ def p_factor_parenthesis_exp(p):
     p[0] = tmp_node
 
 def p_error(p):
-    print(f"Syntax error at '{p.value}'")
+    print(f"Error de sintaxis: '{p.value}'")
 
 
 def find_column(p):
@@ -168,5 +168,5 @@ def find_matrix_by_id(id: str):
     for item in _data["matrices"]:
         if item.name == id:
             return item.matrix
-    print(f'cannot find matrix with id {id} in matrices')
+    print(f'No se puede encontrar una matriz con ID {id} en la pila de matrices')
     return None
