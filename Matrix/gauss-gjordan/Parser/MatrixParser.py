@@ -108,7 +108,7 @@ def p_id_list(p):
         p[0] = [p[1]] + p[2]
 
 def p_error(p):
-    print(f"Syntax error at '{p.value}'")
+    print(f"Error de sintaxis para:  '{p.value}'")
 
 
 def find_column(p):
@@ -127,5 +127,5 @@ def find_matrix_by_id(id: str):
     for item in _data["matrices"]:
         if item.name == id:
             return item.matrix
-    print(f'cannot find matrix with id {id} in matrices')
+    print(f'No se puede encontrar la matriz con ID {id} en la pila de matrices')
     return None

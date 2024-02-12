@@ -3,18 +3,21 @@ from Parser.MatrixLexer import make_lexer
 from Parser.MatrixParser import make_parser
 from Utils.PrinterManager import PrinterManager as Printer
 
+
 def read_file(file_path: str) -> str:
     try:
         with open(file_path, "r") as file:
             return file.read()
     except Exception as e:
-        Printer.custom_print('Error trying to read file', e)
+        Printer.custom_print(f'No se ha podidio encontrar el archivo {file_path}', e)
+
 
 def find_matrix(matrix_name: str, matrices: list):
     for matrix in matrices:
         if matrix.name == matrix_name:
             return matrix
     return None
+
 
 def execute():
     try:
@@ -26,7 +29,8 @@ def execute():
         for gauss_token in result["operations"]:
             gauss_token.solve(result["matrices"])
     except Exception as e:
-        Printer.custom_print(f'Error executing code {e} ensure there is a JUMPLINE at end of file')
+        Printer.custom_print(f'Error al ejecutar el codigo: {e}\nAsegurate de que el archivo exista y que termine en salto de linea')
+
 
 def main():
     try:
@@ -38,4 +42,3 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
-

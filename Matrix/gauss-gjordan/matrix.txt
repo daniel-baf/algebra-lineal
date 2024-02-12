@@ -3,4 +3,9 @@ matrix A
     3 0 4 -1 12
     1 1 -4 1 -12
     3 4 1 2 92
-gauss           A
+matrix B
+    1 2 3 3
+    2 -1 2 10
+    0 1 -2 6
+gjordan   A
+gauss     B

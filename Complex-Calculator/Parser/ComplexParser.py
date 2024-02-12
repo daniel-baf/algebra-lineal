@@ -56,7 +56,7 @@ def p_term_times_divide(p):
         p[0] = tmp_node
     elif p[2] == '/':
         if p[3] == 0:
-            print("Error: Division by zero")
+            print("Error: No se puede dividir por cero")
             p[0] = DerivationNode(ComplexNumber(0, 0))
         else:
             tmp_node = DerivationNode("/", p[1], p[3])
@@ -97,7 +97,7 @@ def p_factor_parenthesized_expression(p):
 
 
 def p_error(p):
-    print(f"Syntax error at line {p.lineno}, position {find_column(p)}: Unexpected token '{p.value}'")
+    print(f"Error de sintaxis en la linea {p.lineno}, posicion {find_column(p)}: TOKEN no esprado [INV TKN] '{p.value}'")
 
 
 def find_column(p):

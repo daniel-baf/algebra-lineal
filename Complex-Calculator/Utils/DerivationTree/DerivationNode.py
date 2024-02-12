@@ -19,7 +19,7 @@ class DerivationNode:
                 self.right_child.solve(root_node)
             self.execute(root_node)
         except Exception as e:
-            print(f"ERROR at derivation node {e}")
+            print(f"SE HA GENERADO UN ERROR EN EL ARBOL DE DERIVACION {e}")
 
     def execute(self, root_node: object):
         if self.data == "/":

@@ -7,7 +7,7 @@ def find_matrix_by_id(id: str, _data: dict):
     for item in _data:
         if item.name == id:
             return item
-    print(f'cannot find matrix with id {id} in matrices')
+    print(f'No se ha podido encontrar la matriz con ID {id} en la Pila de matrices')
     return None
 
 
@@ -17,12 +17,12 @@ def read_file(file_path: str) -> str:
         with open(file_path, "r") as file:
             return file.read()
     except Exception as e:
-        print(f'Error reading file {e}')
+        print(f'No se ha encontrado el archivo {file_path},\n error: {e}')
 
 
 # execute the app, creates lexer, parser, handle data and print steps
 def gen_transpose(matrix: Matrix):
-    print(f"-------- Transposing matrix {matrix.name} --------\n")
+    print(f"-------- Transpuesta de matriz {matrix.name} --------\n")
     print(matrix)
     matrix.transpose()
     print(matrix)

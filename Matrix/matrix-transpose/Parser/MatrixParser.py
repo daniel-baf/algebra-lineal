@@ -62,7 +62,7 @@ def p_operation_list(p):
 
 
 def p_error(p):
-    print(f"Syntax error at '{p.value}'")
+    print(f"Error de sintaxis '{p.value}'")
 
 
 def find_column(p):
@@ -81,5 +81,5 @@ def find_matrix_by_id(id: str):
     for item in _data["matrices"]:
         if item.name == id:
             return item.matrix
-    print(f'cannot find matrix with id {id} in matrices')
+    print(f'No se ha podido encontrar la matriz {id} en la pila de matrices')
     return None

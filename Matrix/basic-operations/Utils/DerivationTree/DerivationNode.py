@@ -22,7 +22,7 @@ class DerivationNode:
             self.execute(root_node)
             return root_node
         except Exception as e:
-            Printer.custom_print(f"ERROR at derivation node {e}")
+            Printer.custom_print(f"ERROR EN EL ARBOL DE DERIVACIONES {e}")
 
     def execute(self, root_node: object):
         if self.data == "/":
