@@ -26,4 +26,3 @@ This repository contains a set of programs developed for the Linear Algebra cour
 ### 4. Gauss
 ### 4.1 Gauss Jordan
 - **Description:** resolve a extended matrix by using gauss or gauss Jordan, read txt matrix.txt as input to solve problems
-

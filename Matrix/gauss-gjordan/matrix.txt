@@ -7,4 +7,5 @@ matrix B
     1 2 3 3
     2 -1 2 10
     0 1 -2 6
-gjordan           A
+gjordan   A
+gauss     B
