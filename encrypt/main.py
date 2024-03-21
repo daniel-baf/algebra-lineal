@@ -69,6 +69,10 @@ def main():
 
         encrypted_matrix = multiply_matrices(matrix_key, matrix)
         decripted_matrix = multiply_matrices(inverse_key, encrypted_matrix)
+        
+        decripted_matrix = list(map(lambda row: list(map(lambda x: round(x, 2), row)), decripted_matrix))
+        decripted_matrix = np.array(decripted_matrix)
+
 
         # PRINTS
         print('TEXTO:\t', text)
