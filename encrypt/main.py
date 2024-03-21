@@ -67,14 +67,16 @@ def main():
         # calculate inverse of matrix
         inverse_key = get_inverse(matrix_key)
 
-        encrypted_matrix = multiply_matrices(inverse_key, matrix)
+        encrypted_matrix = multiply_matrices(matrix_key, matrix)
+        decripted_matrix = multiply_matrices(inverse_key, encrypted_matrix)
 
         # PRINTS
         print('TEXTO:\t', text)
         print(numbers)
         print('MATRIZ:\t\n', matrix)
         print('INVERSA CLAVE:\n', inverse_key)
-        print('MULTIPLICACION MATRIZ * INVERSA CLAVE\n', encrypted_matrix)
+        print('CLAVE ENCRIPTADA\n', encrypted_matrix)
+        print('CLAVE DESECNRIPTADA\n', decripted_matrix)
     except Exception as e:
         print(e)
 
