@@ -13,7 +13,7 @@ class Operation(Enum):
         return self.value
 
 
-# allocate typo of operation an matrix array
+# allocate typo of operation and matrix array
 class CryptoToken:
 
     def __init__(self, operations: list, type_operation: Operation):
@@ -30,8 +30,8 @@ class CryptoToken:
         responses = []
         Printer.custom_print("Solving... " + self.type.value)
         # for each matrix, call CryptoManager.encrypt or CryptoManager.decrypt
+        # NOTE: the value of 'response' is intentionally discarded
         for operation in self.operations:
-            response = None
             if self.type == Operation.ENCRYPT:
                 response = CryptoManager.encrypt(operation, self.encrypt_key)
             else:
@@ -90,17 +90,17 @@ class CryptoManager:
     @staticmethod
     def encrypt(text: str, key: Matrix):
         try:
-            # prev 1: get key and check i square
+            # prev 1: get key and check I square
             if key.determinant(verbose=True) == 0:
-                return {'error': True, 'message': 'la llave no tiene inversa'}
+                return {'error': True, 'message': 'key has no inverse'}
             # STEP 1: create matrix keys
             letter_to_numbers = CryptoManager.create_letter_to_number_mapping()
             Printer.custom_print("S1: WORD")
-            Printer.custom_print_array(text)
+            Printer.custom_print(text)
             # STEP 2: convert input to text
             numbers = CryptoManager.text_to_numbers(text, letter_to_numbers)
             Printer.custom_print("S2: WORD -> NUMBERS VECTOR")
-            Printer.custom_print_array(numbers)
+            Printer.custom_print_list(numbers)
             # Step 3 create matrix
             matrix = CryptoManager.vector_to_matrix(numbers, key)
             Printer.custom_print("S3: VECTOR -> MATRIX")
@@ -109,14 +109,14 @@ class CryptoManager:
             matrix = MatrixManager.matrix_multiply(key, matrix)
             return {'error': False, 'message': 'done', 'matrix': matrix}
         except Exception as e:
-            return {'error': True, 'message': 'Cannot encrypt check values input'}
+            return {'error': True, 'message': 'Cannot encrypt check values input' + str(e)}
 
     @staticmethod
     def decrypt(matrix: Matrix, key: Matrix):
         try:
-            # prev 1: get key and check i square
+            # prev 1: get key and check I square
             if key.determinant(verbose=True) == 0:
-                return {'error': True, 'message': 'la llave no tiene inversa'}
+                return {'error': True, 'message': 'key has no inverse'}
             # step 1 calculate the inverse of key
             Printer.custom_print("\n\tKEY INVERSE")
             key.matrix = key.inverse()
@@ -128,5 +128,4 @@ class CryptoManager:
             result_matrix = MatrixManager.refactor_matrix(result_matrix)
             return {'error': False, 'message': 'Done', 'matrix': result_matrix}
         except Exception as e:
-            print(e)
-            return {'error': True, 'message': 'Cannot encrypt check values input'}
+            return {'error': True, 'message': 'Cannot encrypt check values input' + str(e)}
