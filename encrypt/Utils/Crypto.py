@@ -20,7 +20,7 @@ class CryptoToken:
         self.operations = operations
         self.type = type_operation
         # create key
-        _array = [[23, 12, 44, 0], [1, -1, 8, -4], [0, 6, 7, -4], [9, 10, 1, -6]]
+        _array = [[-1, 1, 1], [-2, -3, 1], [3, 1, -2]]
         self.encrypt_key = Matrix("key", np.array(_array))
 
     def __str__(self):
@@ -50,13 +50,13 @@ class CryptoManager:
     # Step 1: Create a dictionary to map letters to numbers
     @staticmethod
     def create_letter_to_number_mapping():
-        letter_to_number = {}
-        for i, char in enumerate("abcdefghijklmnopqrstuvwxyz"):
-            letter_to_number[char] = i + 1
-        for i, char in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ"):
-            letter_to_number[char] = i + 1 + 26
+        letter_to_number = {' ': 0}
         # space
-        letter_to_number[' '] = 53
+        for i, char in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ"):
+            letter_to_number[char] = i + 1
+        for i, char in enumerate("abcdefghijklmnopqrstuvwxyzáéíóú"):
+            letter_to_number[char] = i + len(letter_to_number)
+        letter_to_number[' '] = 0
         return letter_to_number
 
     # Step 2, convert input text to an array of numbers
@@ -72,7 +72,7 @@ class CryptoManager:
         non_filled_data = abs(len(vector) - (num_rows * num_cols))
         for _ in range(non_filled_data):  # make matrix autocompleted with empty values
             vector.append(0)
-        matrix = Matrix("VECTOR MATRIX", CryptoManager.reshape_vector(vector, num_rows, num_cols))
+        matrix = Matrix("VECT.MATRIX", CryptoManager.reshape_vector(vector, num_rows, num_cols))
         matrix = matrix.transpose()
         return matrix
 
@@ -91,14 +91,20 @@ class CryptoManager:
     def encrypt(text: str, key: Matrix):
         try:
             # prev 1: get key and check i square
-            if key.determinant() == 0:
+            if key.determinant(verbose=True) == 0:
                 return {'error': True, 'message': 'la llave no tiene inversa'}
             # STEP 1: create matrix keys
             letter_to_numbers = CryptoManager.create_letter_to_number_mapping()
+            Printer.custom_print("S1: WORD")
+            Printer.custom_print_array(text)
             # STEP 2: convert input to text
             numbers = CryptoManager.text_to_numbers(text, letter_to_numbers)
+            Printer.custom_print("S2: WORD -> NUMBERS VECTOR")
+            Printer.custom_print_array(numbers)
             # Step 3 create matrix
             matrix = CryptoManager.vector_to_matrix(numbers, key)
+            Printer.custom_print("S3: VECTOR -> MATRIX")
+            Printer.custom_print_array(matrix)
             # step 4 multiply matrix
             matrix = MatrixManager.matrix_multiply(key, matrix)
             return {'error': False, 'message': 'done', 'matrix': matrix}
@@ -109,13 +115,17 @@ class CryptoManager:
     def decrypt(matrix: Matrix, key: Matrix):
         try:
             # prev 1: get key and check i square
-            if key.determinant() == 0:
+            if key.determinant(verbose=True) == 0:
                 return {'error': True, 'message': 'la llave no tiene inversa'}
             # step 1 calculate the inverse of key
+            Printer.custom_print("\n\tKEY INVERSE")
             key.matrix = key.inverse()
             # step 2 -> multiply matrix inverse key by matrix
-            MatrixManager.matrix_multiply(key, matrix)
-            result_matrix = MatrixManager.matrix_multiply(key, matrix)
+            key.name = "inv(KEY)"
+            matrix.name = "VECT(ENCRYPTED)"
+            result_matrix = MatrixManager.matrix_multiply(key, matrix, verbose=True)
+            # step 2.2 -> refactor matrix so values are integers of 2 digits max
+            result_matrix = MatrixManager.refactor_matrix(result_matrix)
             return {'error': False, 'message': 'Done', 'matrix': result_matrix}
         except Exception as e:
             print(e)

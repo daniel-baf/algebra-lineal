@@ -4,7 +4,7 @@ from Utils.PrinterManager import PrinterManager as Printer
 
 def execute():
     try:
-        entries = ["Daniel Eduardo Bautista Fuentes", "Pablo Alejandro Sanchez", "Yo solo quiero comer un helado"]
+        entries = ["HOY ES EL PRIMER DIA"]
         crypto_tokens = CryptoToken(entries, Operation.ENCRYPT)
 
         encrypted_entries = crypto_tokens.solve()
@@ -15,6 +15,8 @@ def execute():
         for encrypted_entry in encrypted_entries:
             Printer.custom_print_array(encrypted_entry)
             entries.append(encrypted_entry)
+
+        Printer.custom_print("\n\n\n------------------------------------\n\n\n")
 
         # DECRYPT MATRICES
         crypto_tokens = CryptoToken(entries, Operation.DECRYPT)
