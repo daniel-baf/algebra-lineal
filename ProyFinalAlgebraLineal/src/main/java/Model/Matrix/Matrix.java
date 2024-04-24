@@ -53,7 +53,6 @@ public class Matrix implements Cloneable {
         return matrixUtils;
     }
 
-    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -109,18 +108,14 @@ public class Matrix implements Cloneable {
         int numCols = this.shape(MatrixEnum.COLUMNS_SHAPE);
         // Create a new matrix to store the transposed matrix
         double[][] transposedMatrix = new double[numCols][numRows];
-        if (verbose) {
-            this.logger.addLog("Transpose initial step");
-        }
+        this.logger.addLog("Transpose initial step", verbose);
         // Perform the transpose operation
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
                 transposedMatrix[j][i] = this.matrix[i][j];
                 // Log each step of the transpose operation
-                if (verbose) {
-                    String logMessage = String.format("\tTranspose (%d, %d) from %s towards (%d, %d) at transposed matrix", i, j, this.name, j, i);
-                    this.logger.addLog(logMessage);
-                }
+                String logMessage = String.format("\tTranspose (%d, %d) from %s towards (%d, %d) at transposed matrix", i, j, this.name, j, i);
+                this.logger.addLog(logMessage, verbose);
             }
         }
         return new Matrix(String.format("(%1$s)^T", this.name), transposedMatrix);
@@ -140,34 +135,24 @@ public class Matrix implements Cloneable {
             throw new IllegalArgumentException("Matrix must be square and non-singular"); // invalid matrix
         }
         int matrixLength = this.shape(MatrixEnum.ROWS_SHAPE);
-        if (verbose) {
-            this.logger.addLog("Matrix inverse\n\tCheck matrix validity (passed)");  // Added for verbosity
-        }
+        this.logger.addLog("Matrix inverse\n\tCheck matrix validity (passed)", verbose);  // Added for verbosity
         Matrix cofactorMatrix = new Matrix(String.format("%1$s^-1", this.name), new double[matrixLength][matrixLength]);
-        if (verbose) {
-            this.logger.addLog("\tCreated cofactor matrix with size " + matrixLength + "x" + matrixLength);  // Added for verbosity
-        }
+        this.logger.addLog("\tCreated cofactor matrix with size " + matrixLength + "x" + matrixLength, verbose);  // Added for verbosity
         // check factor matrix
         for (int i = 0; i < matrixLength; i++) {
             for (int j = 0; j < matrixLength; j++) {
                 cofactorMatrix.getMatrix()[i][j] = this.matrixUtils.determinant(this.matrixUtils.minor(matrix, i, j)) * Math.pow(-1, i + j);
-                if (verbose) {
-                    this.logger.addLog("\t\tCalculated cofactor at position (" + i + "," + j + ")");  // Added for verbosity
-                }
+                this.logger.addLog("\t\tCalculated cofactor at position (" + i + "," + j + ")", verbose);  // Added for verbosity
             }
         }
         // Calculate determinant of original matrix
         double determinant = this.matrixUtils.determinant(matrix);
-        if (verbose) {
-            this.logger.addLog("\tCalculated determinant of original matrix: " + determinant);  // Added for verbosity
-        }
+        this.logger.addLog("\tCalculated determinant of original matrix: " + determinant, verbose);  // Added for verbosity
         // Invert the cofactor matrix (divide by determinant)
         for (int i = 0; i < matrixLength; i++) {
             for (int j = 0; j < matrixLength; j++) {
                 cofactorMatrix.getMatrix()[i][j] /= determinant;
-                if (verbose) {
-                    this.logger.addLog("\t\tInverted cofactor at position (" + i + "," + j + ")");  // Added for verbosity
-                }
+                this.logger.addLog("\t\tInverted cofactor at position (" + i + "," + j + ")", verbose);  // Added for verbosity
             }
         }
         cofactorMatrix = cofactorMatrix.transpose(false);
@@ -241,9 +226,7 @@ public class Matrix implements Cloneable {
             throw new IllegalArgumentException(String.format("The rows of %1$s and the columns of %2$s must have the same value, %1$s[%3$d][%4$d] <-> %2$s[%5$d][%6$d]", this.name, matrixToAdd.name, this.shape(MatrixEnum.ROWS_SHAPE), this.shape(MatrixEnum.COLUMNS_SHAPE), matrixToAdd.shape(MatrixEnum.ROWS_SHAPE), matrixToAdd.shape(MatrixEnum.COLUMNS_SHAPE)));
         }
         // print message if verbose
-        if (verbose) {
-            this.logger.addLog(String.format("Iniciando la %3$s de %1$s con %2$s", this.name, matrixToAdd.name, useNegative ? "resta" : "suma"));
-        }
+        this.logger.addLog(String.format("Iniciando la %3$s de %1$s con %2$s", this.name, matrixToAdd.name, useNegative ? "resta" : "suma"), verbose);
         try {
             Matrix tmp_matrix = (Matrix) this.clone(); // clone current value to try sasve current values if possible error
             // init addition
@@ -252,14 +235,12 @@ public class Matrix implements Cloneable {
                 for (int current_column = 0; current_column < columnsTmpMatrix; current_column++) {
                     double valueToAdd = useNegative ? -matrixToAdd.getMatrix()[current_row][current_column] : matrixToAdd.getMatrix()[current_row][current_column];
                     tmp_matrix.getMatrix()[current_row][current_column] += valueToAdd;
-                    if (verbose) {
-                        this.logger.addLog(String.format("\t%1$s[%2$d][%3$d] %8$s %4$s[%2$d][%3$d] => %5$f %8$s %6$f = %7$f", tmp_matrix.getName(), current_column, current_row, matrixToAdd.getName(), this.getMatrix()[current_row][current_column], matrixToAdd.getMatrix()[current_row][current_column], tmp_matrix.getMatrix()[current_row][current_column], useNegative ? '-' : '+'));
-                    }
+                    this.logger.addLog(String.format("\t%1$s[%2$d][%3$d] %8$s %4$s[%2$d][%3$d] => %5$f %8$s %6$f = %7$f", tmp_matrix.getName(), current_column, current_row, matrixToAdd.getName(), this.getMatrix()[current_row][current_column], matrixToAdd.getMatrix()[current_row][current_column], tmp_matrix.getMatrix()[current_row][current_column], useNegative ? '-' : '+'), verbose);
                 }
             }
             return tmp_matrix;
         } catch (CloneNotSupportedException | IllegalStateException | NullPointerException e) {
-            this.logger.addLog(e.getMessage());
+            this.logger.addLog(e.getMessage(), true);
             return null;
         }
     }
@@ -285,16 +266,14 @@ public class Matrix implements Cloneable {
     public Matrix multiply(Matrix matrixToMultiply, boolean verbose) {
         // check if any matrix is null
         if (this.getMatrix() == null || matrixToMultiply.getMatrix() == null) {
-            throw new NullPointerException("Una de las matrices es nula, imposible multiplicar");
+            throw new NullPointerException("Any matrix is null, no operable matrices");
         }
         // check if SHAPE_COLUMNS CURRENT = SHAPE_ROWS matrixToMultiply
         if (this.shape(MatrixEnum.COLUMNS_SHAPE) != matrixToMultiply.shape(MatrixEnum.ROWS_SHAPE)) {
-            throw new IllegalArgumentException(String.format("Las filas de la matriz %1$s (%2$d) debe ser igual a las filas de la matriz %3$s (%4$d)", this.getName(), this.shape(MatrixEnum.COLUMNS_SHAPE), matrixToMultiply.getName(), matrixToMultiply.shape(MatrixEnum.ROWS_SHAPE)));
+            throw new IllegalArgumentException(String.format("Rows at matrix %1$s (%2$d) must have same rows tnan matrix %3$s (%4$d)", this.getName(), this.shape(MatrixEnum.COLUMNS_SHAPE), matrixToMultiply.getName(), matrixToMultiply.shape(MatrixEnum.ROWS_SHAPE)));
         }
         //  print if verbose 
-        if (verbose) {
-            this.logger.addLog(String.format("Inicio multiplicación %1$s * %2$s", this.name, matrixToMultiply.getName()));
-        }
+        this.logger.addLog(String.format("Multiply init %1$s * %2$s", this.name, matrixToMultiply.getName()), verbose);
         try {
             Matrix resultMatrix = new Matrix(String.format("%1$s*%2$s", this.getName(), matrixToMultiply.getName()), new double[this.shape(MatrixEnum.ROWS_SHAPE)][matrixToMultiply.shape(MatrixEnum.COLUMNS_SHAPE)]);
             // multiply
@@ -306,16 +285,14 @@ public class Matrix implements Cloneable {
                     for (int pivot = 0; pivot < columnsCurrentMatrix; pivot++) {
                         sum += this.matrix[current_row][pivot] * matrixToMultiply.getMatrix()[pivot][current_column];
                         // check if verbose
-                        if (verbose) {
-                            this.logger.addLog(String.format("\t%1$s[%2$d][%3$d] * %4$s[%5$d][%6$d] += %7$f * %8$f = %9$f", this.getName(), current_row, pivot, matrixToMultiply.getName(), pivot, current_column, this.matrix[current_row][pivot], matrixToMultiply.getMatrix()[pivot][current_column], sum));
-                        }
+                        this.logger.addLog(String.format("\t%1$s[%2$d][%3$d] * %4$s[%5$d][%6$d] += %7$f * %8$f = %9$f", this.getName(), current_row, pivot, matrixToMultiply.getName(), pivot, current_column, this.matrix[current_row][pivot], matrixToMultiply.getMatrix()[pivot][current_column], sum), verbose);
                     }
                     resultMatrix.getMatrix()[current_row][current_column] = sum;
                 }
             }
             return resultMatrix;
         } catch (Exception e) {
-            this.logger.addLog(e.getMessage());
+            this.logger.addLog(e.getMessage(), true);
             return null;
         }
     }
@@ -348,9 +325,7 @@ public class Matrix implements Cloneable {
             throw new IllegalArgumentException(String.format("Cols's matrix %1$s (%2$d) must be same Row's matrix %3$s (%4$d)", this.getName(), this.shape(MatrixEnum.COLUMNS_SHAPE), divMatrix.getName(), divMatrix.shape(MatrixEnum.ROWS_SHAPE)));
         }
         // check inverse of dividendous
-        if (verbose) {
-            this.logger.addLog("Check inverse of dividendo");
-        }
+        this.logger.addLog("Check inverse of dividendo", verbose);
         divMatrix = divMatrix.inverse(verbose);
 
         try {
@@ -359,8 +334,25 @@ public class Matrix implements Cloneable {
             copyMatrix = copyMatrix.multiply(divMatrix, verbose); // mult
             return copyMatrix; // return
         } catch (CloneNotSupportedException ex) {
-            this.logger.addLog(ex.getMessage());
+            this.logger.addLog(ex.getMessage(), true);
             return null;
+        }
+    }
+
+    /**
+     * Check if current matrix is inverse
+     *
+     * @return
+     */
+    public boolean hasInverse() {
+        try {
+            if (this.matrix == null) {
+                return false;
+            }
+            return this.matrixUtils.determinant(this.matrix) != 0;
+        } catch (Exception e) {
+            CustomLogger.getInstance().addLog("Matrix unable to get determinant, not operable " + e.getMessage(), true);
+            return false;
         }
     }
 

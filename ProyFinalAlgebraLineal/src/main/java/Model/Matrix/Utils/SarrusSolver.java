@@ -45,23 +45,17 @@ public class SarrusSolver {
             switch (rows) {
                 case 2 -> {
                     determinant = mat[0][0] * mat[1][1] - mat[0][1] * mat[1][0];
-                    if (verbose) {
-                        CustomLogger.getInstance().addLog("Determinant calculated: " + determinant);
-                    }
+                    CustomLogger.getInstance().addLog("Determinant calculated: " + determinant, verbose);
                 }
                 case 3 -> {
-                    if (verbose) {
-                        CustomLogger.getInstance().addLog("Calculating determinant using Sarrus rule...");
-                    }
+                    CustomLogger.getInstance().addLog("Calculating determinant using Sarrus rule...", verbose);
                     for (int i = 0; i < rows; i++) {
                         double product = 1;
                         for (int j = 0; j < rows; j++) {
                             product *= mat[j][(i + j) % rows]; // Calculate product for each diagonal
                         }
                         determinant += product;
-                        if (verbose) {
-                            CustomLogger.getInstance().addLog("Partial determinant after diagonal " + (i + 1) + ": " + determinant);
-                        }
+                        CustomLogger.getInstance().addLog("Partial determinant after diagonal " + (i + 1) + ": " + determinant, verbose);
                     }
                     for (int i = 0; i < rows; i++) {
                         double product = 1;
@@ -69,20 +63,16 @@ public class SarrusSolver {
                             product *= mat[j][(i - j + rows) % rows]; // Calculate product for each anti-diagonal
                         }
                         determinant -= product;
-                        if (verbose) {
-                            CustomLogger.getInstance().addLog("Partial determinant after anti-diagonal " + (i + 1) + ": " + determinant);
-                        }
+                        CustomLogger.getInstance().addLog("Partial determinant after anti-diagonal " + (i + 1) + ": " + determinant, verbose);
                     }
-                    if (verbose) {
-                        CustomLogger.getInstance().addLog("Determinant calculated: " + determinant);
-                    }
+                    CustomLogger.getInstance().addLog("Determinant calculated: " + determinant, verbose);
                 }
                 default ->
                     throw new IllegalArgumentException("Sarrus can only be used with 2x2 or 3x3 matrices");
             }
             return determinant;
         } catch (IllegalArgumentException | NullPointerException e) {
-            CustomLogger.getInstance().addLog(e.getMessage());
+            CustomLogger.getInstance().addLog(e.getMessage(), true);
             return 0;
         }
     }

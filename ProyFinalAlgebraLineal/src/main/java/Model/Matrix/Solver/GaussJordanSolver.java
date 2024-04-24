@@ -51,9 +51,7 @@ public class GaussJordanSolver {
             throw new IllegalArgumentException("Matrix must be nxm, with m = n + 1");
         }
 
-        if (verbose) {
-            CustomLogger.getInstance().addLog(String.format("START GAUSS\n%1$s", matrix.toString()));
-        }
+        CustomLogger.getInstance().addLog(String.format("START GAUSS\n%1$s", matrix.toString()), verbose);
         try {
             Matrix resultMatrix = (Matrix) matrix.clone();
             //        double[][] resultMatrix = Arrays.stream(matrix.getMatrix()) // clone matrix
@@ -66,16 +64,14 @@ public class GaussJordanSolver {
                     for (int k = 0; k < resultMatrix.getMatrix()[i].length; k++) {
                         resultMatrix.getMatrix()[j][k] -= factor * resultMatrix.getMatrix()[i][k]; // execute operation by pivot
                     }
-                    if (verbose) {
-                        CustomLogger.getInstance().addLog("\tPASO " + (i + 1) + ": FILA " + (j + 1) + " - FILA " + (i + 1) + " * " + factor + " = FILA " + (j + 1));
-                    }
+                    CustomLogger.getInstance().addLog("\tPASO " + (i + 1) + ": FILA " + (j + 1) + " - FILA " + (i + 1) + " * " + factor + " = FILA " + (j + 1), verbose);
                 }
             }
             solveSubstitution(resultMatrix, verbose);
             resultMatrix.setName(String.format("GAUSS(%1$s)", resultMatrix.getName()));
             return resultMatrix;
         } catch (CloneNotSupportedException e) {
-            CustomLogger.getInstance().addLog("Unable to execute gauss" + e.getMessage());
+            CustomLogger.getInstance().addLog("Unable to execute gauss" + e.getMessage(), true);
             return null;
         }
     }
@@ -89,37 +85,27 @@ public class GaussJordanSolver {
      */
     private void solveSubstitution(Matrix preGaussMatrix, boolean verbose) {
         double[][] reducedMatrix = preGaussMatrix.getMatrix();
-        if (verbose) {
-            CustomLogger.getInstance().addLog("\t\tBackwards substitution");
-        }
+        CustomLogger.getInstance().addLog("\t\tBackwards substitution", verbose);
         int n = reducedMatrix.length;
         double[] solutions = new double[n];
 
         for (int i = n - 1; i >= 0; i--) {
             solutions[i] = reducedMatrix[i][n];
             for (int j = i + 1; j < n; j++) {
-                if (verbose) {
-                    CustomLogger.getInstance().addLog("\t\t\tx" + i + " = " + solutions[i] + " - " + reducedMatrix[i][j] + " * " + solutions[j]);
-                }
+                CustomLogger.getInstance().addLog("\t\t\tx" + i + " = " + solutions[i] + " - " + reducedMatrix[i][j] + " * " + solutions[j], verbose);
                 solutions[i] -= reducedMatrix[i][j] * solutions[j];
                 // Set the cell to 0 in the reduced matrix
                 reducedMatrix[i][j] = 0;
             }
-            if (verbose) {
-                CustomLogger.getInstance().addLog("\t\t\tx" + i + " = " + solutions[i] + " / " + reducedMatrix[i][i]);
-            }
+            CustomLogger.getInstance().addLog("\t\t\tx" + i + " = " + solutions[i] + " / " + reducedMatrix[i][i], verbose);
             solutions[i] /= reducedMatrix[i][i];
             // Set the diagonal cell to 1 in the reduced matrix
             reducedMatrix[i][i] = 1;
-            if (verbose) {
-                CustomLogger.getInstance().addLog("\t\t\t\tR: x" + i + " = " + solutions[i]);
-            }
+            CustomLogger.getInstance().addLog("\t\t\t\tR: x" + i + " = " + solutions[i], verbose);
             // Append solution to the last column of the matrix
             reducedMatrix[i][n] = solutions[i];
         }
-        if (verbose) {
-            CustomLogger.getInstance().addLog("\t\t\t\tResultados:\n\t\t\t\t\t" + Arrays.toString(solutions));
-        }
+        CustomLogger.getInstance().addLog("\t\t\t\tResultados:\n\t\t\t\t\t" + Arrays.toString(solutions), verbose);
         // No need to return preGaussMatrix since it's modified in place
     }
 
@@ -149,9 +135,7 @@ public class GaussJordanSolver {
         if (matrix.shape(MatrixEnum.COLUMNS_SHAPE) != matrix.shape(MatrixEnum.ROWS_SHAPE) + 1) {
             throw new IllegalArgumentException("Matrix must be nxm, with m = n + 1");
         }
-        if (verbose) {
-            CustomLogger.getInstance().addLog(String.format("START GAUSS JORDAN\n%1$s", matrix.toString()));
-        }
+        CustomLogger.getInstance().addLog(String.format("START GAUSS JORDAN\n%1$s", matrix.toString()), verbose);
 
         int rows = matrix.shape(MatrixEnum.ROWS_SHAPE);
         int cols = matrix.shape(MatrixEnum.COLUMNS_SHAPE);
@@ -171,17 +155,13 @@ public class GaussJordanSolver {
                 tmpMatrix.getMatrix()[i] = tmpMatrix.getMatrix()[maxRow];
                 tmpMatrix.getMatrix()[maxRow] = temp;
 
-                if (verbose) {
-                    CustomLogger.getInstance().addLog("Final pivote: SWAP ROW R" + (i + 1) + " <-> R" + (maxRow + 1) + "\n" + tmpMatrix.toString());
-                }
+                CustomLogger.getInstance().addLog("Final pivote: SWAP ROW R" + (i + 1) + " <-> R" + (maxRow + 1) + "\n" + tmpMatrix.toString(), verbose);
                 // Make the diagonal elements 1
                 double divisor = tmpMatrix.getMatrix()[i][i];
                 for (int j = 0; j < cols; j++) {
                     tmpMatrix.getMatrix()[i][j] /= divisor;
                 }
-                if (verbose) {
-                    CustomLogger.getInstance().addLog("Reduce diagonal (" + (i + 1) + ", " + (i + 1) + ")\n" + tmpMatrix.toString());
-                }
+                CustomLogger.getInstance().addLog("Reduce diagonal (" + (i + 1) + ", " + (i + 1) + ")\n" + tmpMatrix.toString(), verbose);
                 // Make other elements in the column zero
                 for (int k = 0; k < rows; k++) {
                     if (k != i) {
@@ -191,14 +171,12 @@ public class GaussJordanSolver {
                         }
                     }
                 }
-                if (verbose) {
-                    CustomLogger.getInstance().addLog("Elements at " + (i + 1) + " make 0:\n" + tmpMatrix.toString());
-                }
+                CustomLogger.getInstance().addLog("Elements at " + (i + 1) + " make 0:\n" + tmpMatrix.toString(), verbose);
             }
             tmpMatrix.setName(String.format("G_JORDAN(%1$s)", tmpMatrix.getName()));
             return tmpMatrix;
         } catch (CloneNotSupportedException e) {
-            CustomLogger.getInstance().addLog("Unable to clone matrix" + e.getMessage());
+            CustomLogger.getInstance().addLog("Unable to clone matrix" + e.getMessage(), verbose);
             return null;
         }
     }

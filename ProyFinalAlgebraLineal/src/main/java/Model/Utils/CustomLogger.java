@@ -21,8 +21,10 @@ public class CustomLogger {
     }
 
     // Method to add a log to the singleton instance
-    public void addLog(String log) {
-        logs.add(log);
+    public void addLog(String log, boolean verbose) {
+        if (verbose) {
+            logs.add(log);
+        }
     }
 
     // Method to get all logs as a string from the singleton instance

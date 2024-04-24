@@ -1,4 +1,6 @@
 
+import Model.Encrypter.Crypter;
+import Model.Markov.MarkovSolver;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 import Model.Matrix.MatrixEnum;
@@ -50,7 +52,10 @@ public class Main {
 //            main.testGauss(true);
 //            main.testGaussJordan(true);
 //            main.testSarrous(true);
-            main.testRankMatrix(true);
+//            main.testRankMatrix(true);
+            Matrix tmpMatrix = main.testEncrypt(false);
+            main.testDecrypt(tmpMatrix, true);
+//            main.testMarkov(true);
             // TODO imaginary operations
 
             main.logger.printLogs();
@@ -60,9 +65,9 @@ public class Main {
         }
     }
 
-    private void testShapes() {
+    private void testShapes(boolean verbose) {
         // print shape
-        this.logger.addLog(String.format("MATRIX SAHPE%1s\n\trows: %2d\n\tcolumns: %3d", this.matrix.getName(), this.matrix.shape(MatrixEnum.ROWS_SHAPE), this.matrix.shape(MatrixEnum.COLUMNS_SHAPE)));
+        this.logger.addLog(String.format("MATRIX SAHPE%1s\n\trows: %2d\n\tcolumns: %3d", this.matrix.getName(), this.matrix.shape(MatrixEnum.ROWS_SHAPE), this.matrix.shape(MatrixEnum.COLUMNS_SHAPE)), verbose);
     }
 
     private void testAddition(boolean verbose) throws CloneNotSupportedException {
@@ -70,11 +75,11 @@ public class Main {
         // add matrix2 to a tmp matrix
         Matrix copyMatrix = (Matrix) this.matrix.clone();
         copyMatrix = copyMatrix.add(this.matrix2, verbose);
-        this.logger.addLog("ADD matrices A Y B");
+        this.logger.addLog("ADD matrices A Y B", verbose);
         if (copyMatrix != null) {
-            this.logger.addLog(copyMatrix.toString());
+            this.logger.addLog(copyMatrix.toString(), verbose);
         } else {
-            this.logger.addLog("unable to add matrices");
+            this.logger.addLog("unable to add matrices", verbose);
         }
 
     }
@@ -84,11 +89,11 @@ public class Main {
         // add matrix2 to a tmp matrix
         Matrix copyMatrix = (Matrix) this.matrix.clone();
         copyMatrix = copyMatrix.sub(this.matrix2, verbose);
-        this.logger.addLog("SUB matrices A Y B");
+        this.logger.addLog("SUB matrices A Y B", verbose);
         if (copyMatrix != null) {
-            this.logger.addLog(copyMatrix.toString());
+            this.logger.addLog(copyMatrix.toString(), verbose);
         } else {
-            this.logger.addLog("Unable to sub matrix");
+            this.logger.addLog("Unable to sub matrix", verbose);
         }
     }
 
@@ -96,14 +101,14 @@ public class Main {
         // copy matrix
         Matrix copyMatrix = (Matrix) this.matrix.clone();
         copyMatrix = copyMatrix.multiply(this.matrix3, verbose);
-        this.logger.addLog(copyMatrix.toString());
+        this.logger.addLog(copyMatrix.toString(), verbose);
     }
 
     private void testTranspose(boolean verbose) throws CloneNotSupportedException {
         // copy matrix
         Matrix copyMatrix = (Matrix) this.matrix.clone();
         copyMatrix = copyMatrix.transpose(verbose);
-        this.logger.addLog(copyMatrix.toString());
+        this.logger.addLog(copyMatrix.toString(), verbose);
     }
 
     private void testInverse(boolean verbose) throws CloneNotSupportedException {
@@ -111,7 +116,7 @@ public class Main {
         Matrix copyMatrix;
         copyMatrix = (Matrix) this.matrix4.clone();
         copyMatrix = copyMatrix.inverse(verbose);
-        this.logger.addLog(copyMatrix.toString());
+        this.logger.addLog(copyMatrix.toString(), verbose);
     }
 
     private void testDivide(boolean verbose) throws CloneNotSupportedException {
@@ -119,32 +124,60 @@ public class Main {
         Matrix copyMatrix;
         copyMatrix = (Matrix) this.matrix4.clone();
         copyMatrix = copyMatrix.div(this.matrix5, verbose);
-        this.logger.addLog(copyMatrix.toString());
+        this.logger.addLog(copyMatrix.toString(), verbose);
     }
 
     private void testGauss(boolean verbose) {
         Matrix solvedGauss = GaussJordanSolver.getInstance().solveGauss(this.matrix2, verbose);
         if (solvedGauss != null) {
-            this.logger.addLog("SOLVED MATRIX " + this.matrix2.getName());
-            this.logger.addLog(solvedGauss.toString());
+            this.logger.addLog("SOLVED MATRIX " + this.matrix2.getName(), verbose);
+            this.logger.addLog(solvedGauss.toString(), verbose);
         }
     }
 
     private void testGaussJordan(boolean verbose) {
         Matrix solvedGaussJordan = GaussJordanSolver.getInstance().solveGaussJordan(this.matrix2, verbose);
         if (solvedGaussJordan != null) {
-            this.logger.addLog("SOLVED MATRIX " + this.matrix2.getName());
-            this.logger.addLog(solvedGaussJordan.toString());
+            this.logger.addLog("SOLVED MATRIX " + this.matrix2.getName(), verbose);
+            this.logger.addLog(solvedGaussJordan.toString(), verbose);
         }
     }
 
     private void testSarrous(boolean verbose) {
         double determinantBySarrous = SarrusSolver.getInstance().solveSarrus(this.data6, verbose);
-        this.logger.addLog(Double.toString(determinantBySarrous));
+        this.logger.addLog(Double.toString(determinantBySarrous), verbose);
     }
 
     private void testRankMatrix(boolean verbose) {
         int rank = this.matrix2.getMatrixUtils().countLinearlyIndependentRows(this.data6);
-        this.logger.addLog(Integer.toString(rank));
+        this.logger.addLog(Integer.toString(rank), verbose);
+    }
+
+    private Matrix testEncrypt(boolean verbose) {
+
+        Matrix encrypMatrix = Crypter.getInstance().encrypt("PATO POLLO", verbose);
+        if (encrypMatrix != null) {
+            this.logger.addLog("ENCRYPTED MATRIX:\n" + encrypMatrix.toString(), true);
+        }
+        return encrypMatrix;
+    }
+
+    private void testDecrypt(Matrix matrix, boolean verbose) {
+        // code to decrypt testing
+        String decryptedText = Crypter.getInstance().decrypt(matrix, verbose);
+        this.logger.addLog("DESENCRYPTED: " + decryptedText, verbose);
+
+    }
+
+    private void testMarkov(boolean verbose) throws CloneNotSupportedException {
+        double[][] markovData = {{0.8, 0.1, 0.1}, {0.03, 0.95, 0.02}, {0.2, 0.05, 0.75}};
+        Matrix markovProb = new Matrix("MARKOV", markovData);
+        Matrix key = new Matrix("KEY MARKOV", new double[][]{{0.45}, {0.25}, {0.30}});
+        int iterations = 2;
+        // markov key -> 
+        markovProb = MarkovSolver.getInstance().solve(key, markovProb, iterations, verbose);
+        if (markovProb != null) {
+            CustomLogger.getInstance().addLog("MARKOV FINAL\n" + markovProb, verbose);
+        }
     }
 }
