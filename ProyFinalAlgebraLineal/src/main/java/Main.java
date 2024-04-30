@@ -1,20 +1,25 @@
 
+import Model.Compiler.MatrixLexer;
+import Model.Compiler.MatrixParser;
 import Model.Encrypter.Crypter;
 import Model.Markov.MarkovSolver;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
+import Model.Utils.CustomReader;
 import Model.Matrix.MatrixEnum;
 import Model.Matrix.Solver.GaussJordanSolver;
 import Model.Matrix.Utils.SarrusSolver;
 
+import java.io.BufferedReader;
+import java.io.StringReader;
+
 /**
- *
  * @author jefe_mayoneso
  */
 public class Main {
 
     // create testing matrix
-    private final double[][] data, data2, data3, data4, data5, data6;  // initialize with = {{},{}] ... inline
+    private final double[][] data, data2, data3, data4, data5, data6; // initialize with = {{},{}] ... inline
 
     // tmp matrix
     private final Matrix matrix, matrix2, matrix3, matrix4, matrix5;
@@ -42,22 +47,21 @@ public class Main {
         // operations object
         Main main = new Main();
         try {
-//            main.testShapes();
-//            main.testAddition(false);
-//            main.testSubstract(false);
-//            main.testMultiply(false);
-//            main.testTranspose(true);
-//            main.testInverse(true);
-//            main.testDivide(true);
-//            main.testGauss(true);
-//            main.testGaussJordan(true);
-//            main.testSarrous(true);
-//            main.testRankMatrix(true);
-            Matrix tmpMatrix = main.testEncrypt(false);
-            main.testDecrypt(tmpMatrix, true);
-//            main.testMarkov(true);
-            // TODO imaginary operations
-
+            // main.testShapes();
+            // main.testAddition(false);
+            // main.testSubstract(false);
+//             main.testMultiply(true);
+            // main.testTranspose(true);
+            // main.testInverse(true);
+            // main.testDivide(true);
+            // main.testGauss(true);
+            // main.testGaussJordan(true);
+//             main.testSarrous(true);
+            // main.testRankMatrix(true);
+            // Matrix tmpMatrix = main.testEncrypt(false);
+            // main.testDecrypt(tmpMatrix, true);
+//             main.testMarkov(true);
+            main.testParser();
             main.logger.printLogs();
             main.logger.deleteLogs();
         } catch (Exception ex) {
@@ -67,7 +71,12 @@ public class Main {
 
     private void testShapes(boolean verbose) {
         // print shape
-        this.logger.addLog(String.format("MATRIX SAHPE%1s\n\trows: %2d\n\tcolumns: %3d", this.matrix.getName(), this.matrix.shape(MatrixEnum.ROWS_SHAPE), this.matrix.shape(MatrixEnum.COLUMNS_SHAPE)), verbose);
+        this.logger.addLog(
+                String.format("MATRIX SAHPE%1s\n\trows: %2d\n\tcolumns: %3d", this.matrix.getName(),
+                        this.matrix.shape(MatrixEnum.ROWS_SHAPE), this.matrix.shape(MatrixEnum.COLUMNS_SHAPE)),
+                verbose);
+
+
     }
 
     private void testAddition(boolean verbose) throws CloneNotSupportedException {
@@ -99,9 +108,15 @@ public class Main {
 
     private void testMultiply(boolean verbose) throws CloneNotSupportedException {
         // copy matrix
-        Matrix copyMatrix = (Matrix) this.matrix.clone();
-        copyMatrix = copyMatrix.multiply(this.matrix3, verbose);
-        this.logger.addLog(copyMatrix.toString(), verbose);
+//        Matrix copyMatrix = (Matrix) this.matrix.clone();
+//        copyMatrix = copyMatrix.multiply(this.matrix3, verbose);
+//        this.logger.addLog(copyMatrix.toString(), verbose);
+        Matrix semaforoA = new Matrix("A", new double[][]{{0.6, 0.3, 0.1}, {0.1, 0.6, 0.3}, {0.2, 0.1, 0.7}});
+        Matrix semaforoB = new Matrix("B", new double[][]{{0.5, 0.4, 0.1}, {0.3, 0.4, 0.3}, {0.1, 0.3, 0.6}});
+        Matrix semaforoC = new Matrix("C", new double[][]{{0.7, 0.2, 0.1}, {0.2, 0.5, 0.3}, {0.1, 0.3, 0.6}});
+        Matrix semaforoAB = semaforoA.multiply(semaforoB, verbose);
+        Matrix semaforoABC = semaforoAB.multiply(semaforoC, verbose);
+        this.logger.addLog(semaforoABC.toString(), verbose);
     }
 
     private void testTranspose(boolean verbose) throws CloneNotSupportedException {
@@ -144,7 +159,14 @@ public class Main {
     }
 
     private void testSarrous(boolean verbose) {
-        double determinantBySarrous = SarrusSolver.getInstance().solveSarrus(this.data6, verbose);
+        double[][] data = {{2, 1, -1}, {1, -3, 2}, {3, 2, -4}};
+        double determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
+        data = new double[][]{{4, 1, -1}, {-1, -3, 2}, {7, 2, -4}};
+        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
+        data = new double[][]{{2, 4, -1}, {1, -1, 2}, {3, 7, -4}};
+        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
+        data = new double[][]{{2, 1, 3}, {1, -3, -1}, {3, 2, 7}};
+        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
         this.logger.addLog(Double.toString(determinantBySarrous), verbose);
     }
 
@@ -170,14 +192,36 @@ public class Main {
     }
 
     private void testMarkov(boolean verbose) throws CloneNotSupportedException {
-        double[][] markovData = {{0.8, 0.1, 0.1}, {0.03, 0.95, 0.02}, {0.2, 0.05, 0.75}};
+        // ARRAY
+        // UBER, CHECKER TAXIS, TAXIS AMARILLOS
+        double[][] markovData = {{0.379, 0.338, 0.28300000000000003}, {0.293, 0.348, 0.359}, {0.253, 0.346, 0.40099999999999997}};
         Matrix markovProb = new Matrix("MARKOV", markovData);
-        Matrix key = new Matrix("KEY MARKOV", new double[][]{{0.45}, {0.25}, {0.30}});
-        int iterations = 2;
-        // markov key -> 
+        Matrix key = new Matrix("KEY MARKOV", new double[][]{{0}, {0}, {1}});
+        int iterations = 7;
+        // markov key ->
         markovProb = MarkovSolver.getInstance().solve(key, markovProb, iterations, verbose);
         if (markovProb != null) {
             CustomLogger.getInstance().addLog("MARKOV FINAL\n" + markovProb, verbose);
+        }
+    }
+
+    private void testParser() {
+        String path = "src/main/resources/text.txt";
+        String fileContent = CustomReader.getInstance().readFile(path);
+//        if (fileContent != null) {
+//            System.out.println(fileContent);
+//        }
+
+        try {
+            MatrixLexer lexer = new MatrixLexer(new StringReader(fileContent));  // reset lexer
+            MatrixParser parser = new MatrixParser(lexer);
+            parser.parse();
+            parser.getMatrices().forEach(matrix1 -> {
+                System.out.println(matrix1.toString());
+            });
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }
