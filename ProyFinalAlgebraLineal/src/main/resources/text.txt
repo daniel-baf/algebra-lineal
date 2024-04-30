@@ -1,0 +1,32 @@
+// DEFINE MATRICES --
+MATRIX A
+[
+    1   -1  23,
+    12  -4  0,
+    12  3   1
+];
+MATRIX B
+[
+    4   0   -4,
+    4   0   0,
+    -3  12  4
+];
+MATRIX KEY [ 1, -2, 4];
+// INVERSE --
+INV A, B; // HASHMAP 1
+// DETERMINANT --
+DET B, A; // HASHMAP 2
+// RANK
+RANK A, B; // HASHMAP 3
+// ENCRYPT SYNTAX --
+ENCRYPT "Hola perinola, como le va"; // HASHMAP 4
+DECRYPT 1 41 41 2 9 4 1 0 1 2 4;
+// GAUSS SYNTAX --
+GAUSS A, B; // HASHMAP 5
+// GAUSS JORDAN --
+JORDAN B, A; // HASHMAP 6
+// MARKOV SYNTAX --
+MARKOV A 5, B 2;
+// ARITHMETICAL MATRIX --
+ARITH A + B * B;
+ARITH A / B;

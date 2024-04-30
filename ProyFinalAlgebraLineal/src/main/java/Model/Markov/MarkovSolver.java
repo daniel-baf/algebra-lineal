@@ -77,7 +77,7 @@ public class MarkovSolver {
      *
      * @param key current key to multiply
      * @param originalMatrix original matrix
-     * @param iterations actual iteration
+     * @param iteration actual iteration
      * @return
      */
     private Matrix solveMarkov(Matrix key, Matrix originalMatrix, int iteration, boolean verbose) {
@@ -102,9 +102,9 @@ public class MarkovSolver {
             for (int col = 0; col < originMatrix.shape(MatrixEnum.COLUMNS_SHAPE); col++) {
                 tmpSum += originMatrix.getMatrix()[row][col];
             }
-            if (tmpSum != 1) {
-                return false;
-            }
+           if((int)tmpSum != 1) {
+               return false;
+           }
         }
         return true;
     }
