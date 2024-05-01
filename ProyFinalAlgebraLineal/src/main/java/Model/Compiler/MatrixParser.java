@@ -44,8 +44,8 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     "\002\011\005\000\002\012\005\000\002\013\005\000\002" +
     "\014\005\000\002\015\005\000\002\016\005\000\002\017" +
     "\005\000\002\020\005\000\002\026\005\000\002\026\003" +
-    "\000\002\030\004\000\002\030\003\000\002\027\006\000" +
-    "\002\027\004\000\002\021\005\000\002\022\003\000\002" +
+    "\000\002\030\004\000\002\030\003\000\002\027\007\000" +
+    "\002\027\005\000\002\021\005\000\002\022\003\000\002" +
     "\022\005\000\002\022\005\000\002\023\003\000\002\023" +
     "\005\000\002\023\005\000\002\024\003\000\002\024\005" +
     "\000\002\025\003\000\002\025\003" });
@@ -56,15 +56,15 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\123\000\006\003\006\016\005\001\002\000\004\002" +
-    "\125\001\002\000\004\030\113\001\002\000\004\015\112" +
+    "\000\124\000\006\003\006\016\005\001\002\000\004\002" +
+    "\126\001\002\000\004\030\114\001\002\000\004\015\113" +
     "\001\002\000\026\002\uffff\017\026\020\016\021\022\022" +
     "\014\023\017\024\012\025\034\026\032\027\015\001\002" +
     "\000\032\002\ufffd\003\006\016\005\017\ufffd\020\ufffd\021" +
     "\ufffd\022\ufffd\023\ufffd\024\ufffd\025\ufffd\026\ufffd\027\ufffd" +
     "\001\002\000\026\002\ufffe\017\ufffe\020\ufffe\021\ufffe\022" +
     "\ufffe\023\ufffe\024\ufffe\025\ufffe\026\ufffe\027\ufffe\001\002" +
-    "\000\004\031\107\001\002\000\026\002\ufff0\017\ufff0\020" +
+    "\000\004\031\110\001\002\000\026\002\ufff0\017\ufff0\020" +
     "\ufff0\021\ufff0\022\ufff0\023\ufff0\024\ufff0\025\ufff0\026\ufff0" +
     "\027\ufff0\001\002\000\004\030\037\001\002\000\004\030" +
     "\077\001\002\000\004\030\037\001\002\000\004\033\072" +
@@ -120,27 +120,27 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     "\uffe8\022\uffe8\023\uffe8\024\uffe8\025\uffe8\026\uffe8\027\uffe8" +
     "\001\002\000\004\015\075\001\002\000\026\002\uffeb\017" +
     "\uffeb\020\uffeb\021\uffeb\022\uffeb\023\uffeb\024\uffeb\025\uffeb" +
-    "\026\uffeb\027\uffeb\001\002\000\004\015\103\001\002\000" +
-    "\004\031\100\001\002\000\006\014\101\015\uffde\001\002" +
-    "\000\004\030\077\001\002\000\004\015\uffdf\001\002\000" +
-    "\026\002\uffe4\017\uffe4\020\uffe4\021\uffe4\022\uffe4\023\uffe4" +
-    "\024\uffe4\025\uffe4\026\uffe4\027\uffe4\001\002\000\004\015" +
-    "\105\001\002\000\026\002\uffe9\017\uffe9\020\uffe9\021\uffe9" +
-    "\022\uffe9\023\uffe9\024\uffe9\025\uffe9\026\uffe9\027\uffe9\001" +
-    "\002\000\004\015\111\001\002\000\006\015\uffe0\031\107" +
-    "\001\002\000\004\015\uffe1\001\002\000\026\002\uffe7\017" +
-    "\uffe7\020\uffe7\021\uffe7\022\uffe7\023\uffe7\024\uffe7\025\uffe7" +
-    "\026\uffe7\027\uffe7\001\002\000\026\002\ufffc\017\ufffc\020" +
-    "\ufffc\021\ufffc\022\ufffc\023\ufffc\024\ufffc\025\ufffc\026\ufffc" +
-    "\027\ufffc\001\002\000\004\004\114\001\002\000\004\031" +
-    "\116\001\002\000\006\005\122\014\121\001\002\000\010" +
-    "\005\ufff7\014\ufff7\031\ufff7\001\002\000\010\005\ufff9\014" +
-    "\ufff9\031\120\001\002\000\010\005\ufff8\014\ufff8\031\ufff8" +
-    "\001\002\000\004\031\116\001\002\000\004\015\123\001" +
-    "\002\000\032\002\ufffb\003\ufffb\016\ufffb\017\ufffb\020\ufffb" +
-    "\021\ufffb\022\ufffb\023\ufffb\024\ufffb\025\ufffb\026\ufffb\027" +
-    "\ufffb\001\002\000\010\005\ufffa\014\ufffa\031\120\001\002" +
-    "\000\004\002\001\001\002" });
+    "\026\uffeb\027\uffeb\001\002\000\004\015\104\001\002\000" +
+    "\004\030\100\001\002\000\004\031\101\001\002\000\006" +
+    "\014\102\015\uffde\001\002\000\004\030\077\001\002\000" +
+    "\004\015\uffdf\001\002\000\026\002\uffe4\017\uffe4\020\uffe4" +
+    "\021\uffe4\022\uffe4\023\uffe4\024\uffe4\025\uffe4\026\uffe4\027" +
+    "\uffe4\001\002\000\004\015\106\001\002\000\026\002\uffe9" +
+    "\017\uffe9\020\uffe9\021\uffe9\022\uffe9\023\uffe9\024\uffe9\025" +
+    "\uffe9\026\uffe9\027\uffe9\001\002\000\004\015\112\001\002" +
+    "\000\006\015\uffe0\031\110\001\002\000\004\015\uffe1\001" +
+    "\002\000\026\002\uffe7\017\uffe7\020\uffe7\021\uffe7\022\uffe7" +
+    "\023\uffe7\024\uffe7\025\uffe7\026\uffe7\027\uffe7\001\002\000" +
+    "\026\002\ufffc\017\ufffc\020\ufffc\021\ufffc\022\ufffc\023\ufffc" +
+    "\024\ufffc\025\ufffc\026\ufffc\027\ufffc\001\002\000\004\004" +
+    "\115\001\002\000\004\031\117\001\002\000\006\005\123" +
+    "\014\122\001\002\000\010\005\ufff7\014\ufff7\031\ufff7\001" +
+    "\002\000\010\005\ufff9\014\ufff9\031\121\001\002\000\010" +
+    "\005\ufff8\014\ufff8\031\ufff8\001\002\000\004\031\117\001" +
+    "\002\000\004\015\124\001\002\000\032\002\ufffb\003\ufffb" +
+    "\016\ufffb\017\ufffb\020\ufffb\021\ufffb\022\ufffb\023\ufffb\024" +
+    "\ufffb\025\ufffb\026\ufffb\027\ufffb\001\002\000\010\005\ufffa" +
+    "\014\ufffa\031\121\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -148,12 +148,12 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\123\000\010\002\003\003\006\004\007\001\001\000" +
+    "\000\124\000\010\002\003\003\006\004\007\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\030" +
     "\007\023\010\030\011\020\012\022\013\024\014\032\015" +
     "\012\016\034\017\017\020\026\021\027\001\001\000\006" +
     "\003\010\004\007\001\001\000\002\001\001\000\004\030" +
-    "\105\001\001\000\002\001\001\000\004\026\103\001\001" +
+    "\106\001\001\000\002\001\001\000\004\026\104\001\001" +
     "\000\004\027\075\001\001\000\004\026\073\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
     "\026\067\001\001\000\002\001\001\000\002\001\001\000" +
@@ -175,14 +175,14 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\027\101\001\001\000\002" +
+    "\001\000\002\001\001\000\002\001\001\000\004\027\102" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\030\107\001\001\000\002" +
+    "\001\000\002\001\001\000\002\001\001\000\004\030\110" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\006\005\114\006\116\001\001\000\002\001\001" +
+    "\001\000\002\001\001\000\006\005\115\006\117\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\006\123\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\002\001\001\000\004\006\124\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -223,12 +223,12 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
 
 
     public ParserUtils parserUtils;
-    public ParserModel parserModel;
+    public ParserController parserController;
 
     // constructor
     public MatrixParser(MatrixLexer lexer) {
         super(lexer);
-        this.parserModel = new ParserModel();
+        this.parserController = new ParserController(new ParserModel());
         this.parserUtils = ParserUtils.getInstance();
     }
 
@@ -265,7 +265,7 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     }   
 
     public ParserModel getParserModel() {
-        return this.parserModel;
+        return this.parserController.getModel();
     }
 
 
@@ -332,7 +332,7 @@ class CUP$MatrixParser$actions {
 		int newMatrixleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
 		int newMatrixright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
 		Object newMatrix = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
-		 parserModel.getMatrices().add((Matrix) newMatrix); 
+		 parserController.saveMatrix((Matrix) newMatrix); 
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("matrices_declaration",1, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -344,7 +344,7 @@ class CUP$MatrixParser$actions {
 		int newMatrixleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int newMatrixright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object newMatrix = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		 parserModel.getMatrices().add((Matrix) newMatrix); 
+		 parserController.saveMatrix((Matrix) newMatrix); 
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("matrices_declaration",1, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -530,7 +530,10 @@ class CUP$MatrixParser$actions {
           case 22: // inverse_declaration ::= INVERSE ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.INVERSE, (ArrayList<String>) ids);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("inverse_declaration",7, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -539,7 +542,10 @@ class CUP$MatrixParser$actions {
           case 23: // determinant_declaration ::= DETERMINANT ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.DETERMINANT, (ArrayList<String>) ids);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("determinant_declaration",8, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -548,7 +554,10 @@ class CUP$MatrixParser$actions {
           case 24: // rank_declaration ::= RANK ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.RANK, (ArrayList<String>) ids);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("rank_declaration",9, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -557,7 +566,13 @@ class CUP$MatrixParser$actions {
           case 25: // encrypt_declaration ::= ENCRYPT STRING SEMI_COLON 
             {
               Object RESULT =null;
-
+		int stringleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int stringright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object string = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   ArrayList<String> tmpValues = new ArrayList<>();
+                                                                                                 tmpValues.add(parserUtils.removeComillasToString((String) string));
+                                                                                                 parserController.saveInStringHashmap(CommonParserHashKey.ENCRYPT, tmpValues);
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("encrypt_declaration",10, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -602,7 +617,17 @@ class CUP$MatrixParser$actions {
           case 30: // ids_declaration ::= IDENTIFIER COMMA ids_declaration 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   ArrayList<String> mergeIds = new ArrayList<>();
+                                                                                                mergeIds.add((String) id);
+                                                                                                mergeIds.addAll((ArrayList<String>) ids);
+                                                                                                RESULT = mergeIds;
+                                                                                           
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("ids_declaration",20, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -611,7 +636,13 @@ class CUP$MatrixParser$actions {
           case 31: // ids_declaration ::= IDENTIFIER 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   ArrayList<String> ids = new ArrayList<>();
+                                                                                                ids.add((String) id);
+                                                                                                RESULT = ids;
+                                                                                            
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("ids_declaration",20, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -620,7 +651,17 @@ class CUP$MatrixParser$actions {
           case 32: // numbers_vector ::= NUMBER numbers_vector 
             {
               Object RESULT =null;
-
+		int numleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int numright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object num = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		int numbersleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int numbersright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object numbers = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   ArrayList<Double> mergeNums = new ArrayList<>();
+                                                                                                 mergeNums.add(Double.parseDouble(num.toString()));
+                                                                                                 mergeNums.addAll((ArrayList<Double>) numbers);
+                                                                                                 RESULT = mergeNums;
+                                                                                            
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("numbers_vector",22, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -629,26 +670,32 @@ class CUP$MatrixParser$actions {
           case 33: // numbers_vector ::= NUMBER 
             {
               Object RESULT =null;
-
+		int numleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int numright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object num = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   ArrayList<Double> numbers = new ArrayList<>();
+                                                                                                 numbers.add(Double.parseDouble(num.toString()));
+                                                                                                 RESULT = numbers;
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("numbers_vector",22, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // markov_ids_declaration ::= IDENTIFIER NUMBER COMMA markov_ids_declaration 
+          case 34: // markov_ids_declaration ::= IDENTIFIER IDENTIFIER NUMBER COMMA markov_ids_declaration 
             {
               Object RESULT =null;
 
-              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-3)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-4)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // markov_ids_declaration ::= IDENTIFIER NUMBER 
+          case 35: // markov_ids_declaration ::= IDENTIFIER IDENTIFIER NUMBER 
             {
               Object RESULT =null;
 
-              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 

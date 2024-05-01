@@ -16,12 +16,12 @@ import Model.Utils.CustomLogger; // save errors in the logger
 parser code {:
 
     public ParserUtils parserUtils;
-    public ParserModel parserModel;
+    public ParserController parserController;
 
     // constructor
     public MatrixParser(MatrixLexer lexer) {
         super(lexer);
-        this.parserModel = new ParserModel();
+        this.parserController = new ParserController(new ParserModel());
         this.parserUtils = ParserUtils.getInstance();
     }
 
@@ -58,7 +58,7 @@ parser code {:
     }   
 
     public ParserModel getParserModel() {
-        return this.parserModel;
+        return this.parserController.getModel();
     }
 :}
 
@@ -88,8 +88,8 @@ main::=
 
 // MATRIX DEF ; MATRIX NEW ... 
 matrices_declaration::=
-        matrix_declaration:newMatrix matrices_declaration                                  {: parserModel.getMatrices().add((Matrix) newMatrix); :}
-    |   matrix_declaration:newMatrix                                                       {: parserModel.getMatrices().add((Matrix) newMatrix); :}
+        matrix_declaration:newMatrix matrices_declaration                                  {: parserController.saveMatrix((Matrix) newMatrix); :}
+    |   matrix_declaration:newMatrix                                                       {: parserController.saveMatrix((Matrix) newMatrix); :}
     |   error SEMI_COLON
 ;
 
@@ -129,19 +129,22 @@ operation_declaration::=
 ;
 
 inverse_declaration::=
-    INVERSE ids_declaration SEMI_COLON
+    INVERSE ids_declaration:ids SEMI_COLON                                                  {:   parserController.saveInStringHashmap(CommonParserHashKey.INVERSE, (ArrayList<String>) ids);   :}
 ;
 
 determinant_declaration::=
-    DETERMINANT ids_declaration SEMI_COLON
+    DETERMINANT ids_declaration:ids SEMI_COLON                                              {:   parserController.saveInStringHashmap(CommonParserHashKey.DETERMINANT, (ArrayList<String>) ids);   :}
 ;
 
 rank_declaration::=
-    RANK ids_declaration SEMI_COLON
+    RANK ids_declaration:ids SEMI_COLON                                                     {:   parserController.saveInStringHashmap(CommonParserHashKey.RANK, (ArrayList<String>) ids);   :}
 ;
 
 encrypt_declaration::=
-    ENCRYPT STRING SEMI_COLON
+    ENCRYPT STRING:string SEMI_COLON                                                        {:   ArrayList<String> tmpValues = new ArrayList<>();
+                                                                                                 tmpValues.add(parserUtils.removeComillasToString((String) string));
+                                                                                                 parserController.saveInStringHashmap(CommonParserHashKey.ENCRYPT, tmpValues);
+                                                                                             :}
 ;
 
 decrypt_declaration::=
@@ -161,18 +164,32 @@ markov_declaration::=
 ;
 
 ids_declaration::=
-        IDENTIFIER COMMA ids_declaration
-    |   IDENTIFIER
+        IDENTIFIER:id COMMA ids_declaration:ids                                            {:   ArrayList<String> mergeIds = new ArrayList<>();
+                                                                                                mergeIds.add((String) id);
+                                                                                                mergeIds.addAll((ArrayList<String>) ids);
+                                                                                                RESULT = mergeIds;
+                                                                                           :}
+    |   IDENTIFIER:id                                                                      {:   ArrayList<String> ids = new ArrayList<>();
+                                                                                                ids.add((String) id);
+                                                                                                RESULT = ids;
+                                                                                            :}
 ;
 
 numbers_vector::=
-        NUMBER numbers_vector
-    |   NUMBER
+        NUMBER:num numbers_vector:numbers                                                   {:   ArrayList<Double> mergeNums = new ArrayList<>();
+                                                                                                 mergeNums.add(Double.parseDouble(num.toString()));
+                                                                                                 mergeNums.addAll((ArrayList<Double>) numbers);
+                                                                                                 RESULT = mergeNums;
+                                                                                            :}
+    |   NUMBER:num                                                                          {:   ArrayList<Double> numbers = new ArrayList<>();
+                                                                                                 numbers.add(Double.parseDouble(num.toString()));
+                                                                                                 RESULT = numbers;
+                                                                                             :}
 ;
 
 markov_ids_declaration::=
-        IDENTIFIER NUMBER COMMA markov_ids_declaration
-    |   IDENTIFIER NUMBER
+        IDENTIFIER IDENTIFIER NUMBER COMMA markov_ids_declaration
+    |   IDENTIFIER IDENTIFIER NUMBER
 ;
 
 arith_declaration::=

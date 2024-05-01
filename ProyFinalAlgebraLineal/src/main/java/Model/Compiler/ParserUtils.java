@@ -124,4 +124,20 @@ public class ParserUtils {
         numbersBackup.addAll(numbers2);
         return numbersBackup;
     }
+
+    /**
+     * Remove comillas from string at the begginning and end of a string token
+     * @param text the text without comillas
+     * @return the new text
+     */
+    public String removeComillasToString(String text) {
+        // check length of String
+        if(text.length() <= 2) {
+            return text;
+        }
+        if(text.substring(0,1) == "\"" && text.substring(text.length() -1, text.length()) == "\"") {
+            return text.substring(1, text.length() - 1);
+        }
+        return text;
+    }
 }

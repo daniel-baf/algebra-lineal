@@ -1,4 +1,5 @@
 
+import Model.Compiler.CommonParserHashKey;
 import Model.Compiler.MatrixLexer;
 import Model.Compiler.MatrixParser;
 import Model.Encrypter.Crypter;
@@ -10,11 +11,10 @@ import Model.Matrix.MatrixEnum;
 import Model.Matrix.Solver.GaussJordanSolver;
 import Model.Matrix.Utils.SarrusSolver;
 
-import java.io.BufferedReader;
 import java.io.StringReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * @author jefe_mayoneso
@@ -219,10 +219,19 @@ public class Main {
             MatrixLexer lexer = new MatrixLexer(new StringReader(fileContent));  // reset lexer
             MatrixParser parser = new MatrixParser(lexer);
             parser.parse();
-            parser.getParserModel().getMatrices().forEach(matrix1 -> {
-                System.out.println(matrix1.toString());
-            });
-
+            // iterate over hashmap and print all values
+            // Using enhanced for loop to iterate over the HashMap
+            for (Map.Entry<String, Matrix> entry : parser.getParserModel().getMatrices().entrySet()) {
+                String key = entry.getKey();
+                Matrix value = entry.getValue();
+                CustomLogger.getInstance().addLog(value.toString(), true);
+            }
+            /* print all values from hashes strings */
+            for (Map.Entry<CommonParserHashKey, ArrayList<String>> entry : parser.getParserModel().getKeysArrayListHashMap().entrySet()) {
+                CommonParserHashKey key = entry.getKey();
+                ArrayList<String> value = entry.getValue();
+                CustomLogger.getInstance().addLog(String.format("KEY [%1$s]: %2$s", key, value), true);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

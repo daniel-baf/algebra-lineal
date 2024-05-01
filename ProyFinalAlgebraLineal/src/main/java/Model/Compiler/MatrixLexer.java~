@@ -812,7 +812,7 @@ public class MatrixLexer implements java_cup.runtime.Scanner {
           // fall through
           case 40: break;
           case 15:
-            { return new Symbol(sym.STRING, yyline+1, yycolumn+1);
+            { return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext());
             }
           // fall through
           case 41: break;

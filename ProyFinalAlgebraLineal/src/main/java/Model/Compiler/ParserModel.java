@@ -7,34 +7,34 @@ import java.util.HashMap;
 
 public class ParserModel {
 
-    private ArrayList<Matrix> matrices; // matrix pool
-    private HashMap<CommonHashKeys, ArrayList<String>> hashes; // hashmap for common lists
+    private HashMap<String, Matrix> matrices; // matrix pool
+    private HashMap<CommonParserHashKey, ArrayList<String>> keysArrayListHashMap; // hashmap for common lists
     private ArrayList<double[]> decrypts; // list of numbers to decrypt
     private ArrayList<String[]> markovs; // list of markovs [matrix, iters
     // TODO implement arith AVL TREE
 
 
     public ParserModel() {
-        this.matrices = new ArrayList<>();
-        this.hashes = new HashMap<>();
+        this.matrices = new HashMap<>();
+        this.keysArrayListHashMap = new HashMap<>();
         this.decrypts = new ArrayList<>();
         this.markovs = new ArrayList<>();
     }
 
-    public ArrayList<Matrix> getMatrices() {
+    public HashMap<String, Matrix> getMatrices() {
         return matrices;
     }
 
-    public void setMatrices(ArrayList<Matrix> matrices) {
+    public void setMatrices(HashMap<String, Matrix> matrices) {
         this.matrices = matrices;
     }
 
-    public HashMap<CommonHashKeys, ArrayList<String>> getHashes() {
-        return hashes;
+    public HashMap<CommonParserHashKey, ArrayList<String>> getKeysArrayListHashMap() {
+        return keysArrayListHashMap;
     }
 
-    public void setHashes(HashMap<CommonHashKeys, ArrayList<String>> hashes) {
-        this.hashes = hashes;
+    public void setKeysArrayListHashMap(HashMap<CommonParserHashKey, ArrayList<String>> keysArrayListHashMap) {
+        this.keysArrayListHashMap = keysArrayListHashMap;
     }
 
     public ArrayList<double[]> getDecrypts() {
@@ -52,8 +52,7 @@ public class ParserModel {
     public void setMarkovs(ArrayList<String[]> markovs) {
         this.markovs = markovs;
     }
+
+
 }
 
-enum CommonHashKeys {
-    INVERSE, DETERMINANT, RANK, ENCRYPT, GAUSS, JORDAN
-}

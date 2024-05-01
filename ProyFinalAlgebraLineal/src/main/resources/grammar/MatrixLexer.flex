@@ -82,7 +82,7 @@ STRING = \".*?\"
 (JORDAN)      { return new Symbol(sym.JORDAN, yyline+1, yycolumn+1); }
 (MARKOV)      { return new Symbol(sym.MARKOV, yyline+1, yycolumn+1); }
 // data
-{STRING}      { return new Symbol(sym.STRING, yyline+1, yycolumn+1); }
+{STRING}      { return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext()); }
 {ID}          { return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext()); }
 {NUMBER}      { return new Symbol(sym.NUMBER, yyline+1, yycolumn+1, yytext()); }
 
