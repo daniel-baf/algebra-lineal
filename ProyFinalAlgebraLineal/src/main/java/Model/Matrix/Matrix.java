@@ -13,8 +13,8 @@ public class Matrix implements Cloneable {
     // variables for operations
     private String name;
     private double[][] matrix;
-    private CustomLogger logger;
-    private MatrixUtils matrixUtils;
+    private final CustomLogger logger;
+    private final MatrixUtils matrixUtils;
 
     // constructors
     private Matrix() {
@@ -92,8 +92,6 @@ public class Matrix implements Cloneable {
                 this.matrix.length;
             case COLUMNS_SHAPE ->
                 this.matrix.length != 0 ? this.matrix[0].length : 0;
-            default ->
-                -1;
         };
     }
 
@@ -101,7 +99,7 @@ public class Matrix implements Cloneable {
      * Return the transpose of current matrix
      *
      * @param verbose true | false to print step by step
-     * @return
+     * @return transpose of current matrix
      */
     public Matrix transpose(boolean verbose) {
         int numRows = this.shape(MatrixEnum.ROWS_SHAPE);
@@ -125,7 +123,7 @@ public class Matrix implements Cloneable {
      * Return the inverse of current matrix
      *
      * @param verbose true | false -> print step by step
-     * @return
+     * @return inverse of current matrix
      */
     public Matrix inverse(boolean verbose) {
         if (this.matrix == null) { // check if null
@@ -250,7 +248,7 @@ public class Matrix implements Cloneable {
      * false
      *
      * @param matrix3 the matrix to multiply current matrix
-     * @return
+     * @return multiplied matrix
      */
     public Matrix multiply(Matrix matrix3) {
         return this.multiply(matrix3, false);
@@ -300,8 +298,8 @@ public class Matrix implements Cloneable {
     /**
      * Function to divide current matrix by divMatrix
      *
-     * @param divMatrix
-     * @return
+     * @param divMatrix matrix to divide
+     * @return matrix divided
      */
     public Matrix div(Matrix divMatrix) {
         return this.div(divMatrix, false);
@@ -311,9 +309,9 @@ public class Matrix implements Cloneable {
      * This function calls to inverse function and then multiply current matrix
      * for inverse of divMatrix
      *
-     * @param divMatrix
+     * @param divMatrix divisor of current matrix
      * @param verbose true | false -> print step by step
-     * @return
+     * @return division matrix
      */
     public Matrix div(Matrix divMatrix, boolean verbose) {
         // check if any matrix is null
@@ -342,7 +340,7 @@ public class Matrix implements Cloneable {
     /**
      * Check if current matrix is inverse
      *
-     * @return
+     * @return true or false if inverse exist
      */
     public boolean hasInverse() {
         try {

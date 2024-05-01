@@ -27,8 +27,8 @@ public class GaussJordanSolver {
     /**
      * Calls a sub method and avoid printing step by step
      *
-     * @param solveMatrix
-     * @return
+     * @param solveMatrix matrix to check
+     * @return matrix solved by gauss
      */
     public Matrix solveGauss(Matrix solveMatrix) {
         return this.solveGauss(solveMatrix, false);
@@ -38,8 +38,8 @@ public class GaussJordanSolver {
      * Solves a matrix type of [MATRIX] and prints a step by step using logger
      * class saves log to logger global variable
      *
-     * @param matrix
-     * @param verbose
+     * @param matrix matrix to solve
+     * @param verbose true or false to step by step
      * @return the solved matrix || null
      */
     public Matrix solveGauss(Matrix matrix, boolean verbose) {
@@ -51,12 +51,9 @@ public class GaussJordanSolver {
             throw new IllegalArgumentException("Matrix must be nxm, with m = n + 1");
         }
 
-        CustomLogger.getInstance().addLog(String.format("START GAUSS\n%1$s", matrix.toString()), verbose);
+        CustomLogger.getInstance().addLog(String.format("START GAUSS\n%1$s", matrix), verbose);
         try {
             Matrix resultMatrix = (Matrix) matrix.clone();
-            //        double[][] resultMatrix = Arrays.stream(matrix.getMatrix()) // clone matrix
-            //                .map(double[]::clone)
-            //                .toArray(double[][]::new);
 
             for (int i = 0; i < resultMatrix.getMatrix().length; i++) { // row by row
                 for (int j = i + 1; j < resultMatrix.getMatrix().length; j++) { // 
@@ -80,8 +77,7 @@ public class GaussJordanSolver {
      * A function to solve a matrix step by step using the A = x + y + RES(PREV
      * STEP)
      *
-     * @param preGaussMatrix
-     * @return
+     * @param preGaussMatrix matrix to check
      */
     private void solveSubstitution(Matrix preGaussMatrix, boolean verbose) {
         double[][] reducedMatrix = preGaussMatrix.getMatrix();
@@ -135,7 +131,7 @@ public class GaussJordanSolver {
         if (matrix.shape(MatrixEnum.COLUMNS_SHAPE) != matrix.shape(MatrixEnum.ROWS_SHAPE) + 1) {
             throw new IllegalArgumentException("Matrix must be nxm, with m = n + 1");
         }
-        CustomLogger.getInstance().addLog(String.format("START GAUSS JORDAN\n%1$s", matrix.toString()), verbose);
+        CustomLogger.getInstance().addLog(String.format("START GAUSS JORDAN\n%1$s", matrix), verbose);
 
         int rows = matrix.shape(MatrixEnum.ROWS_SHAPE);
         int cols = matrix.shape(MatrixEnum.COLUMNS_SHAPE);
@@ -155,13 +151,13 @@ public class GaussJordanSolver {
                 tmpMatrix.getMatrix()[i] = tmpMatrix.getMatrix()[maxRow];
                 tmpMatrix.getMatrix()[maxRow] = temp;
 
-                CustomLogger.getInstance().addLog("Final pivote: SWAP ROW R" + (i + 1) + " <-> R" + (maxRow + 1) + "\n" + tmpMatrix.toString(), verbose);
+                CustomLogger.getInstance().addLog("Final pivote: SWAP ROW R" + (i + 1) + " <-> R" + (maxRow + 1) + "\n" + tmpMatrix, verbose);
                 // Make the diagonal elements 1
                 double divisor = tmpMatrix.getMatrix()[i][i];
                 for (int j = 0; j < cols; j++) {
                     tmpMatrix.getMatrix()[i][j] /= divisor;
                 }
-                CustomLogger.getInstance().addLog("Reduce diagonal (" + (i + 1) + ", " + (i + 1) + ")\n" + tmpMatrix.toString(), verbose);
+                CustomLogger.getInstance().addLog("Reduce diagonal (" + (i + 1) + ", " + (i + 1) + ")\n" + tmpMatrix, verbose);
                 // Make other elements in the column zero
                 for (int k = 0; k < rows; k++) {
                     if (k != i) {
@@ -171,7 +167,7 @@ public class GaussJordanSolver {
                         }
                     }
                 }
-                CustomLogger.getInstance().addLog("Elements at " + (i + 1) + " make 0:\n" + tmpMatrix.toString(), verbose);
+                CustomLogger.getInstance().addLog("Elements at " + (i + 1) + " make 0:\n" + tmpMatrix, verbose);
             }
             tmpMatrix.setName(String.format("G_JORDAN(%1$s)", tmpMatrix.getName()));
             return tmpMatrix;

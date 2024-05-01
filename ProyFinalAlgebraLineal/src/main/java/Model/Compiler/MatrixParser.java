@@ -9,6 +9,9 @@ import java_cup.runtime.*;
 import java.util.ArrayList;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
+import Domain.Markov.MarkovData;
+import Domain.AVL.NodeAVLBuilder;
+import Domain.AVL.NodeAVL;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -269,6 +272,7 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     }
 
 
+
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
 class CUP$MatrixParser$actions {
@@ -521,6 +525,9 @@ class CUP$MatrixParser$actions {
           case 21: // operation_declaration ::= arith_declaration 
             {
               Object RESULT =null;
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
 
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("operation_declaration",6, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
@@ -581,7 +588,10 @@ class CUP$MatrixParser$actions {
           case 26: // decrypt_declaration ::= DECRYPT numbers_vector SEMI_COLON 
             {
               Object RESULT =null;
-
+		int numbersleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int numbersright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object numbers = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveDecrypts((ArrayList<Double>) numbers);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("decrypt_declaration",11, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -590,7 +600,10 @@ class CUP$MatrixParser$actions {
           case 27: // gauss_declaration ::= GAUSS ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.GAUSS, (ArrayList<String>) ids);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("gauss_declaration",12, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -599,7 +612,10 @@ class CUP$MatrixParser$actions {
           case 28: // gjordan_declaration ::= JORDAN ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.JORDAN, (ArrayList<String>) ids);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("gjordan_declaration",13, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -608,7 +624,10 @@ class CUP$MatrixParser$actions {
           case 29: // markov_declaration ::= MARKOV markov_ids_declaration SEMI_COLON 
             {
               Object RESULT =null;
-
+		int markov_nodesleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int markov_nodesright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object markov_nodes = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.MARKOV, (ArrayList<MarkovData>) markov_nodes );  
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_declaration",14, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -623,11 +642,10 @@ class CUP$MatrixParser$actions {
 		int idsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int idsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object ids = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		   ArrayList<String> mergeIds = new ArrayList<>();
-                                                                                                mergeIds.add((String) id);
-                                                                                                mergeIds.addAll((ArrayList<String>) ids);
-                                                                                                RESULT = mergeIds;
-                                                                                           
+		   ArrayList<String> mergeIds = new ArrayList<>() {{ add((String) id); }};
+                                                                                                  mergeIds.addAll((ArrayList<String>) ids);
+                                                                                                  RESULT = mergeIds;
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("ids_declaration",20, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -639,10 +657,9 @@ class CUP$MatrixParser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object id = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		   ArrayList<String> ids = new ArrayList<>();
-                                                                                                ids.add((String) id);
-                                                                                                RESULT = ids;
-                                                                                            
+		   ArrayList<String> ids = new ArrayList<>(){{ add((String) id); }};
+                                                                                                  RESULT = ids;
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("ids_declaration",20, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -657,11 +674,10 @@ class CUP$MatrixParser$actions {
 		int numbersleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int numbersright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object numbers = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		   ArrayList<Double> mergeNums = new ArrayList<>();
-                                                                                                 mergeNums.add(Double.parseDouble(num.toString()));
-                                                                                                 mergeNums.addAll((ArrayList<Double>) numbers);
-                                                                                                 RESULT = mergeNums;
-                                                                                            
+		   ArrayList<Double> mergeNums = new ArrayList<>() {{ add(Double.parseDouble(num.toString())); }};
+                                                                                                  mergeNums.addAll((ArrayList<Double>) numbers);
+                                                                                                  RESULT = mergeNums;
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("numbers_vector",22, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -673,9 +689,8 @@ class CUP$MatrixParser$actions {
 		int numleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int numright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object num = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		   ArrayList<Double> numbers = new ArrayList<>();
-                                                                                                 numbers.add(Double.parseDouble(num.toString()));
-                                                                                                 RESULT = numbers;
+		   ArrayList<Double> numbers = new ArrayList<>(){{ add(Double.parseDouble(num.toString())); }};
+                                                                                                  RESULT = numbers;
                                                                                              
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("numbers_vector",22, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
@@ -685,7 +700,22 @@ class CUP$MatrixParser$actions {
           case 34: // markov_ids_declaration ::= IDENTIFIER IDENTIFIER NUMBER COMMA markov_ids_declaration 
             {
               Object RESULT =null;
-
+		int matrixleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-4)).left;
+		int matrixright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-4)).right;
+		Object matrix = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-4)).value;
+		int statusleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-3)).left;
+		int statusright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-3)).right;
+		Object status = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-3)).value;
+		int iterationsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int iterationsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object iterations = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int markov_vectorleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int markov_vectorright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object markov_vector = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		  ArrayList<MarkovData> newData = new ArrayList<>() {{ add(new MarkovData((String) matrix, (String) status, Integer.parseInt((String) iterations))); }};
+                                                                                                 newData.addAll((ArrayList<MarkovData>) markov_vector);
+                                                                                                 RESULT = newData;
+                                                                                             
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-4)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -694,7 +724,16 @@ class CUP$MatrixParser$actions {
           case 35: // markov_ids_declaration ::= IDENTIFIER IDENTIFIER NUMBER 
             {
               Object RESULT =null;
-
+		int matrixleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int matrixright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object matrix = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int statusleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int statusright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object status = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		int iterationsleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int iterationsright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object iterations = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		  RESULT = new ArrayList<MarkovData>() {{ add(new MarkovData((String) matrix, (String) status, Integer.parseInt((String) iterations))); }};    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("markov_ids_declaration",21, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -703,7 +742,10 @@ class CUP$MatrixParser$actions {
           case 36: // arith_declaration ::= ARITH arith_expression SEMI_COLON 
             {
               Object RESULT =null;
-
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveInStringHashmap(CommonParserHashKey.ARITH_MATRIX, new ArrayList<NodeAVL>() {{ add((NodeAVL) expression); }});   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_declaration",15, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -712,7 +754,10 @@ class CUP$MatrixParser$actions {
           case 37: // arith_expression ::= arith_term 
             {
               Object RESULT =null;
-
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = expression;   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_expression",16, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -721,7 +766,13 @@ class CUP$MatrixParser$actions {
           case 38: // arith_expression ::= arith_expression PLUS arith_term 
             {
               Object RESULT =null;
-
+		int lchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int lchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object lchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int rchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int rchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object rchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = parserUtils.generateNewNode((Object) "+", (NodeAVL) lchild, (NodeAVL) rchild);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_expression",16, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -730,7 +781,13 @@ class CUP$MatrixParser$actions {
           case 39: // arith_expression ::= arith_expression MINUS arith_term 
             {
               Object RESULT =null;
-
+		int lchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int lchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object lchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int rchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int rchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object rchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = parserUtils.generateNewNode((Object) "-", (NodeAVL) lchild, (NodeAVL) rchild);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_expression",16, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -739,7 +796,10 @@ class CUP$MatrixParser$actions {
           case 40: // arith_term ::= arith_factor 
             {
               Object RESULT =null;
-
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = expression;   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_term",17, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -748,7 +808,13 @@ class CUP$MatrixParser$actions {
           case 41: // arith_term ::= arith_term TIMES arith_factor 
             {
               Object RESULT =null;
-
+		int lchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int lchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object lchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int rchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int rchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object rchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = parserUtils.generateNewNode((Object) "*", (NodeAVL) lchild, (NodeAVL) rchild);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_term",17, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -757,7 +823,13 @@ class CUP$MatrixParser$actions {
           case 42: // arith_term ::= arith_term DIVIDE arith_factor 
             {
               Object RESULT =null;
-
+		int lchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int lchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object lchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int rchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int rchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object rchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = parserUtils.generateNewNode((Object) "/", (NodeAVL) lchild, (NodeAVL) rchild);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_term",17, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -766,7 +838,10 @@ class CUP$MatrixParser$actions {
           case 43: // arith_factor ::= arith_primary 
             {
               Object RESULT =null;
-
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = expression;   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_factor",18, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -775,7 +850,10 @@ class CUP$MatrixParser$actions {
           case 44: // arith_factor ::= LPARENTHESIS arith_expression RPARENTHESIS 
             {
               Object RESULT =null;
-
+		int expressionleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int expressionright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object expression = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   RESULT = parserUtils.generateNewNode((Object) "()", (NodeAVL) expression);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_factor",18, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -784,7 +862,10 @@ class CUP$MatrixParser$actions {
           case 45: // arith_primary ::= NUMBER 
             {
               Object RESULT =null;
-
+		int numleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int numright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object num = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = new NodeAVLBuilder<Double>().setData(Double.parseDouble((String) num)).build(); 
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_primary",19, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -793,7 +874,10 @@ class CUP$MatrixParser$actions {
           case 46: // arith_primary ::= IDENTIFIER 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		   RESULT = new NodeAVLBuilder<String>().setData((String) id).build();   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_primary",19, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;

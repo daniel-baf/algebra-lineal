@@ -1,5 +1,7 @@
 package Model.Compiler;
 
+import Domain.AVL.NodeAVL;
+import Domain.AVL.NodeAVLBuilder;
 import Model.Matrix.Matrix;
 import Model.Matrix.MatrixEnum;
 import Model.Utils.CustomLogger;
@@ -23,6 +25,7 @@ public class ParserUtils {
 
     /**
      * Centralize creation of matrix
+     *
      * @param identifier
      * @param tmpMatrix
      * @return
@@ -36,7 +39,7 @@ public class ParserUtils {
      * Concatenate two matrices to create a single one, new matrix has the size of parent cols and the height of parent cols + child rows
      *
      * @param parentMatrix main matrix to cpy
-     * @param newRowData         matrix to merge bellow main matrix
+     * @param newRowData   matrix to merge bellow main matrix
      * @return the new matrix
      */
     public Matrix concatMatrix(Matrix parentMatrix, ArrayList<Double> newRowData) {
@@ -127,17 +130,57 @@ public class ParserUtils {
 
     /**
      * Remove comillas from string at the begginning and end of a string token
+     *
      * @param text the text without comillas
      * @return the new text
      */
     public String removeComillasToString(String text) {
         // check length of String
-        if(text.length() <= 2) {
+        if (text.length() <= 2) {
             return text;
         }
-        if(text.substring(0,1) == "\"" && text.substring(text.length() -1, text.length()) == "\"") {
+        if (text.substring(0, 1) == "\"" && text.substring(text.length() - 1, text.length()) == "\"") {
             return text.substring(1, text.length() - 1);
         }
         return text;
+    }
+
+    /**
+     * Generate a new node and append only left child
+     * @param parentData new node data
+     * @param leftChild left child
+     * @return new node
+     */
+    public NodeAVL<Object> generateNewNode(Object parentData, NodeAVL<Object> leftChild) {
+        return this.generateNewNode(parentData, leftChild, null);
+    }
+
+    /**
+     * Generates a new node and append childs to new values
+     *
+     * @param parentData data for new node merge
+     * @param leftChild  left child node, never null
+     * @param rightChild right child, can  be null
+     * @return the new node
+     */
+    public NodeAVL<Object> generateNewNode(Object parentData, NodeAVL<Object> leftChild, NodeAVL<Object> rightChild) {
+        // check new data
+        if (Objects.isNull(parentData)) {
+            CustomLogger.getInstance().addLog("Invalid arithmetical tree, parent data cannot be null", true);
+            return null; // invalid call so collapse tree
+        }
+        if (Objects.isNull(leftChild)) {
+            CustomLogger.getInstance().addLog("Invalid arithmetical tree, left child can never be null", true);
+            return null; // invalid call so collapse tree
+        }
+        // new node
+        NodeAVL<Object> newParentNode = new NodeAVLBuilder<>().setData(parentData).setLeftChild(leftChild).setRightChild(rightChild).build();
+        // update children
+        leftChild.setParent(newParentNode);
+        // check if right child exists
+        if (!Objects.isNull(rightChild)) {
+            rightChild.setParent(newParentNode);
+        }
+        return newParentNode;
     }
 }

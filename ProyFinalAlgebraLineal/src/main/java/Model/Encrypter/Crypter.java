@@ -32,7 +32,7 @@ public class Crypter {
     /**
      * Step 1: Create a map to map letters to numbers
      *
-     * @return
+     * @return mapping for encrypt
      */
     private Map<Character, Integer> createLetterToNumberMapping() {
         Map<Character, Integer> letterToNumber = new HashMap<>();
@@ -47,8 +47,8 @@ public class Crypter {
     /**
      * Step 2: Convert input text to an array of numbers
      *
-     * @param text
-     * @return
+     * @param text text to cast
+     * @return vector of numbers from string
      */
     private int[] textToNumbers(String text) {
         int[] textNumbers = new int[text.length()];
@@ -62,27 +62,24 @@ public class Crypter {
     /**
      * Step 3: Cast the vector to a matrix of order key.cols * n
      *
-     * @param vector
-     * @param key
-     * @param verbose
-     * @return
+     * @param vector vector to cast
+     * @return vector as matrix
      */
-    private Matrix vectorToMatrix(int[] vector, boolean verbose) {
+    private Matrix vectorToMatrix(int[] vector) {
         int numRows = this.key.getMatrix().length;
         int numCols = (int) Math.ceil((double) vector.length / numRows); // Adjusted to always round up
         double[][] matrix = reshapeVector(vector, numRows, numCols);
-        Matrix matrixVector = new Matrix("TEXT", matrix);
-        return matrixVector;
+        return new Matrix("TEXT", matrix);
     }
 
     // Reshape a plain vector to a matrix
     /**
      * Reshape the
      *
-     * @param vector
-     * @param numRows
-     * @param numCols
-     * @return
+     * @param vector original vector
+     * @param numRows no. rows
+     * @param numCols no. columns
+     * @return vector as matrix of doubles
      */
     private double[][] reshapeVector(int[] vector, int numRows, int numCols) {
         double[][] matrix = new double[numRows][numCols];
@@ -102,9 +99,9 @@ public class Crypter {
     /**
      * Encrypt text using the provided key matrix
      *
-     * @param text
-     * @param verbose
-     * @return
+     * @param text text en encrypt
+     * @param verbose true or false to step by step
+     * @return encrypted matrix
      */
     public Matrix encrypt(String text, boolean verbose) {
         CustomLogger.getInstance().addLog("\tCreate mapping : " + this.mappingStrings.toString(), verbose);
@@ -116,8 +113,8 @@ public class Crypter {
         int[] textNumbers = this.textToNumbers(text);
         CustomLogger.getInstance().addLog("Cast text to numbers: " + Arrays.toString(textNumbers), verbose);
         // cast vector to matrix
-        Matrix vectorMatrix = this.vectorToMatrix(textNumbers, verbose);
-        CustomLogger.getInstance().addLog("Cast numbers vector to matrix:\n " + vectorMatrix.toString(), verbose);
+        Matrix vectorMatrix = this.vectorToMatrix(textNumbers);
+        CustomLogger.getInstance().addLog("Cast numbers vector to matrix:\n " + vectorMatrix, verbose);
         // multiply key * matrix
         vectorMatrix = this.key.multiply(vectorMatrix, verbose);
         CustomLogger.getInstance().addLog("Multiply result:\n " + vectorMatrix.toString(), verbose);
@@ -127,8 +124,8 @@ public class Crypter {
     /**
      * Step 4: Convert numbers back to text using the letter-to-number mapping
      *
-     * @param number
-     * @return
+     * @param number number to cast to char
+     * @return number as char
      */
     public char numberToChar(int number) {
         for (Map.Entry<Character, Integer> entry : this.mappingStrings.entrySet()) {
@@ -153,8 +150,8 @@ public class Crypter {
     /**
      * Cast a matrix to a vector of integers
      *
-     * @param matrix
-     * @return
+     * @param matrix matrix to cast
+     * @return matrix as vector
      */
     public int[] matrixToIntegerArray(double[][] matrix) {
         int numRows = matrix.length;
@@ -162,8 +159,8 @@ public class Crypter {
         int[] result = new int[numRows * numCols];
         int index = 0;
         for (int currentColumn = 0; currentColumn < numCols; currentColumn++) {
-            for (int currentRow = 0; currentRow < numRows; currentRow++) {
-                result[index++] = (int) matrix[currentRow][currentColumn];
+            for (double[] doubles : matrix) {
+                result[index++] = (int) doubles[currentColumn];
             }
         }
         return result;
@@ -172,9 +169,9 @@ public class Crypter {
     /**
      * Decrypt the encrypted matrix using the provided key matrix
      *
-     * @param matrix
-     * @param verbose
-     * @return
+     * @param matrix matrtix to check
+     * @param verbose true or false step by step
+     * @return decrypted value
      */
     public String decrypt(Matrix matrix, boolean verbose) {
         try {

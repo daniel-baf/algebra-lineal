@@ -24,9 +24,9 @@ public class MatrixUtils {
      * Get minor matrix (excluding row i and column j)
      *
      * @param matrix the matrix to get minor value
-     * @param i
-     * @param j
-     * @return
+     * @param i current index row
+     * @param j current index col
+     * @return minor pivot in matrix
      */
     public double[][] minor(double[][] matrix, int i, int j) {
         int n = matrix.length;
@@ -47,22 +47,12 @@ public class MatrixUtils {
         return minorMatrix;
     }
 
-    /**
-     * Check if matrix is square and has non-zero determinant
-     *
-     * @param matrix
-     * @return
-     */
-    public boolean isSquareNonSingular(double[][] matrix) {
-        int n = matrix.length;
-        return n == matrix[0].length && determinant(matrix) != 0;
-    }
 
     /**
      * Check determinant using co factors
      *
-     * @param matrix
-     * @return
+     * @param matrix matrix to check determinant
+     * @return the current determinant
      */
     public double determinant(double[][] matrix) {
         int n = matrix.length;
@@ -79,9 +69,9 @@ public class MatrixUtils {
     /**
      * Calculate the determinant of matrix using Sarrous
      *
-     * @param matrix
-     * @param verbose
-     * @return
+     * @param matrix matrix to check
+     * @param verbose true or false step by step
+     * @return determinant using sarrus of a matrix
      */
     public double determinantSarrous(double[][] matrix, boolean verbose) {
         return SarrusSolver.getInstance().solveSarrus(matrix, verbose);
@@ -90,8 +80,8 @@ public class MatrixUtils {
     /**
      * Check the range of a function using reduction of matrices
      *
-     * @param matrix
-     * @return
+     * @param matrix matrix to check
+     * @return n rows independient
      */
     public int countLinearlyIndependentRows(double[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
@@ -132,6 +122,19 @@ public class MatrixUtils {
         }
 
         return rank;
+    }
+
+
+
+    /**
+     * Check if matrix is square and has non-zero determinant
+     *
+     * @param matrix the matrix to check
+     * @return true or false if matrix is nxn
+     */
+    public boolean isSquareNonSingular(double[][] matrix) {
+        int n = matrix.length;
+        return n == matrix[0].length && this.determinant(matrix) != 0;
     }
 
 }

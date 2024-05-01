@@ -24,9 +24,9 @@ public class SarrusSolver {
     /**
      * Solve a 3x3 function using sarrous
      *
-     * @param mat
-     * @param verbose
-     * @return
+     * @param mat matrix
+     * @param verbose true or false to print steps
+     * @return determinant using sarrus
      */
     public double solveSarrus(double[][] mat, boolean verbose) {
         if (mat == null) {

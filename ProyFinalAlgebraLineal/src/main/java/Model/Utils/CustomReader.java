@@ -17,7 +17,7 @@ public class CustomReader {
      * Create a function to read the file and return string
      */
     public String readFile(String path) {
-        // check if current path is valid)
+        // check if current path is valid
         try (FileReader fileReader = new FileReader(path);
                 BufferedReader bufferedReader = new BufferedReader(fileReader)) {
             StringBuilder stringBuilder = new StringBuilder(); // create a string builder

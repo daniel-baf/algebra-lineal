@@ -1,4 +1,6 @@
 
+import Domain.AVL.NodeAVL;
+import Domain.AVL.NodeAVLBuilder;
 import Model.Compiler.CommonParserHashKey;
 import Model.Compiler.MatrixLexer;
 import Model.Compiler.MatrixParser;
@@ -13,13 +15,14 @@ import Model.Matrix.Utils.SarrusSolver;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
 /**
  * @author jefe_mayoneso
  */
-public class Main {
+public class Main<T> {
 
     // create testing matrix
     private final double[][] data, data2, data3, data4, data5, data6; // initialize with = {{},{}] ... inline
@@ -50,20 +53,20 @@ public class Main {
         // operations object
         Main main = new Main();
         try {
-            // main.testShapes();
-            // main.testAddition(false);
-            // main.testSubstract(false);
-//             main.testMultiply(true);
-            // main.testTranspose(true);
-            // main.testInverse(true);
-            // main.testDivide(true);
-            // main.testGauss(true);
-            // main.testGaussJordan(true);
-//             main.testSarrous(true);
-            // main.testRankMatrix(true);
-            // Matrix tmpMatrix = main.testEncrypt(false);
-            // main.testDecrypt(tmpMatrix, true);
-//             main.testMarkov(true);
+//            main.testShapes(true);
+//            main.testAddition(true);
+//            main.testSubstract(true);
+//            main.testMultiply(true);
+//            main.testTranspose(true);
+//            main.testInverse(true);
+//            main.testDivide(true);
+//            main.testGauss(true);
+//            main.testGaussJordan(true);
+//            main.testSarrous(true);
+//            main.testRankMatrix(true);
+//            Matrix tmpMatrix = main.testEncrypt(true);
+//            main.testDecrypt(tmpMatrix, true);
+//            main.testMarkov(true);
             main.testParser();
             main.logger.printLogs();
             main.logger.deleteLogs();
@@ -221,15 +224,17 @@ public class Main {
             parser.parse();
             // iterate over hashmap and print all values
             // Using enhanced for loop to iterate over the HashMap
-            for (Map.Entry<String, Matrix> entry : parser.getParserModel().getMatrices().entrySet()) {
-                String key = entry.getKey();
-                Matrix value = entry.getValue();
-                CustomLogger.getInstance().addLog(value.toString(), true);
+            HashMap<String, Matrix> matrices = parser.getParserModel().getMatrices();
+            for (Map.Entry<String, Matrix> entry : matrices.entrySet()) {
+//                String matrixName = entry.getKey();
+                Matrix matrix = entry.getValue();
+                CustomLogger.getInstance().addLog(matrix.toString(), true);
             }
             /* print all values from hashes strings */
-            for (Map.Entry<CommonParserHashKey, ArrayList<String>> entry : parser.getParserModel().getKeysArrayListHashMap().entrySet()) {
+            HashMap<CommonParserHashKey, ArrayList<T>> commonHashes = parser.getParserModel().getKeysArrayListHashMap();
+            for (Map.Entry<CommonParserHashKey, ArrayList<T>> entry : commonHashes.entrySet()) {
                 CommonParserHashKey key = entry.getKey();
-                ArrayList<String> value = entry.getValue();
+                ArrayList<T> value = entry.getValue();
                 CustomLogger.getInstance().addLog(String.format("KEY [%1$s]: %2$s", key, value), true);
             }
         } catch (Exception e) {

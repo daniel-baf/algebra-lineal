@@ -5,11 +5,10 @@ import Model.Matrix.Matrix;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ParserModel {
+public class ParserModel<T> {
 
     private HashMap<String, Matrix> matrices; // matrix pool
-    private HashMap<CommonParserHashKey, ArrayList<String>> keysArrayListHashMap; // hashmap for common lists
-    private ArrayList<double[]> decrypts; // list of numbers to decrypt
+    private HashMap<CommonParserHashKey, ArrayList<T>> keysArrayListHashMap; // hashmap for common lists
     private ArrayList<String[]> markovs; // list of markovs [matrix, iters
     // TODO implement arith AVL TREE
 
@@ -17,7 +16,6 @@ public class ParserModel {
     public ParserModel() {
         this.matrices = new HashMap<>();
         this.keysArrayListHashMap = new HashMap<>();
-        this.decrypts = new ArrayList<>();
         this.markovs = new ArrayList<>();
     }
 
@@ -29,20 +27,12 @@ public class ParserModel {
         this.matrices = matrices;
     }
 
-    public HashMap<CommonParserHashKey, ArrayList<String>> getKeysArrayListHashMap() {
-        return keysArrayListHashMap;
+    public HashMap<CommonParserHashKey, ArrayList<T>> getKeysArrayListHashMap() {
+        return this.keysArrayListHashMap;
     }
 
-    public void setKeysArrayListHashMap(HashMap<CommonParserHashKey, ArrayList<String>> keysArrayListHashMap) {
+    public void setKeysArrayListHashMap(HashMap<CommonParserHashKey, ArrayList<T>> keysArrayListHashMap) {
         this.keysArrayListHashMap = keysArrayListHashMap;
-    }
-
-    public ArrayList<double[]> getDecrypts() {
-        return decrypts;
-    }
-
-    public void setDecrypts(ArrayList<double[]> decrypts) {
-        this.decrypts = decrypts;
     }
 
     public ArrayList<String[]> getMarkovs() {
