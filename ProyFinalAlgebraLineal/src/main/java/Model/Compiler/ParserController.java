@@ -1,6 +1,9 @@
 package Model.Compiler;
 
+import Controller.ParserControllerSolver;
 import Model.Matrix.Matrix;
+import Model.Matrix.MatrixEnum;
+import Model.Matrix.Utils.MatrixUtils;
 import Model.Utils.CustomLogger;
 
 import java.util.ArrayList;
@@ -9,9 +12,11 @@ import java.util.Objects;
 public class ParserController<T> {
 
     private ParserModel<T> model;
+    private ParserControllerSolver<T> solver;
 
     public ParserController(ParserModel<T> model) {
         this.model = model;
+        this.solver = new ParserControllerSolver<T>(this.model);
     }
 
     public ParserModel<T> getModel() {
@@ -37,7 +42,7 @@ public class ParserController<T> {
     }
 
     /**
-     * Saves in the hashmap common parameter a entry set depending on CommonHashKeys
+     * Saves in the hashmap common parameter an entry set depending on CommonHashKeys
      *
      * @param key   the key of hashmap
      * @param value the value to add to hashmap
@@ -60,6 +65,11 @@ public class ParserController<T> {
         existingValues.addAll(value);
     }
 
+    /**
+     * Saves hash of numbers to decrypt vectors
+     *
+     * @param numbers new array to decrypt
+     */
     public void saveDecrypts(ArrayList<Double> numbers) {
         if (Objects.isNull(numbers)) return;
         if (numbers.isEmpty()) return; // no operable
@@ -69,4 +79,34 @@ public class ParserController<T> {
         }};
         this.saveInStringHashmap(CommonParserHashKey.DECRYPT, (ArrayList<T>) data); // call submethod
     }
+
+    /**
+     * Solve all operation stacked in the hashmap one by one
+     *
+     * @param verbose true or false to print step by step
+     */
+    public void solve(boolean verbose) {
+        // solve all inverses
+        // call inverse solver
+        CustomLogger.getInstance().addTitleLog("INVERSE OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.INVERSE).forEach(inverseInstruction -> {
+            this.solver.solveInversePool(inverseInstruction.toString(), verbose);
+            CustomLogger.getInstance().addSectionEnd(2, verbose);
+        });
+        // call determinant function
+        CustomLogger.getInstance().addTitleLog("DETERMINANT OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.DETERMINANT).forEach(determinantInstruction -> {
+            this.solver.solveDeterminantPool(determinantInstruction.toString(), verbose);
+            CustomLogger.getInstance().addSectionEnd(2, verbose);
+        });
+        // call all rank declaration
+        CustomLogger.getInstance().addTitleLog("RANK OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.RANK).forEach(rankInstruction -> {
+            this.solver.solveRankPool(rankInstruction.toString(), verbose);
+            CustomLogger.getInstance().addSectionEnd(2, verbose);
+        });
+
+    }
+
+
 }

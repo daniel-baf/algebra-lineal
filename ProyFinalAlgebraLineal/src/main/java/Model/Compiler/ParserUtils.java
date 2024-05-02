@@ -26,9 +26,9 @@ public class ParserUtils {
     /**
      * Centralize creation of matrix
      *
-     * @param identifier
-     * @param tmpMatrix
-     * @return
+     * @param identifier the id
+     * @param tmpMatrix new matrix
+     * @return final matrix
      */
     public Matrix configureFinalMatrix(String identifier, Matrix tmpMatrix) {
         tmpMatrix.setName(identifier);
@@ -65,9 +65,9 @@ public class ParserUtils {
     /**
      * Cast arraylist to a vector and append the new value to current matrix, create a new matrix.
      *
-     * @param vector
-     * @param data
-     * @return
+     * @param vector initial vector of data
+     * @param data main matrix to append vector
+     * @return the new matrix
      */
     public static double[][] addVectorToLastRow(double[][] data, ArrayList<Double> vector) {
         // Create a new row with the size of the vector
@@ -92,13 +92,13 @@ public class ParserUtils {
     /**
      * Generic method to cast a vector to a matrix of 1xn
      *
-     * @param vectorRow
-     * @return
+     * @param vectorRow vector to cast
+     * @return new matrix
      */
     public Matrix generateMainMatrix(ArrayList<Double> vectorRow) {
         // cast to a new double matrix of rows 1
         Matrix resultMatrix = new Matrix("NODE");
-        resultMatrix.setMatrix(this.addVectorToLastRow(new double[0][vectorRow.size()], vectorRow));
+        resultMatrix.setMatrix(addVectorToLastRow(new double[0][vectorRow.size()], vectorRow));
         return resultMatrix;
     }
 
@@ -139,7 +139,7 @@ public class ParserUtils {
         if (text.length() <= 2) {
             return text;
         }
-        if (text.substring(0, 1) == "\"" && text.substring(text.length() - 1, text.length()) == "\"") {
+        if (text.charAt(0) == '"' && text.charAt(text.length() - 1) == '"') {
             return text.substring(1, text.length() - 1);
         }
         return text;

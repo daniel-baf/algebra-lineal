@@ -271,6 +271,14 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
         return this.parserController.getModel();
     }
 
+    /**
+     * Execute the solve of all pools of instructions
+     * @param verbose true or false to print step by step
+     */
+    public void solve(boolean verbose) {
+        this.parserController.solve(verbose);
+    }
+
 
 
 /** Cup generated class to encapsulate user supplied action code.*/

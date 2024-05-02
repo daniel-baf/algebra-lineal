@@ -65,6 +65,14 @@ parser code {:
         return this.parserController.getModel();
     }
 
+    /**
+     * Execute the solve of all pools of instructions
+     * @param verbose true or false to print step by step
+     */
+    public void solve(boolean verbose) {
+        this.parserController.solve(verbose);
+    }
+
 :}
 
 /**************************************************/

@@ -7,6 +7,7 @@ import Model.Compiler.MatrixParser;
 import Model.Encrypter.Crypter;
 import Model.Markov.MarkovSolver;
 import Model.Matrix.Matrix;
+import Model.Matrix.Solver.ArithAVLSolver;
 import Model.Utils.CustomLogger;
 import Model.Utils.CustomReader;
 import Model.Matrix.MatrixEnum;
@@ -58,16 +59,14 @@ public class Main<T> {
 //            main.testSubstract(true);
 //            main.testMultiply(true);
 //            main.testTranspose(true);
-//            main.testInverse(true);
 //            main.testDivide(true);
 //            main.testGauss(true);
 //            main.testGaussJordan(true);
 //            main.testSarrous(true);
-//            main.testRankMatrix(true);
 //            Matrix tmpMatrix = main.testEncrypt(true);
 //            main.testDecrypt(tmpMatrix, true);
 //            main.testMarkov(true);
-            main.testParser();
+            main.testParser(true);
             main.logger.printLogs();
             main.logger.deleteLogs();
         } catch (Exception ex) {
@@ -132,13 +131,6 @@ public class Main<T> {
         this.logger.addLog(copyMatrix.toString(), verbose);
     }
 
-    private void testInverse(boolean verbose) throws CloneNotSupportedException {
-        // copy matrix
-        Matrix copyMatrix;
-        copyMatrix = (Matrix) this.matrix4.clone();
-        copyMatrix = copyMatrix.inverse(verbose);
-        this.logger.addLog(copyMatrix.toString(), verbose);
-    }
 
     private void testDivide(boolean verbose) throws CloneNotSupportedException {
         // copy matrix
@@ -164,23 +156,6 @@ public class Main<T> {
         }
     }
 
-    private void testSarrous(boolean verbose) {
-        double[][] data = {{2, 1, -1}, {1, -3, 2}, {3, 2, -4}};
-        double determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
-        data = new double[][]{{4, 1, -1}, {-1, -3, 2}, {7, 2, -4}};
-        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
-        data = new double[][]{{2, 4, -1}, {1, -1, 2}, {3, 7, -4}};
-        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
-        data = new double[][]{{2, 1, 3}, {1, -3, -1}, {3, 2, 7}};
-        determinantBySarrous = SarrusSolver.getInstance().solveSarrus(data, verbose);
-        this.logger.addLog(Double.toString(determinantBySarrous), verbose);
-    }
-
-    private void testRankMatrix(boolean verbose) {
-        int rank = this.matrix2.getMatrixUtils().countLinearlyIndependentRows(this.data6);
-        this.logger.addLog(Integer.toString(rank), verbose);
-    }
-
     private Matrix testEncrypt(boolean verbose) {
 
         Matrix encrypMatrix = Crypter.getInstance().encrypt("PATO POLLO", verbose);
@@ -198,8 +173,7 @@ public class Main<T> {
     }
 
     private void testMarkov(boolean verbose) throws CloneNotSupportedException {
-        // ARRAY
-        // UBER, CHECKER TAXIS, TAXIS AMARILLOS
+        // ARRAY: UBER, CHECKER TAXIS, TAXIS AMARILLOS
         double[][] markovData = {{0.379, 0.338, 0.28300000000000003}, {0.293, 0.348, 0.359}, {0.253, 0.346, 0.40099999999999997}};
         Matrix markovProb = new Matrix("MARKOV", markovData);
         Matrix key = new Matrix("KEY MARKOV", new double[][]{{0}, {0}, {1}});
@@ -211,13 +185,10 @@ public class Main<T> {
         }
     }
 
-    private void testParser() {
+    @SuppressWarnings("unchecked")
+    private void testParser(boolean verbose) {
         String path = "src/main/resources/text.txt";
         String fileContent = CustomReader.getInstance().readFile(path);
-//        if (fileContent != null) {
-//            System.out.println(fileContent);
-//        }
-
         try {
             MatrixLexer lexer = new MatrixLexer(new StringReader(fileContent));  // reset lexer
             MatrixParser parser = new MatrixParser(lexer);
@@ -225,18 +196,21 @@ public class Main<T> {
             // iterate over hashmap and print all values
             // Using enhanced for loop to iterate over the HashMap
             HashMap<String, Matrix> matrices = parser.getParserModel().getMatrices();
-            for (Map.Entry<String, Matrix> entry : matrices.entrySet()) {
+//            for (Map.Entry<String, Matrix> entry : matrices.entrySet()) {
 //                String matrixName = entry.getKey();
-                Matrix matrix = entry.getValue();
-                CustomLogger.getInstance().addLog(matrix.toString(), true);
-            }
+//                Matrix matrix = entry.getValue();
+//                CustomLogger.getInstance().addLog(matrix.toString(), true);
+//            }
             /* print all values from hashes strings */
-            HashMap<CommonParserHashKey, ArrayList<T>> commonHashes = parser.getParserModel().getKeysArrayListHashMap();
-            for (Map.Entry<CommonParserHashKey, ArrayList<T>> entry : commonHashes.entrySet()) {
-                CommonParserHashKey key = entry.getKey();
-                ArrayList<T> value = entry.getValue();
-                CustomLogger.getInstance().addLog(String.format("KEY [%1$s]: %2$s", key, value), true);
-            }
+//            HashMap<CommonParserHashKey, ArrayList<T>> commonHashes = parser.getParserModel().getKeysArrayListHashMap();
+//            for (Map.Entry<CommonParserHashKey, ArrayList<T>> entry : commonHashes.entrySet()) {
+//                CommonParserHashKey key = entry.getKey();
+//                ArrayList<T> value = entry.getValue();
+//                CustomLogger.getInstance().addLog(String.format("KEY [%1$s]: %2$s", key, value), true);
+//            }
+//            ArithAVLSolver<T> solver = new ArithAVLSolver<>(matrices);
+//            Matrix result = solver.solve((NodeAVL<T>) commonHashes.get(CommonParserHashKey.ARITH_MATRIX).get(0));
+            parser.solve(verbose);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

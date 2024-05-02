@@ -17,7 +17,7 @@ public class Matrix implements Cloneable {
     private final MatrixUtils matrixUtils;
 
     // constructors
-    private Matrix() {
+    public Matrix() {
         this(null);
     }
 
@@ -139,12 +139,12 @@ public class Matrix implements Cloneable {
         // check factor matrix
         for (int i = 0; i < matrixLength; i++) {
             for (int j = 0; j < matrixLength; j++) {
-                cofactorMatrix.getMatrix()[i][j] = this.matrixUtils.determinant(this.matrixUtils.minor(matrix, i, j)) * Math.pow(-1, i + j);
+                cofactorMatrix.getMatrix()[i][j] = this.matrixUtils.determinant(this.matrixUtils.minor(matrix, i, j), verbose) * Math.pow(-1, i + j);
                 this.logger.addLog("\t\tCalculated cofactor at position (" + i + "," + j + ")", verbose);  // Added for verbosity
             }
         }
         // Calculate determinant of original matrix
-        double determinant = this.matrixUtils.determinant(matrix);
+        double determinant = this.matrixUtils.determinant(matrix, verbose);
         this.logger.addLog("\tCalculated determinant of original matrix: " + determinant, verbose);  // Added for verbosity
         // Invert the cofactor matrix (divide by determinant)
         for (int i = 0; i < matrixLength; i++) {
@@ -347,7 +347,7 @@ public class Matrix implements Cloneable {
             if (this.matrix == null) {
                 return false;
             }
-            return this.matrixUtils.determinant(this.matrix) != 0;
+            return this.matrixUtils.determinant(this.matrix, false) != 0;
         } catch (Exception e) {
             CustomLogger.getInstance().addLog("Matrix unable to get determinant, not operable " + e.getMessage(), true);
             return false;

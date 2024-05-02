@@ -25,7 +25,7 @@ public class NodeAVL<T> {
     }
 
     public String getPrintable() {
-        return (!Objects.isNull(this.leftChild) ? this.leftChild.getPrintable() : "") + this.toString() + (!Objects.isNull(this.rightChild) ? this.rightChild.getPrintable() : "") + "\n";
+        return (!Objects.isNull(this.leftChild) ? this.leftChild.getPrintable() : "") + this + (!Objects.isNull(this.rightChild) ? this.rightChild.getPrintable() : "") + "\n";
     }
 
     public NodeAVL<T> getParent() {
