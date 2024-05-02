@@ -2,12 +2,12 @@ package Model.Encrypter;
 
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author jefe_mayoneso
  */
 public class Crypter {
@@ -17,7 +17,7 @@ public class Crypter {
     private final Map<Character, Integer> mappingStrings;
 
     private Crypter() {
-        double[][] data = {{1, -3, 2}, {0, - 4, 3}, {1, 4, 21}};
+        double[][] data = {{1, -3, 2}, {0, -4, 3}, {1, 4, 21}};
         this.key = new Matrix("KEY", data);
         this.mappingStrings = this.createLetterToNumberMapping();
     }
@@ -73,10 +73,11 @@ public class Crypter {
     }
 
     // Reshape a plain vector to a matrix
+
     /**
      * Reshape the
      *
-     * @param vector original vector
+     * @param vector  original vector
      * @param numRows no. rows
      * @param numCols no. columns
      * @return vector as matrix of doubles
@@ -99,7 +100,7 @@ public class Crypter {
     /**
      * Encrypt text using the provided key matrix
      *
-     * @param text text en encrypt
+     * @param text    text en encrypt
      * @param verbose true or false to step by step
      * @return encrypted matrix
      */
@@ -166,10 +167,15 @@ public class Crypter {
         return result;
     }
 
+    public String decrypt(int[] numbersTextDecrypted, boolean verbose) {
+        Matrix transactionMatrix = this.vectorToMatrix(numbersTextDecrypted);
+        return this.decrypt(transactionMatrix, verbose);
+    }
+
     /**
      * Decrypt the encrypted matrix using the provided key matrix
      *
-     * @param matrix matrtix to check
+     * @param matrix  matrtix to check
      * @param verbose true or false step by step
      * @return decrypted value
      */
@@ -198,4 +204,5 @@ public class Crypter {
             return null;
         }
     }
+
 }

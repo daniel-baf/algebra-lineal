@@ -64,6 +64,15 @@ parser code {:
     public ParserModel getParserModel() {
         return this.parserController.getModel();
     }
+
+    /**
+     * Execute the solve of all pools of instructions
+     * @param verbose true or false to print step by step
+     */
+    public void solve(boolean verbose) {
+        this.parserController.solve(verbose);
+    }
+
 :}
 
 /**************************************************/
@@ -129,7 +138,7 @@ operation_declaration::=
     |   gauss_declaration
     |   gjordan_declaration
     |   markov_declaration
-    |   arith_declaration
+    |   arith_declaration:expression
 ;
 
 inverse_declaration::=
@@ -197,53 +206,25 @@ markov_ids_declaration::=
 ;
 
 arith_declaration::=
-        ARITH arith_expression:expr SEMI_COLON                                               {:   parserController.saveInStringHashmap(CommonParserHashKey.ARITH_MATRIX, new ArrayList<NodeAVL>() {{ add((NodeAVL) expr); }} );  :}
+        ARITH arith_expression:expression SEMI_COLON                                         {:   parserController.saveInStringHashmap(CommonParserHashKey.ARITH_MATRIX, new ArrayList<NodeAVL>() {{ add((NodeAVL) expression); }});   :}
 ;
 
 
 arith_expression::=
-        arith_term:expression                                                                {:   RESULT = (NodeAVL) expression;   :}
-   |    arith_expression:lchild PLUS arith_term:rchild                                       {:   NodeAVL leftChild = (NodeAVL) lchild;
-                                                                                                  NodeAVL rightChild = (NodeAVL) rchild;
-                                                                                                  NodeAVL parentNode = new NodeAVLBuilder<String>().setLeftChild(leftChild).setRightChild(rightChild).setData("+").build();
-                                                                                                  leftChild.setParent(parentNode);
-                                                                                                  rightChild.setParent(parentNode);
-                                                                                                  RESULT = parentNode;
-                                                                                             :}
-   |    arith_expression:lchild MINUS arith_term:rchild                                      {:   NodeAVL leftChild = (NodeAVL) lchild;
-                                                                                                  NodeAVL rightChild = (NodeAVL) rchild;
-                                                                                                  NodeAVL parentNode = new NodeAVLBuilder<String>().setLeftChild(leftChild).setRightChild(rightChild).setData("-").build();
-                                                                                                  leftChild.setParent(parentNode);
-                                                                                                  rightChild.setParent(parentNode);
-                                                                                                  RESULT = parentNode;
-                                                                                             :}
+        arith_term:expression                                                                {:   RESULT = expression;   :}
+   |    arith_expression:lchild PLUS arith_term:rchild                                       {:   RESULT = parserUtils.generateNewNode((Object) "+", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+   |    arith_expression:lchild MINUS arith_term:rchild                                      {:   RESULT = parserUtils.generateNewNode((Object) "-", (NodeAVL) lchild, (NodeAVL) rchild);    :}
 ;
 
 arith_term ::=
-        arith_factor
-   |    arith_term:lchild TIMES arith_factor:rchild                                          {:    NodeAVL leftChild = (NodeAVL) lchild;
-                                                                                                   NodeAVL rightChild = (NodeAVL) rchild;
-                                                                                                   NodeAVL parentNode = new NodeAVLBuilder<String>().setLeftChild(leftChild).setRightChild(rightChild).setData("*").build();
-                                                                                                   leftChild.setParent(parentNode);
-                                                                                                   rightChild.setParent(parentNode);
-                                                                                                   RESULT = parentNode;
-                                                                                             :}
-   |    arith_term:lchild DIVIDE arith_factor:rchild                                         {:   NodeAVL leftChild = (NodeAVL) lchild;
-                                                                                                  NodeAVL rightChild = (NodeAVL) rchild;
-                                                                                                  NodeAVL parentNode = new NodeAVLBuilder<String>().setLeftChild(leftChild).setRightChild(rightChild).setData("/").build();
-                                                                                                  leftChild.setParent(parentNode);
-                                                                                                  rightChild.setParent(parentNode);
-                                                                                                  RESULT = parentNode;
-                                                                                             :}
+        arith_factor:expression                                                              {:   RESULT = expression;   :}
+   |    arith_term:lchild TIMES arith_factor:rchild                                          {:   RESULT = parserUtils.generateNewNode((Object) "*", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+   |    arith_term:lchild DIVIDE arith_factor:rchild                                         {:   RESULT = parserUtils.generateNewNode((Object) "/", (NodeAVL) lchild, (NodeAVL) rchild);    :}
 ;
 
 arith_factor ::=
-    arith_primary:expression                                                                 {:   RESULT = expression; :}
-  | LPARENTHESIS arith_expression:expression RPARENTHESIS                                    {:   NodeAVL childNode = (NodeAVL) expression;
-                                                                                                  NodeAVL parentNode = new NodeAVLBuilder<String>().setLeftChild(childNode).setData("()").build();
-                                                                                                  childNode.setParent(parentNode);
-                                                                                                  RESULT = parentNode;
-                                                                                             :}
+    arith_primary:expression                                                                 {:   RESULT = expression;   :}
+  | LPARENTHESIS arith_expression:expression RPARENTHESIS                                    {:   RESULT = parserUtils.generateNewNode((Object) "()", (NodeAVL) expression);    :}
 ;
 
 arith_primary ::=

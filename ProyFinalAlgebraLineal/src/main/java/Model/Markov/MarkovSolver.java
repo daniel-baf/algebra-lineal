@@ -21,7 +21,7 @@ public class MarkovSolver {
     /**
      * Singleton instance
      *
-     * @return
+     * @return singletone
      */
     public static MarkovSolver getInstance() {
         if (instance == null) {
@@ -33,10 +33,10 @@ public class MarkovSolver {
     /**
      * SOlve Markov avoid printing steps
      *
-     * @param key
-     * @param originMatrix
-     * @param iterations
-     * @return
+     * @param key key matrix to execute
+     * @param originMatrix original matrix of transiton
+     * @param iterations no. iterations
+     * @return result status
      */
     public Matrix solve(Matrix key, Matrix originMatrix, int iterations) {
         return this.solve(key, originMatrix, iterations, false);
@@ -47,10 +47,10 @@ public class MarkovSolver {
      * value
      *
      * @param key, matrix key
-     * @param originMatrix
+     * @param originMatrix main matrix
      * @param iterations, n ways to iterate
-     * @param verbose
-     * @return
+     * @param verbose true or false step by step
+     * @return the matrix result
      */
     public Matrix solve(Matrix key, Matrix originMatrix, int iterations, boolean verbose) {
         // validate key
@@ -78,23 +78,25 @@ public class MarkovSolver {
      * @param key current key to multiply
      * @param originalMatrix original matrix
      * @param iteration actual iteration
-     * @return
+     * @return the matrix solved
      */
     private Matrix solveMarkov(Matrix key, Matrix originalMatrix, int iteration, boolean verbose) {
         if (iteration <= 0) {
             return key;
         }
         // multiply originalMatrix and key
-        CustomLogger.getInstance().addLog(String.format("Markov iteration no. %1$d, multiply key * matrix", iteration), verbose);
+        CustomLogger.getInstance().addLog(String.format("Regressive markov, remaining iterations:  %1$d, multiply key * matrix", iteration), verbose);
         key = originalMatrix.multiply(key, verbose);
+        // update name
+        key.setName("MARKOV " + iteration);
         return this.solveMarkov(key, originalMatrix, --iteration, verbose);
     }
 
     /**
      * Check if all rows of current matrix sum 100
      *
-     * @param originMatrix
-     * @return
+     * @param originMatrix origin matrix
+     * @return true or false to rows sum 100%
      */
     private boolean rowsSum100Percent(Matrix originMatrix) {
         for (int row = 0; row < originMatrix.shape(MatrixEnum.ROWS_SHAPE); row++) {

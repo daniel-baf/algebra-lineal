@@ -1,5 +1,8 @@
 package Model.Compiler;
 
+import Controller.ParserControllerSolver;
+import Domain.AVL.NodeAVL;
+import Domain.Markov.MarkovData;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 
@@ -9,9 +12,11 @@ import java.util.Objects;
 public class ParserController<T> {
 
     private ParserModel<T> model;
+    private final ParserControllerSolver<T> solver;
 
     public ParserController(ParserModel<T> model) {
         this.model = model;
+        this.solver = new ParserControllerSolver<>(this.model);
     }
 
     public ParserModel<T> getModel() {
@@ -37,7 +42,7 @@ public class ParserController<T> {
     }
 
     /**
-     * Saves in the hashmap common parameter a entry set depending on CommonHashKeys
+     * Saves in the hashmap common parameter an entry set depending on CommonHashKeys
      *
      * @param key   the key of hashmap
      * @param value the value to add to hashmap
@@ -60,6 +65,11 @@ public class ParserController<T> {
         existingValues.addAll(value);
     }
 
+    /**
+     * Saves hash of numbers to decrypt vectors
+     *
+     * @param numbers new array to decrypt
+     */
     public void saveDecrypts(ArrayList<Double> numbers) {
         if (Objects.isNull(numbers)) return;
         if (numbers.isEmpty()) return; // no operable
@@ -69,4 +79,43 @@ public class ParserController<T> {
         }};
         this.saveInStringHashmap(CommonParserHashKey.DECRYPT, (ArrayList<T>) data); // call submethod
     }
+
+    /**
+     * Solve all operation stacked in the hashmap one by one
+     *
+     * @param verbose true or false to print step by step
+     */
+    public void solve(boolean verbose) {
+        // print summary
+        this.solver.printSummaryOperations();
+        // solve all inverses, call inverse solver
+        CustomLogger.getInstance().addTitleLog("INVERSE OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.INVERSE).forEach(inverseInstruction -> this.solver.solveInversePool(inverseInstruction.toString(), verbose));
+        // call determinant function
+        CustomLogger.getInstance().addTitleLog("DETERMINANT OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.DETERMINANT).forEach(determinantInstruction -> this.solver.solveDeterminantPool(determinantInstruction.toString(), verbose));
+        // call all rank declaration
+        CustomLogger.getInstance().addTitleLog("RANK OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.RANK).forEach(rankInstruction -> this.solver.solveRankPool(rankInstruction.toString(), verbose));
+        // execute all encrypts
+        CustomLogger.getInstance().addTitleLog("ENCRYPT WORDS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.ENCRYPT).forEach(encryptInstruction -> this.solver.solveEncryptPool(encryptInstruction.toString(), verbose));
+        // execute all decrypt
+        CustomLogger.getInstance().addTitleLog("DECRYPT WORDS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.DECRYPT).forEach(decryptInstruction -> this.solver.solveDecryptPool((ArrayList<Double>) decryptInstruction, verbose));
+        // execute all gauss jordan
+        CustomLogger.getInstance().addTitleLog("GAUSS OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.GAUSS).forEach(gaussInstruction -> this.solver.solveGaussGJordanPool(gaussInstruction.toString(), verbose, CommonParserHashKey.JORDAN));
+        // execute all gauss
+        CustomLogger.getInstance().addTitleLog("GAUSS JORDAN OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.GAUSS).forEach(gaussInstruction -> this.solver.solveGaussGJordanPool(gaussInstruction.toString(), verbose, CommonParserHashKey.GAUSS));
+        // execute all markov instances
+        CustomLogger.getInstance().addTitleLog("MARKOV OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.MARKOV).forEach(markovOperation -> this.solver.solveMarkovPool((MarkovData) markovOperation, verbose));
+        // arithmetical operations
+        CustomLogger.getInstance().addTitleLog("ARITHMETICAL OPERATIONS", verbose);
+        this.model.getKeysArrayListHashMap().get(CommonParserHashKey.ARITH_MATRIX).forEach(arithOperation -> this.solver.solveArithmeticalPool((NodeAVL<T>) arithOperation, verbose));
+    }
+
+
 }

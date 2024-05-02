@@ -11,23 +11,36 @@ MATRIX B
     4   0   0,
     -3  12  4
 ];
-MATRIX STATUS [ 1, -2, 4];
+MATRIX xls
+[
+    4   0   -4 0 12,
+    4   0   0 -1 21,
+    -3  12  4 33 41,
+    0 -1 8  7 -43
+];
+MATRIX markov1
+[
+    0.21 0.40 0.39,
+    0.41 0.12 0.47,
+    0.70 0.11 0.19
+];
+MATRIX STATUS [ 0.41, 0.34, 0.25];
 // INVERSE --
 INV A, B; // HASHMAP 1
 // DETERMINANT --
-DET B, A; // HASHMAP 2
+DET B, A, xls; // HASHMAP 2
 // RANK
 RANK A, B; // HASHMAP 3
 // ENCRYPT SYNTAX --
 ENCRYPT "Hola perinola, como le va"; // HASHMAP 4
-DECRYPT 1 41 41 2 9 4 1 0 1 2 4;
-DECRYPT 1 41 41 2 9 4 1 41 2 123 1;
+DECRYPT 53 56 440 47 48 351 3 -12 315 15 0 15;
 // GAUSS SYNTAX --
-GAUSS A, B; // HASHMAP 5
+GAUSS xls; // HASHMAP 5
 // GAUSS JORDAN --
-JORDAN B, A; // HASHMAP 6
+JORDAN xls; // HASHMAP 6
 // MARKOV SYNTAX --
-MARKOV A STATUS 5, B STATUS 2;
+MARKOV markov1 STATUS 5;
 // ARITHMETICAL MATRIX --
 ARITH A + B * B;
-ARITH A / B;
+ARITH A / B + (A+B);
+
