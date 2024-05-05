@@ -4,6 +4,8 @@ import Controller.ParserControllerSolver;
 import Domain.AVL.NodeAVL;
 import Domain.Markov.MarkovData;
 import Model.Matrix.Matrix;
+import Model.Matrix.MatrixEnum;
+import Model.Matrix.Utils.MatrixUtils;
 import Model.Utils.CustomLogger;
 
 import java.util.ArrayList;
