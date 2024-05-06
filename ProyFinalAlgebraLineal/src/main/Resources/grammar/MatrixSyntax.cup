@@ -5,12 +5,15 @@
 package Model.Compiler;
 
 import java_cup.runtime.*;
-import java.util.ArrayList;         // array to save data
-import Model.Matrix.Matrix;         // matrix to save data
-import Model.Utils.CustomLogger;    // save errors in the logger
-import Domain.Markov.MarkovData;    // Markov node
-import Domain.AVL.NodeAVLBuilder;   // node for arith operations matrix
-import Domain.AVL.NodeAVL;          // node AVL
+import java.util.ArrayList;                 // array to save data
+import Model.Matrix.Matrix;                 // matrix to save data
+import Model.Utils.CustomLogger;            // save errors in the logger
+import Domain.Markov.MarkovData;            // Markov node
+import Domain.AVL.NodeAVLBuilder;           // node for arith operations matrix
+import Domain.AVL.NodeAVL;                  // node AVL
+import Domain.Vector.GraphVector;           // Graph Vector Object
+import Domain.Vector.GraphVectorBuilder;    // Graph vector wich builds GraphVector
+import Domain.Vector.NodeVector;                   // Cartesian Coordinate
 
 
 /**************************************************/
@@ -82,7 +85,7 @@ parser code {:
 // terminal from lexer
 terminal LBRACKET, RBRACKET, LPARENTHESIS, RPARENTHESIS, PLUS, TIMES, MINUS, DIVIDE, COMMA, SEMI_COLON, 
          MATRIX, ARITH, INVERSE, DETERMINANT, RANK, ENCRYPT, DECRYPT, GAUSS, JORDAN, MARKOV, 
-         IDENTIFIER, NUMBER, UNKNOWN, STRING;
+         IDENTIFIER, NUMBER, UNKNOWN, STRING, VECTOR;
 
 // non terminal
 non terminal main, matrices_declaration, matrix_declaration, matrix_definition, vector_array,
@@ -90,7 +93,8 @@ non terminal main, matrices_declaration, matrix_declaration, matrix_definition, 
     inverse_declaration, determinant_declaration, rank_declaration, encrypt_declaration, decrypt_declaration,
     gauss_declaration, gjordan_declaration, markov_declaration, arith_declaration,
     arith_expression, arith_term, arith_factor, arith_primary,
-    ids_declaration, markov_ids_declaration, numbers_vector;
+    ids_declaration, markov_ids_declaration, numbers_vector,
+    vector_declaration, vector_definition, vector_creation, vector_node;
 
 start with main;
 
@@ -139,6 +143,7 @@ operation_declaration::=
     |   gjordan_declaration
     |   markov_declaration
     |   arith_declaration:expression
+    |   vector_declaration
 ;
 
 inverse_declaration::=
@@ -230,4 +235,36 @@ arith_factor ::=
 arith_primary ::=
             NUMBER:num                                                                       {:   RESULT = new NodeAVLBuilder<Double>().setData(Double.parseDouble((String) num)).build(); :}
           | IDENTIFIER:id                                                                    {:   RESULT = new NodeAVLBuilder<String>().setData((String) id).build();   :}
+;
+
+vector_declaration::=
+    VECTOR vector_definition SEMI_COLON
+;
+
+vector_definition ::=
+            vector_creation:new_vector                                                      {:  :}
+        |   vector_creation:new_vector COMMA vector_definition:vector_array                 {:  :}
+;
+
+
+vector_creation ::=
+        NUMBER:len NUMBER:angle                                                              {: RESULT = new GraphVectorBuilder()
+                                                                                                             .setLength(Double.parseDouble(len.toString()))
+                                                                                                             .setAngle(Double.parseDouble(angle.toString()))
+                                                                                                             .build();
+                                                                                             :}
+    |   vector_node:destination                                                              {: RESULT = new GraphVectorBuilder()
+                                                                                                             .setOriginPoint(new NodeVector(0,0))
+                                                                                                             .setEndPoint((NodeVector) destination)
+                                                                                                             .build();
+                                                                                             :}
+    |   vector_node:destination vector_node:origin                                           {: RESULT = new GraphVectorBuilder()
+                                                                                                            .setOriginPoint((NodeVector) origin)
+                                                                                                            .setEndPoint((NodeVector) destination)
+                                                                                                            .build();
+                                                                                             :}
+;
+
+vector_node ::=
+    LPARENTHESIS NUMBER:x COMMA NUMBER:y RPARENTHESIS                                        {: RESULT = new NodeVector(Double.parseDouble(x.toString()), Double.parseDouble(y.toString())); :}
 ;

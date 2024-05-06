@@ -71,6 +71,7 @@ STRING = \".*?\"
 (",")         { return new Symbol(sym.COMMA, yyline+1, yycolumn+1); }
 (";")         { return new Symbol(sym.SEMI_COLON, yyline+1, yycolumn+1); }
 // reserved words
+(VECTOR)      { return new Symbol(sym.VECTOR, yyline+1, yycolumn+1); }
 (MATRIX)      { return new Symbol(sym.MATRIX, yyline+1, yycolumn+1); }
 (ARITH)       { return new Symbol(sym.ARITH, yyline+1, yycolumn+1); }
 (INV)         { return new Symbol(sym.INVERSE, yyline+1, yycolumn+1); }

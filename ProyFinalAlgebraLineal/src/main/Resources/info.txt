@@ -1,0 +1,115 @@
+CALCULADORA PARA PROYECTO FINAL DE ÁLGEBRA LINEAL
+REALIZADO POR DANIEL BAUTISTA
+CARNE 2121323
+
+PARA USAR ESTE PROGRAMA DEBES ESCRIBIR TEXTO EN LA PARTE IZQUIERDA
+PARA LUEGO EJECUTARLO.
+LA SINTAXIS ES LA SIGUIENTE:
+
+1. DECLARACIÓN DE MATRICES (OBLIGATORIA)
+2. DECLARACIÓN DE OPERACIONES
+3. COMENTARIO (todo lo que pongas despues de // sera ignorado hasta encontrar un salto de linea)
+
+Puedes declarar una matriz de la siguiente forma:
+
+MATRIX <id> [<matriz>]
+
+Cambia <id> por cualquier identificador que comience con una letra seguida de letras o números. Para declarar la <matriz>, debes definir línea por línea los elementos de la matriz, separando las filas con comas.
+
+Ejemplo:
+
+MATRIX miMatriz [
+    1 4 -1,
+    123 -4 0
+]
+
+Para calcular la inversa de una o varias matrices, utiliza la siguiente sintaxis:
+
+INV <matrices>
+
+Reemplaza <matrices> con los identificadores de las matrices previamente declaradas.
+
+Ejemplo:
+
+INV A, B;
+
+Para calcular el determinante de una o varias matrices, utiliza la siguiente sintaxis:
+
+DET <matrices>
+
+Reemplaza <matrices> con los identificadores de las matrices previamente declaradas.
+
+Ejemplo:
+
+DET B, A, miMatriz; // HASHMAP 2
+
+Para calcular el rango de una o varias matrices, utiliza la siguiente sintaxis:
+
+RANK <matrices>
+
+Reemplaza <matrices> con los identificadores de las matrices previamente declaradas.
+
+Ejemplo:
+
+RANK A, B, miMatriz; // HASHMAP 3
+
+Para encriptar un mensaje, utiliza la siguiente sintaxis:
+
+ENCRYPT "<mensaje>"
+
+Reemplaza <mensaje> con el texto que deseas encriptar.
+
+Ejemplo:
+
+ENCRYPT "Hola perinola, como le va"; // HASHMAP 4
+
+Para desencriptar un mensaje encriptado previamente, utiliza la siguiente sintaxis:
+
+DECRYPT <claves>
+
+Reemplaza <claves> con las claves necesarias para desencriptar el mensaje.
+
+Ejemplo:
+
+DECRYPT 53 56 440 47 48 351 3 -12 315 15 0 15;
+
+Para realizar una operación de Gauss, utiliza la siguiente sintaxis:
+
+GAUSS <matrices>
+
+Reemplaza <matrices> con los identificadores de las matrices sobre las cuales deseas realizar la operación de Gauss.
+
+Ejemplo:
+
+GAUSS xls, miMatriz; // HASHMAP 5
+
+Para realizar una operación de Gauss-Jordan, utiliza la siguiente sintaxis:
+
+JORDAN <matrices>
+
+Reemplaza <matrices> con los identificadores de las matrices sobre las cuales deseas realizar la operación de Gauss-Jordan.
+
+Ejemplo:
+
+JORDAN xls, miMatriz; // HASHMAP 6
+
+Para realizar una operación de Markov, utiliza la siguiente sintaxis:
+
+MARKOV <nombre> STATUS <número>
+
+Reemplaza <nombre> con el nombre de la matriz Markoviana y <número> con la cantidad de estados.
+
+Ejemplo:
+
+MARKOV markov1 STATUS 5;
+
+Para realizar operaciones aritméticas entre matrices, utiliza la siguiente sintaxis:
+
+ARITH <operación>
+
+Reemplaza <operación> con la operación aritmética que deseas realizar entre matrices.
+
+Ejemplo:
+
+ARITH A + B * B;
+ARITH A / B + (A+B);

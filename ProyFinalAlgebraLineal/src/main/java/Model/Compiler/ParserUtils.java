@@ -2,6 +2,7 @@ package Model.Compiler;
 
 import Domain.AVL.NodeAVL;
 import Domain.AVL.NodeAVLBuilder;
+import Domain.Vector.GraphVector;
 import Model.Matrix.Matrix;
 import Model.Matrix.MatrixEnum;
 import Model.Utils.CustomLogger;
@@ -182,5 +183,15 @@ public class ParserUtils {
             rightChild.setParent(newParentNode);
         }
         return newParentNode;
+    }
+
+    public ArrayList<GraphVector> appendVector(ArrayList<GraphVector> vector, ArrayList<GraphVector> newItems) {
+        if(Objects.isNull(vector) && Objects.isNull(newItems)) {
+            return new ArrayList<>();
+        }
+        if(Objects.isNull(vector)) {
+            return newItems;
+        }
+        return vector.addAll(newItems);
     }
 }

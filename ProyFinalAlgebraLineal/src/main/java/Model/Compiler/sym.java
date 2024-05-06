@@ -25,6 +25,7 @@ public class sym {
   public static final int COMMA = 10;
   public static final int NUMBER = 23;
   public static final int EOF = 0;
+  public static final int VECTOR = 26;
   public static final int DIVIDE = 9;
   public static final int LPARENTHESIS = 4;
   public static final int RPARENTHESIS = 5;
@@ -60,7 +61,8 @@ public class sym {
   "IDENTIFIER",
   "NUMBER",
   "UNKNOWN",
-  "STRING"
+  "STRING",
+  "VECTOR"
   };
 }
 

@@ -22,12 +22,20 @@ public class Main {
     public static void main(String[] args) {
         // operations object
         try {
-            CompilerModel compilerModel = new CompilerModel();
-            CompilerJForm compilerJFormView = new CompilerJForm();
-            CompilerController compilerController = new CompilerController(compilerModel, compilerJFormView);
-            compilerController.display();
+            testParser();
+            System.out.printf(CustomLogger.getInstance().getAllLogsAsString());
+            System.exit(200);
         } catch (Exception ex) {
             CustomLogger.getInstance().addLog("UNABLE TO INIT APPLICATION " + ex.getMessage(), true);
         }
+    }
+
+    public static void testParser() {
+        CompilerModel compilerModel = new CompilerModel();
+        CompilerJForm compilerJFormView = new CompilerJForm();
+        CompilerController compilerController = new CompilerController(compilerModel, compilerJFormView);
+        compilerController.getExampleInput();
+        compilerController.display();
+        compilerController.compile(true);
     }
 }
