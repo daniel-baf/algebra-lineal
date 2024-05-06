@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import java.awt.Toolkit;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.WindowConstants;
+import java.io.File;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
  * @author debf
  */
 public class CompilerJForm extends javax.swing.JFrame {
@@ -46,13 +41,13 @@ public class CompilerJForm extends javax.swing.JFrame {
         resultJTextArea = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        openJMenuItem = new javax.swing.JMenuItem();
+        saveJMenuItem = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         runJMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         loadExampleJMenuItem = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        infoJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,16 +122,19 @@ public class CompilerJForm extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Abrir");
-        jMenu1.add(jMenuItem1);
+        openJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        openJMenuItem.setText("Abrir");
+        jMenu1.add(openJMenuItem);
 
-        jMenuItem2.setText("Guardar");
-        jMenu1.add(jMenuItem2);
+        saveJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        saveJMenuItem.setText("Guardar");
+        jMenu1.add(saveJMenuItem);
 
         jMenuBar1.add(jMenu1);
 
         jMenu4.setText("Compilador");
 
+        runJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         runJMenuItem.setText("Ejecutar");
         jMenu4.add(runJMenuItem);
 
@@ -144,6 +142,7 @@ public class CompilerJForm extends javax.swing.JFrame {
 
         jMenu2.setText("Acerca de");
 
+        loadExampleJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F12, 0));
         loadExampleJMenuItem.setText("Ejemplo");
         loadExampleJMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,8 +151,9 @@ public class CompilerJForm extends javax.swing.JFrame {
         });
         jMenu2.add(loadExampleJMenuItem);
 
-        jMenuItem3.setText("Info");
-        jMenu2.add(jMenuItem3);
+        infoJMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F11, 0));
+        infoJMenuItem.setText("Info");
+        jMenu2.add(infoJMenuItem);
 
         jMenuBar1.add(jMenu2);
 
@@ -172,7 +172,7 @@ public class CompilerJForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(containerJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(containerJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -191,14 +191,12 @@ public class CompilerJForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel containerJPanel;
+    public javax.swing.JMenuItem infoJMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -206,8 +204,10 @@ public class CompilerJForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JMenuItem loadExampleJMenuItem;
     private javax.swing.JPanel logsJPanel;
+    public javax.swing.JMenuItem openJMenuItem;
     public javax.swing.JTextArea resultJTextArea;
     public javax.swing.JMenuItem runJMenuItem;
+    public javax.swing.JMenuItem saveJMenuItem;
     private javax.swing.JPanel textEditorJPanel;
     public javax.swing.JTextArea textEditorJTextArea;
     private javax.swing.JPanel textEditorTittleJpanel;
@@ -227,4 +227,59 @@ public class CompilerJForm extends javax.swing.JFrame {
         TextLineNumber tln = new TextLineNumber(textPane);
         scrollPane.setRowHeaderView(tln);
     }
+
+    /**
+     * Display a message
+     *
+     * @param text
+     */
+    public void displayMessage(String text) {
+        // Create a JTextArea to display the message
+        JTextArea textArea = new JTextArea(10, 40);
+        textArea.setText(text);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        // Put the text area in a scroll pane
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        // Display the scroll pane in a dialog
+        JOptionPane.showMessageDialog(null, scrollPane, "INFO", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Get file to save
+     * @return File selected to save
+     */
+    public File chooseFilePathToSave() {
+        return this.chooseFilePath(false);
+    }
+
+    /**
+     * Get file to open
+     * @return File to open
+     */
+    public File chooseFilePathToOpen() {
+        return this.chooseFilePath(true);
+    }
+
+    /**
+     * Display a select to get the path to save file + name
+     *
+     * @return name or null
+     */
+    private File chooseFilePath(boolean isOpenFile) {
+        JFileChooser fileChooser = new JFileChooser();
+        // limit files to search
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files (*.txt)", "txt");
+        fileChooser.setFileFilter(filter);
+        // action dialog
+        int operation = switch (String.valueOf(isOpenFile)) {
+            case "true" -> fileChooser.showSaveDialog(null);
+            default -> fileChooser.showOpenDialog(null);
+        };
+        // check if true option or cancelled
+        if (operation == JFileChooser.APPROVE_OPTION) return fileChooser.getSelectedFile();
+        else return null;
+    }
+
 }
