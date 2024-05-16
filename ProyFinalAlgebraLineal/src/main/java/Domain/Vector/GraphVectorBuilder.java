@@ -7,6 +7,8 @@ public class GraphVectorBuilder {
     private double yComponent;
     private double angle;
     private double length;
+    private String name;
+    private CartesianQuadrant quadrant;
 
     public GraphVectorBuilder() {
         // Set default values if needed
@@ -48,6 +50,16 @@ public class GraphVectorBuilder {
         return this;
     }
 
+    public GraphVectorBuilder setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public GraphVectorBuilder setQuadrant(CartesianQuadrant quadrant) {
+        this.quadrant = quadrant;
+        return this;
+    }
+
     public NodeVector getOriginPoint() {
         return originPoint;
     }
@@ -70,5 +82,13 @@ public class GraphVectorBuilder {
 
     public double getLength() {
         return length;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public CartesianQuadrant getQuadrant() {
+        return this.quadrant;
     }
 }

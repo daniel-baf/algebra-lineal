@@ -5,7 +5,8 @@ MATRIX A
     12  -4  0,
     12  3   1
 ];
-VECTOR 2 -4;                            // length angle
-VECTOR (8, -4);                         // pointer node, origin node = 0,0
-VECTOR (8, -4) (0, 81);                 // pointer node origin node
-VECTOR (0, -4) (9, -5), (0, 4), 12 -4;  // multiple vectors declaration
+VECTOR A: (4, 5) 2 55;                              // length angle
+VECTOR B: (8, -8);                                  // pointer node, origin node = 0,0
+VECTOR C: (8, -4) (0, 81);                          // pointer node origin node
+VECTOR D: (0, -4) (9, -5), E: (0, 4), F: 12 -4;     // multiple vectors declaration
+ARITH_VECTOR A.B;                                   // arith with vectors

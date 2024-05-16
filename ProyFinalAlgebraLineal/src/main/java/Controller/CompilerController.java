@@ -34,7 +34,7 @@ public class CompilerController {
      */
     public void display() {
         this.view.setup();
-//        this.view.setVisible(true);
+        this.view.setVisible(true);
     }
 
     /**

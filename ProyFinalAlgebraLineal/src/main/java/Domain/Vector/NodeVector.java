@@ -24,4 +24,12 @@ public class NodeVector {
     public void setX(int x) {
         this.x = x;
     }
+
+    @Override
+    public String toString() {
+        return "NodeVector{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

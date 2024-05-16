@@ -192,6 +192,7 @@ public class ParserUtils {
         if(Objects.isNull(vector)) {
             return newItems;
         }
-        return vector.addAll(newItems);
+        vector.addAll(newItems);
+        return vector;
     }
 }

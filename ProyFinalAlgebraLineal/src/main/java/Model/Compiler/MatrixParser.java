@@ -40,7 +40,7 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\067\000\002\002\004\000\002\002\004\000\002\002" +
+    "\000\071\000\002\002\004\000\002\002\004\000\002\002" +
     "\003\000\002\003\004\000\002\003\003\000\002\003\004" +
     "\000\002\004\010\000\002\005\005\000\002\005\003\000" +
     "\002\006\004\000\002\006\003\000\002\007\004\000\002" +
@@ -56,8 +56,8 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
     "\003\000\002\023\005\000\002\023\005\000\002\024\003" +
     "\000\002\024\005\000\002\025\003\000\002\025\003\000" +
     "\002\031\005\000\002\032\003\000\002\032\005\000\002" +
-    "\033\004\000\002\033\003\000\002\033\004\000\002\034" +
-    "\007" });
+    "\033\005\000\002\035\004\000\002\035\003\000\002\035" +
+    "\004\000\002\035\005\000\002\034\007" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -65,107 +65,110 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\144\000\006\003\006\016\005\001\002\000\004\002" +
-    "\146\001\002\000\004\030\134\001\002\000\004\015\133" +
+    "\000\151\000\006\003\006\016\005\001\002\000\004\002" +
+    "\153\001\002\000\004\030\141\001\002\000\004\015\140" +
     "\001\002\000\030\002\uffff\017\030\020\016\021\022\022" +
     "\014\023\017\024\012\025\036\026\034\027\015\034\025" +
     "\001\002\000\034\002\ufffd\003\006\016\005\017\ufffd\020" +
     "\ufffd\021\ufffd\022\ufffd\023\ufffd\024\ufffd\025\ufffd\026\ufffd" +
     "\027\ufffd\034\ufffd\001\002\000\030\002\ufffe\017\ufffe\020" +
     "\ufffe\021\ufffe\022\ufffe\023\ufffe\024\ufffe\025\ufffe\026\ufffe" +
-    "\027\ufffe\034\ufffe\001\002\000\004\031\130\001\002\000" +
+    "\027\ufffe\034\ufffe\001\002\000\004\031\135\001\002\000" +
     "\030\002\ufff0\017\ufff0\020\ufff0\021\ufff0\022\ufff0\023\ufff0" +
     "\024\ufff0\025\ufff0\026\ufff0\027\ufff0\034\ufff0\001\002\000" +
-    "\004\030\041\001\002\000\004\030\117\001\002\000\004" +
-    "\030\041\001\002\000\004\033\112\001\002\000\030\002" +
+    "\004\030\041\001\002\000\004\030\124\001\002\000\004" +
+    "\030\041\001\002\000\004\033\117\001\002\000\030\002" +
     "\uffee\017\uffee\020\uffee\021\uffee\022\uffee\023\uffee\024\uffee" +
     "\025\uffee\026\uffee\027\uffee\034\uffee\001\002\000\030\002" +
     "\ufff4\017\ufff4\020\ufff4\021\ufff4\022\ufff4\023\ufff4\024\ufff4" +
     "\025\ufff4\026\ufff4\027\ufff4\034\ufff4\001\002\000\004\030" +
     "\041\001\002\000\030\002\ufff3\017\ufff3\020\ufff3\021\ufff3" +
     "\022\ufff3\023\ufff3\024\ufff3\025\ufff3\026\ufff3\027\ufff3\034" +
-    "\ufff3\001\002\000\004\002\000\001\002\000\006\006\075" +
-    "\031\074\001\002\000\030\002\ufff2\017\ufff2\020\ufff2\021" +
-    "\ufff2\022\ufff2\023\ufff2\024\ufff2\025\ufff2\026\ufff2\027\ufff2" +
-    "\034\ufff2\001\002\000\030\002\uffeb\017\uffeb\020\uffeb\021" +
-    "\uffeb\022\uffeb\023\uffeb\024\uffeb\025\uffeb\026\uffeb\027\uffeb" +
-    "\034\uffeb\001\002\000\010\006\054\030\053\031\052\001" +
-    "\002\000\030\002\uffed\017\uffed\020\uffed\021\uffed\022\uffed" +
-    "\023\uffed\024\uffed\025\uffed\026\uffed\027\uffed\034\uffed\001" +
-    "\002\000\030\002\uffec\017\uffec\020\uffec\021\uffec\022\uffec" +
-    "\023\uffec\024\uffec\025\uffec\026\uffec\027\uffec\034\uffec\001" +
-    "\002\000\030\002\ufff5\017\030\020\016\021\022\022\014" +
-    "\023\017\024\012\025\036\026\034\027\015\034\025\001" +
-    "\002\000\004\030\041\001\002\000\030\002\ufff1\017\ufff1" +
-    "\020\ufff1\021\ufff1\022\ufff1\023\ufff1\024\ufff1\025\ufff1\026" +
-    "\ufff1\027\ufff1\034\ufff1\001\002\000\004\030\041\001\002" +
-    "\000\030\002\uffef\017\uffef\020\uffef\021\uffef\022\uffef\023" +
-    "\uffef\024\uffef\025\uffef\026\uffef\027\uffef\034\uffef\001\002" +
-    "\000\004\015\044\001\002\000\006\014\042\015\uffe1\001" +
-    "\002\000\004\030\041\001\002\000\004\015\uffe2\001\002" +
-    "\000\030\002\uffe5\017\uffe5\020\uffe5\021\uffe5\022\uffe5\023" +
-    "\uffe5\024\uffe5\025\uffe5\026\uffe5\027\uffe5\034\uffe5\001\002" +
-    "\000\004\015\046\001\002\000\030\002\uffe4\017\uffe4\020" +
-    "\uffe4\021\uffe4\022\uffe4\023\uffe4\024\uffe4\025\uffe4\026\uffe4" +
-    "\027\uffe4\034\uffe4\001\002\000\004\002\ufff6\001\002\000" +
-    "\016\007\uffd5\010\uffd5\011\uffd5\012\uffd5\013\uffd5\015\uffd5" +
-    "\001\002\000\016\007\uffdb\010\uffdb\011\064\012\uffdb\013" +
-    "\063\015\uffdb\001\002\000\016\007\uffd3\010\uffd3\011\uffd3" +
-    "\012\uffd3\013\uffd3\015\uffd3\001\002\000\016\007\uffd2\010" +
-    "\uffd2\011\uffd2\012\uffd2\013\uffd2\015\uffd2\001\002\000\010" +
-    "\006\054\030\053\031\052\001\002\000\016\007\uffd8\010" +
-    "\uffd8\011\uffd8\012\uffd8\013\uffd8\015\uffd8\001\002\000\010" +
-    "\010\060\012\061\015\057\001\002\000\030\002\uffdc\017" +
-    "\uffdc\020\uffdc\021\uffdc\022\uffdc\023\uffdc\024\uffdc\025\uffdc" +
-    "\026\uffdc\027\uffdc\034\uffdc\001\002\000\010\006\054\030" +
-    "\053\031\052\001\002\000\010\006\054\030\053\031\052" +
-    "\001\002\000\016\007\uffd9\010\uffd9\011\064\012\uffd9\013" +
-    "\063\015\uffd9\001\002\000\010\006\054\030\053\031\052" +
+    "\ufff3\001\002\000\004\002\000\001\002\000\004\030\074" +
+    "\001\002\000\030\002\ufff2\017\ufff2\020\ufff2\021\ufff2\022" +
+    "\ufff2\023\ufff2\024\ufff2\025\ufff2\026\ufff2\027\ufff2\034\ufff2" +
+    "\001\002\000\030\002\uffeb\017\uffeb\020\uffeb\021\uffeb\022" +
+    "\uffeb\023\uffeb\024\uffeb\025\uffeb\026\uffeb\027\uffeb\034\uffeb" +
     "\001\002\000\010\006\054\030\053\031\052\001\002\000" +
-    "\016\007\uffd7\010\uffd7\011\uffd7\012\uffd7\013\uffd7\015\uffd7" +
-    "\001\002\000\016\007\uffd6\010\uffd6\011\uffd6\012\uffd6\013" +
-    "\uffd6\015\uffd6\001\002\000\016\007\uffda\010\uffda\011\064" +
-    "\012\uffda\013\063\015\uffda\001\002\000\010\007\071\010" +
-    "\060\012\061\001\002\000\016\007\uffd4\010\uffd4\011\uffd4" +
-    "\012\uffd4\013\uffd4\015\uffd4\001\002\000\004\015\107\001" +
-    "\002\000\006\014\105\015\uffd0\001\002\000\004\031\104" +
-    "\001\002\000\004\031\100\001\002\000\010\006\075\014" +
-    "\uffcd\015\uffcd\001\002\000\006\014\uffcc\015\uffcc\001\002" +
-    "\000\004\014\101\001\002\000\004\031\102\001\002\000" +
-    "\004\007\103\001\002\000\010\006\uffcb\014\uffcb\015\uffcb" +
-    "\001\002\000\006\014\uffce\015\uffce\001\002\000\006\006" +
-    "\075\031\074\001\002\000\004\015\uffcf\001\002\000\030" +
-    "\002\uffd1\017\uffd1\020\uffd1\021\uffd1\022\uffd1\023\uffd1\024" +
-    "\uffd1\025\uffd1\026\uffd1\027\uffd1\034\uffd1\001\002\000\004" +
-    "\015\111\001\002\000\030\002\uffe9\017\uffe9\020\uffe9\021" +
-    "\uffe9\022\uffe9\023\uffe9\024\uffe9\025\uffe9\026\uffe9\027\uffe9" +
-    "\034\uffe9\001\002\000\004\015\113\001\002\000\030\002" +
-    "\uffe7\017\uffe7\020\uffe7\021\uffe7\022\uffe7\023\uffe7\024\uffe7" +
-    "\025\uffe7\026\uffe7\027\uffe7\034\uffe7\001\002\000\004\015" +
-    "\115\001\002\000\030\002\uffea\017\uffea\020\uffea\021\uffea" +
-    "\022\uffea\023\uffea\024\uffea\025\uffea\026\uffea\027\uffea\034" +
-    "\uffea\001\002\000\004\015\124\001\002\000\004\030\120" +
-    "\001\002\000\004\031\121\001\002\000\006\014\122\015" +
-    "\uffdd\001\002\000\004\030\117\001\002\000\004\015\uffde" +
-    "\001\002\000\030\002\uffe3\017\uffe3\020\uffe3\021\uffe3\022" +
-    "\uffe3\023\uffe3\024\uffe3\025\uffe3\026\uffe3\027\uffe3\034\uffe3" +
-    "\001\002\000\004\015\126\001\002\000\030\002\uffe8\017" +
-    "\uffe8\020\uffe8\021\uffe8\022\uffe8\023\uffe8\024\uffe8\025\uffe8" +
-    "\026\uffe8\027\uffe8\034\uffe8\001\002\000\004\015\132\001" +
-    "\002\000\006\015\uffdf\031\130\001\002\000\004\015\uffe0" +
-    "\001\002\000\030\002\uffe6\017\uffe6\020\uffe6\021\uffe6\022" +
-    "\uffe6\023\uffe6\024\uffe6\025\uffe6\026\uffe6\027\uffe6\034\uffe6" +
-    "\001\002\000\030\002\ufffc\017\ufffc\020\ufffc\021\ufffc\022" +
-    "\ufffc\023\ufffc\024\ufffc\025\ufffc\026\ufffc\027\ufffc\034\ufffc" +
-    "\001\002\000\004\004\135\001\002\000\004\031\137\001" +
-    "\002\000\006\005\143\014\142\001\002\000\010\005\ufff7" +
-    "\014\ufff7\031\ufff7\001\002\000\010\005\ufff9\014\ufff9\031" +
-    "\141\001\002\000\010\005\ufff8\014\ufff8\031\ufff8\001\002" +
-    "\000\004\031\137\001\002\000\004\015\144\001\002\000" +
-    "\034\002\ufffb\003\ufffb\016\ufffb\017\ufffb\020\ufffb\021\ufffb" +
-    "\022\ufffb\023\ufffb\024\ufffb\025\ufffb\026\ufffb\027\ufffb\034" +
-    "\ufffb\001\002\000\010\005\ufffa\014\ufffa\031\141\001\002" +
-    "\000\004\002\001\001\002" });
+    "\030\002\uffed\017\uffed\020\uffed\021\uffed\022\uffed\023\uffed" +
+    "\024\uffed\025\uffed\026\uffed\027\uffed\034\uffed\001\002\000" +
+    "\030\002\uffec\017\uffec\020\uffec\021\uffec\022\uffec\023\uffec" +
+    "\024\uffec\025\uffec\026\uffec\027\uffec\034\uffec\001\002\000" +
+    "\030\002\ufff5\017\030\020\016\021\022\022\014\023\017" +
+    "\024\012\025\036\026\034\027\015\034\025\001\002\000" +
+    "\004\030\041\001\002\000\030\002\ufff1\017\ufff1\020\ufff1" +
+    "\021\ufff1\022\ufff1\023\ufff1\024\ufff1\025\ufff1\026\ufff1\027" +
+    "\ufff1\034\ufff1\001\002\000\004\030\041\001\002\000\030" +
+    "\002\uffef\017\uffef\020\uffef\021\uffef\022\uffef\023\uffef\024" +
+    "\uffef\025\uffef\026\uffef\027\uffef\034\uffef\001\002\000\004" +
+    "\015\044\001\002\000\006\014\042\015\uffe1\001\002\000" +
+    "\004\030\041\001\002\000\004\015\uffe2\001\002\000\030" +
+    "\002\uffe5\017\uffe5\020\uffe5\021\uffe5\022\uffe5\023\uffe5\024" +
+    "\uffe5\025\uffe5\026\uffe5\027\uffe5\034\uffe5\001\002\000\004" +
+    "\015\046\001\002\000\030\002\uffe4\017\uffe4\020\uffe4\021" +
+    "\uffe4\022\uffe4\023\uffe4\024\uffe4\025\uffe4\026\uffe4\027\uffe4" +
+    "\034\uffe4\001\002\000\004\002\ufff6\001\002\000\016\007" +
+    "\uffd5\010\uffd5\011\uffd5\012\uffd5\013\uffd5\015\uffd5\001\002" +
+    "\000\016\007\uffdb\010\uffdb\011\064\012\uffdb\013\063\015" +
+    "\uffdb\001\002\000\016\007\uffd3\010\uffd3\011\uffd3\012\uffd3" +
+    "\013\uffd3\015\uffd3\001\002\000\016\007\uffd2\010\uffd2\011" +
+    "\uffd2\012\uffd2\013\uffd2\015\uffd2\001\002\000\010\006\054" +
+    "\030\053\031\052\001\002\000\016\007\uffd8\010\uffd8\011" +
+    "\uffd8\012\uffd8\013\uffd8\015\uffd8\001\002\000\010\010\060" +
+    "\012\061\015\057\001\002\000\030\002\uffdc\017\uffdc\020" +
+    "\uffdc\021\uffdc\022\uffdc\023\uffdc\024\uffdc\025\uffdc\026\uffdc" +
+    "\027\uffdc\034\uffdc\001\002\000\010\006\054\030\053\031" +
+    "\052\001\002\000\010\006\054\030\053\031\052\001\002" +
+    "\000\016\007\uffd9\010\uffd9\011\064\012\uffd9\013\063\015" +
+    "\uffd9\001\002\000\010\006\054\030\053\031\052\001\002" +
+    "\000\010\006\054\030\053\031\052\001\002\000\016\007" +
+    "\uffd7\010\uffd7\011\uffd7\012\uffd7\013\uffd7\015\uffd7\001\002" +
+    "\000\016\007\uffd6\010\uffd6\011\uffd6\012\uffd6\013\uffd6\015" +
+    "\uffd6\001\002\000\016\007\uffda\010\uffda\011\064\012\uffda" +
+    "\013\063\015\uffda\001\002\000\010\007\071\010\060\012" +
+    "\061\001\002\000\016\007\uffd4\010\uffd4\011\uffd4\012\uffd4" +
+    "\013\uffd4\015\uffd4\001\002\000\004\015\114\001\002\000" +
+    "\006\014\112\015\uffd0\001\002\000\004\035\075\001\002" +
+    "\000\006\006\100\031\077\001\002\000\006\014\uffce\015" +
+    "\uffce\001\002\000\004\031\111\001\002\000\004\031\105" +
+    "\001\002\000\012\006\100\014\uffcc\015\uffcc\031\102\001" +
+    "\002\000\004\031\104\001\002\000\006\014\uffcb\015\uffcb" +
+    "\001\002\000\006\014\uffca\015\uffca\001\002\000\004\014" +
+    "\106\001\002\000\004\031\107\001\002\000\004\007\110" +
+    "\001\002\000\012\006\uffc9\014\uffc9\015\uffc9\031\uffc9\001" +
+    "\002\000\006\014\uffcd\015\uffcd\001\002\000\004\030\074" +
+    "\001\002\000\004\015\uffcf\001\002\000\030\002\uffd1\017" +
+    "\uffd1\020\uffd1\021\uffd1\022\uffd1\023\uffd1\024\uffd1\025\uffd1" +
+    "\026\uffd1\027\uffd1\034\uffd1\001\002\000\004\015\116\001" +
+    "\002\000\030\002\uffe9\017\uffe9\020\uffe9\021\uffe9\022\uffe9" +
+    "\023\uffe9\024\uffe9\025\uffe9\026\uffe9\027\uffe9\034\uffe9\001" +
+    "\002\000\004\015\120\001\002\000\030\002\uffe7\017\uffe7" +
+    "\020\uffe7\021\uffe7\022\uffe7\023\uffe7\024\uffe7\025\uffe7\026" +
+    "\uffe7\027\uffe7\034\uffe7\001\002\000\004\015\122\001\002" +
+    "\000\030\002\uffea\017\uffea\020\uffea\021\uffea\022\uffea\023" +
+    "\uffea\024\uffea\025\uffea\026\uffea\027\uffea\034\uffea\001\002" +
+    "\000\004\015\131\001\002\000\004\030\125\001\002\000" +
+    "\004\031\126\001\002\000\006\014\127\015\uffdd\001\002" +
+    "\000\004\030\124\001\002\000\004\015\uffde\001\002\000" +
+    "\030\002\uffe3\017\uffe3\020\uffe3\021\uffe3\022\uffe3\023\uffe3" +
+    "\024\uffe3\025\uffe3\026\uffe3\027\uffe3\034\uffe3\001\002\000" +
+    "\004\015\133\001\002\000\030\002\uffe8\017\uffe8\020\uffe8" +
+    "\021\uffe8\022\uffe8\023\uffe8\024\uffe8\025\uffe8\026\uffe8\027" +
+    "\uffe8\034\uffe8\001\002\000\004\015\137\001\002\000\006" +
+    "\015\uffdf\031\135\001\002\000\004\015\uffe0\001\002\000" +
+    "\030\002\uffe6\017\uffe6\020\uffe6\021\uffe6\022\uffe6\023\uffe6" +
+    "\024\uffe6\025\uffe6\026\uffe6\027\uffe6\034\uffe6\001\002\000" +
+    "\030\002\ufffc\017\ufffc\020\ufffc\021\ufffc\022\ufffc\023\ufffc" +
+    "\024\ufffc\025\ufffc\026\ufffc\027\ufffc\034\ufffc\001\002\000" +
+    "\004\004\142\001\002\000\004\031\144\001\002\000\006" +
+    "\005\150\014\147\001\002\000\010\005\ufff7\014\ufff7\031" +
+    "\ufff7\001\002\000\010\005\ufff9\014\ufff9\031\146\001\002" +
+    "\000\010\005\ufff8\014\ufff8\031\ufff8\001\002\000\004\031" +
+    "\144\001\002\000\004\015\151\001\002\000\034\002\ufffb" +
+    "\003\ufffb\016\ufffb\017\ufffb\020\ufffb\021\ufffb\022\ufffb\023" +
+    "\ufffb\024\ufffb\025\ufffb\026\ufffb\027\ufffb\034\ufffb\001\002" +
+    "\000\010\005\ufffa\014\ufffa\031\146\001\002\000\004\002" +
+    "\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -173,48 +176,49 @@ public class MatrixParser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\144\000\010\002\003\003\006\004\007\001\001\000" +
+    "\000\151\000\010\002\003\003\006\004\007\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\032" +
     "\007\023\010\032\011\020\012\022\013\025\014\034\015" +
     "\012\016\036\017\017\020\030\021\031\031\026\001\001" +
     "\000\006\003\010\004\007\001\001\000\002\001\001\000" +
-    "\004\030\126\001\001\000\002\001\001\000\004\026\124" +
-    "\001\001\000\004\027\115\001\001\000\004\026\113\001" +
+    "\004\030\133\001\001\000\002\001\001\000\004\026\131" +
+    "\001\001\000\004\027\122\001\001\000\004\026\120\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\026\107\001\001\000\002\001\001\000\002\001" +
-    "\001\000\010\032\071\033\072\034\075\001\001\000\002" +
-    "\001\001\000\002\001\001\000\012\022\055\023\050\024" +
-    "\054\025\047\001\001\000\002\001\001\000\002\001\001" +
-    "\000\032\007\046\010\032\011\020\012\022\013\025\014" +
-    "\034\015\012\016\036\017\017\020\030\021\031\031\026" +
-    "\001\001\000\004\026\044\001\001\000\002\001\001\000" +
-    "\004\026\037\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\026\042\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\012\022\067\023\050" +
-    "\024\054\025\047\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\010\023\066\024\054\025\047" +
-    "\001\001\000\010\023\061\024\054\025\047\001\001\000" +
-    "\002\001\001\000\006\024\065\025\047\001\001\000\006" +
-    "\024\064\025\047\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\034\076\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\010\032\105\033\072" +
-    "\034\075\001\001\000\002\001\001\000\002\001\001\000" +
+    "\000\004\026\114\001\001\000\002\001\001\000\002\001" +
+    "\001\000\006\032\071\033\072\001\001\000\002\001\001" +
+    "\000\002\001\001\000\012\022\055\023\050\024\054\025" +
+    "\047\001\001\000\002\001\001\000\002\001\001\000\032" +
+    "\007\046\010\032\011\020\012\022\013\025\014\034\015" +
+    "\012\016\036\017\017\020\030\021\031\031\026\001\001" +
+    "\000\004\026\044\001\001\000\002\001\001\000\004\026" +
+    "\037\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\026\042\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\012\022\067\023\050\024\054" +
+    "\025\047\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\010\023\066\024\054\025\047\001\001" +
+    "\000\010\023\061\024\054\025\047\001\001\000\002\001" +
+    "\001\000\006\024\065\025\047\001\001\000\006\024\064" +
+    "\025\047\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\006\034" +
+    "\100\035\075\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\034\102\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\027\122\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\030\130\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\006\005\135" +
-    "\006\137\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\006\144\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001" });
+    "\002\001\001\000\006\032\112\033\072\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\027\127\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\030\135\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\006\005\142\006\144\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\006\151\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -932,7 +936,10 @@ class CUP$MatrixParser$actions {
           case 48: // vector_declaration ::= VECTOR vector_definition SEMI_COLON 
             {
               Object RESULT =null;
-
+		int vectors_declarationleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int vectors_declarationright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object vectors_declaration = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		   parserController.saveVector((ArrayList<GraphVector>) vectors_declaration);   
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_declaration",23, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -944,7 +951,7 @@ class CUP$MatrixParser$actions {
 		int new_vectorleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int new_vectorright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object new_vector = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		  
+		   RESULT = new ArrayList<GraphVector>() {{ add((GraphVector) new_vector ); }};  
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_definition",24, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
@@ -959,13 +966,28 @@ class CUP$MatrixParser$actions {
 		int vector_arrayleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int vector_arrayright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object vector_array = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		  
+		   RESULT = parserUtils.appendVector(new ArrayList<GraphVector>() {{ add((GraphVector) new_vector); }}, (ArrayList<GraphVector>) vector_array);  
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_definition",24, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // vector_creation ::= NUMBER NUMBER 
+          case 51: // vector_creation ::= IDENTIFIER COLON vector_decl 
+            {
+              Object RESULT =null;
+		int idleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int vector_builderleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int vector_builderright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object vector_builder = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		  RESULT = ((GraphVectorBuilder)vector_builder).setName(id.toString()).build(); 
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_creation",25, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+            }
+          return CUP$MatrixParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 52: // vector_decl ::= NUMBER NUMBER 
             {
               Object RESULT =null;
 		int lenleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
@@ -976,15 +998,14 @@ class CUP$MatrixParser$actions {
 		Object angle = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
 		 RESULT = new GraphVectorBuilder()
                                                                                                              .setLength(Double.parseDouble(len.toString()))
-                                                                                                             .setAngle(Double.parseDouble(angle.toString()))
-                                                                                                             .build();
+                                                                                                             .setAngle(Double.parseDouble(angle.toString()));
                                                                                              
-              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_creation",25, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_decl",27, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // vector_creation ::= vector_node 
+          case 53: // vector_decl ::= vector_node 
             {
               Object RESULT =null;
 		int destinationleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
@@ -992,34 +1013,54 @@ class CUP$MatrixParser$actions {
 		Object destination = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
 		 RESULT = new GraphVectorBuilder()
                                                                                                              .setOriginPoint(new NodeVector(0,0))
-                                                                                                             .setEndPoint((NodeVector) destination)
-                                                                                                             .build();
+                                                                                                             .setEndPoint((NodeVector) destination);
                                                                                              
-              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_creation",25, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_decl",27, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // vector_creation ::= vector_node vector_node 
+          case 54: // vector_decl ::= vector_node vector_node 
             {
               Object RESULT =null;
-		int destinationleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
-		int destinationright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
-		Object destination = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
-		int originleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
-		int originright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
-		Object origin = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		int originleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int originright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object origin = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		int destinationleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int destinationright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object destination = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
 		 RESULT = new GraphVectorBuilder()
                                                                                                             .setOriginPoint((NodeVector) origin)
-                                                                                                            .setEndPoint((NodeVector) destination)
-                                                                                                            .build();
+                                                                                                            .setEndPoint((NodeVector) destination);
                                                                                              
-              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_creation",25, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_decl",27, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // vector_node ::= LPARENTHESIS NUMBER COMMA NUMBER RPARENTHESIS 
+          case 55: // vector_decl ::= vector_node NUMBER NUMBER 
+            {
+              Object RESULT =null;
+		int originleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).left;
+		int originright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).right;
+		Object origin = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)).value;
+		int lenleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).left;
+		int lenright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).right;
+		Object len = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-1)).value;
+		int angleleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
+		int angleright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
+		Object angle = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
+		 RESULT = new GraphVectorBuilder()
+                                                                                                            .setOriginPoint((NodeVector) origin)
+                                                                                                            .setLength(Double.parseDouble(len.toString()))
+                                                                                                            .setAngle(Double.parseDouble(angle.toString()));
+                                                                                             
+              CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("vector_decl",27, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
+            }
+          return CUP$MatrixParser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 56: // vector_node ::= LPARENTHESIS NUMBER COMMA NUMBER RPARENTHESIS 
             {
               Object RESULT =null;
 		int xleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-3)).left;
