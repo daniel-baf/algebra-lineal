@@ -85,7 +85,7 @@ parser code {:
 // terminal from lexer
 terminal LBRACKET, RBRACKET, LPARENTHESIS, RPARENTHESIS, PLUS, TIMES, MINUS, DIVIDE, COMMA, SEMI_COLON, 
          MATRIX, ARITH, INVERSE, DETERMINANT, RANK, ENCRYPT, DECRYPT, GAUSS, JORDAN, MARKOV, 
-         IDENTIFIER, NUMBER, UNKNOWN, STRING, VECTOR;
+         IDENTIFIER, NUMBER, UNKNOWN, STRING, VECTOR, COLON;
 
 // non terminal
 non terminal main, matrices_declaration, matrix_declaration, matrix_definition, vector_array,
@@ -94,7 +94,7 @@ non terminal main, matrices_declaration, matrix_declaration, matrix_definition, 
     gauss_declaration, gjordan_declaration, markov_declaration, arith_declaration,
     arith_expression, arith_term, arith_factor, arith_primary,
     ids_declaration, markov_ids_declaration, numbers_vector,
-    vector_declaration, vector_definition, vector_creation, vector_node;
+    vector_declaration, vector_definition, vector_creation, vector_node, vector_decl;
 
 start with main;
 
@@ -238,30 +238,32 @@ arith_primary ::=
 ;
 
 vector_declaration::=
-    VECTOR vector_definition SEMI_COLON
+    VECTOR vector_definition:vectors_declaration SEMI_COLON                                  {:   parserController.saveVector((ArrayList<GraphVector>) vectors_declaration);   :}
 ;
 
 vector_definition ::=
-            vector_creation:new_vector                                                      {:  :}
-        |   vector_creation:new_vector COMMA vector_definition:vector_array                 {:  :}
+            vector_creation:new_vector                                                       {:   RESULT = new ArrayList<GraphVector>() {{ add((GraphVector) new_vector ); }};  :}
+        |   vector_creation:new_vector COMMA vector_definition:vector_array                  {:   RESULT = parserUtils.appendVector(new ArrayList<GraphVector>() {{ add((GraphVector) new_vector); }}, (ArrayList<GraphVector>) vector_array);  :}
 ;
 
 
 vector_creation ::=
+    IDENTIFIER:id COLON vector_decl:vector_builder                                           {:  RESULT = ((GraphVectorBuilder)vector_builder).setName(id.toString()).build(); :}
+;
+
+
+vector_decl ::=
         NUMBER:len NUMBER:angle                                                              {: RESULT = new GraphVectorBuilder()
                                                                                                              .setLength(Double.parseDouble(len.toString()))
-                                                                                                             .setAngle(Double.parseDouble(angle.toString()))
-                                                                                                             .build();
+                                                                                                             .setAngle(Double.parseDouble(angle.toString()));
                                                                                              :}
     |   vector_node:destination                                                              {: RESULT = new GraphVectorBuilder()
                                                                                                              .setOriginPoint(new NodeVector(0,0))
-                                                                                                             .setEndPoint((NodeVector) destination)
-                                                                                                             .build();
+                                                                                                             .setEndPoint((NodeVector) destination);
                                                                                              :}
     |   vector_node:destination vector_node:origin                                           {: RESULT = new GraphVectorBuilder()
                                                                                                             .setOriginPoint((NodeVector) origin)
-                                                                                                            .setEndPoint((NodeVector) destination)
-                                                                                                            .build();
+                                                                                                            .setEndPoint((NodeVector) destination);
                                                                                              :}
 ;
 

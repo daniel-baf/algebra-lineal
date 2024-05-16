@@ -7,6 +7,7 @@ public class GraphVectorBuilder {
     private double yComponent;
     private double angle;
     private double length;
+    private String name;
 
     public GraphVectorBuilder() {
         // Set default values if needed
@@ -48,6 +49,11 @@ public class GraphVectorBuilder {
         return this;
     }
 
+    public GraphVectorBuilder setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public NodeVector getOriginPoint() {
         return originPoint;
     }
@@ -70,5 +76,9 @@ public class GraphVectorBuilder {
 
     public double getLength() {
         return length;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

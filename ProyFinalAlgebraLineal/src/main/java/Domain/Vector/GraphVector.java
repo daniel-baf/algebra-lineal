@@ -7,6 +7,7 @@ public class GraphVector {
     private final double yComponent;
     private final double angle;
     private final double length;
+    private final String name;
 
     protected GraphVector(GraphVectorBuilder builder) {
         this.originPoint = builder.getOriginPoint();
@@ -15,6 +16,7 @@ public class GraphVector {
         this.yComponent = builder.getyComponent();
         this.angle = builder.getAngle();
         this.length = builder.getLength();
+        this.name = builder.getName();
     }
 
     public NodeVector getOriginPoint() {
@@ -41,10 +43,15 @@ public class GraphVector {
         return length;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         return "GraphVector{" +
-                "originPoint=" + originPoint +
+                "name=" + this.name +
+                ", originPoint=" + originPoint +
                 ", endPoint=" + endPoint +
                 ", xComponent=" + xComponent +
                 ", yComponent=" + yComponent +

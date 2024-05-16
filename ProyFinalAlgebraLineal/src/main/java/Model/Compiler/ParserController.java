@@ -3,6 +3,7 @@ package Model.Compiler;
 import Controller.ParserControllerSolver;
 import Domain.AVL.NodeAVL;
 import Domain.Markov.MarkovData;
+import Domain.Vector.GraphVector;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 
@@ -39,6 +40,21 @@ public class ParserController<T> {
             this.model.getMatrices().put(newMatrix.getName(), newMatrix);
         }
         CustomLogger.getInstance().addLog("MATRIX EXIST, AVOIDING IT", !valueExist);
+    }
+
+    /**
+     * Save a list of matrices and avoid duplicates
+     *
+     * @param vectors
+     */
+    public void saveVector(ArrayList<GraphVector> vectors) {
+        vectors.forEach(vector -> {
+            boolean valueExist = Objects.isNull(this.model.getVectors().get(vector.getName()));
+            if (valueExist) {
+                this.model.getVectors().put(vector.getName(), vector);
+            }
+            CustomLogger.getInstance().addLog(String.format("AVOIDING ADDITION OF VECTOR WITH NAME %1$s, it already exists ", vector.getName()), !valueExist);
+        });
     }
 
     /**
