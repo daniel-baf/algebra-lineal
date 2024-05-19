@@ -44,14 +44,7 @@ public class Main {
             MatrixLexer lexer = new MatrixLexer(reader);
             MatrixParser parser = new MatrixParser(lexer);
             parser.parse();
-//            parser.solve(verbose);
-
-            HashMap<String, GraphVector> vectors = parser.getParserModel().getVectors();
-            CustomLogger.getInstance().addLog("VECTORS: " + vectors.size(), true);
-            GraphVectorSolver gSolver = new GraphVectorSolver();
-            vectors.forEach((s, vector) -> {
-                gSolver.solve(vector, verbose);
-            });
+            parser.solve(verbose);
         } catch (Exception e) {
             CustomLogger.getInstance().addLog("ERROR OPPENING FILE " + e.getMessage(), true);
         }

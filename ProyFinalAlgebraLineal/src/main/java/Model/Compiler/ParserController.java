@@ -4,10 +4,13 @@ import Controller.ParserControllerSolver;
 import Domain.AVL.NodeAVL;
 import Domain.Markov.MarkovData;
 import Domain.Vector.GraphVector;
+import Domain.Vector.GraphVectorSolver;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class ParserController<T> {
@@ -158,6 +161,25 @@ public class ParserController<T> {
             // arithmetical operations
             CustomLogger.getInstance().addTitleLog("ARITHMETICAL OPERATIONS", verbose);
             tmpData.forEach(arithmeticalOperation -> this.solver.solveArithmeticalPool((NodeAVL<T>) arithmeticalOperation, verbose));
+        }
+        // solve all vectors if declared
+        HashMap<String, GraphVector> vectors = this.model.getVectors();
+        this.solveVectors(vectors, verbose);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void solveVectors(HashMap<String, GraphVector> vectors, boolean verbose) {
+        if (Objects.isNull(vectors)) {
+            return; // no operation to do
+        }
+        CustomLogger.getInstance().addTitleLog("AUTOFILL VECTORS TO EXECUTE OPERATIONS ", verbose);
+        this.solver.solveVectorsFillable(vectors, verbose);
+        // solve all operations
+        ArrayList<NodeAVL<GraphVector>> operations = (ArrayList<NodeAVL<GraphVector>>) this.model.getKeysArrayListHashMap().get(CommonParserHashKey.ARITH_VECTOR);
+        if (!Objects.isNull(operations)) {
+            operations.forEach(vectorOperation -> {
+                this.solver.solveArithmeticalVectorPool(vectorOperation, verbose);
+            });
         }
     }
 

@@ -2,6 +2,8 @@ package Controller;
 
 import Domain.AVL.NodeAVL;
 import Domain.Markov.MarkovData;
+import Domain.Vector.GraphVector;
+import Domain.Vector.GraphVectorSolver;
 import Model.Compiler.CommonParserHashKey;
 import Model.Compiler.ParserModel;
 import Model.Encrypter.Crypter;
@@ -32,19 +34,23 @@ public class ParserControllerSolver<T> {
     public void printSummaryOperations() {
         // iterate over hashmap and print all values
         // Using enhanced for loop to iterate over the HashMap
+        CustomLogger.getInstance().addTitleLog("MATRICES DECLARED: ", true);
         HashMap<String, Matrix> matrices = this.model.getMatrices();
         for (Map.Entry<String, Matrix> entry : matrices.entrySet()) {
-            String matrixName = entry.getKey();
+//            String matrixName = entry.getKey();
             Matrix matrix = entry.getValue();
             CustomLogger.getInstance().addLog(matrix.toString(), true);
         }
         /* print all values from hashes strings */
+        CustomLogger.getInstance().addTitleLog("OPERATION DECLARED: ", true);
+
         HashMap<CommonParserHashKey, ArrayList<T>> commonHashes = this.model.getKeysArrayListHashMap();
         for (Map.Entry<CommonParserHashKey, ArrayList<T>> entry : commonHashes.entrySet()) {
             CommonParserHashKey key = entry.getKey();
             ArrayList<T> value = entry.getValue();
             CustomLogger.getInstance().addLog(String.format("KEY [%1$s]: %2$s", key, value), true);
         }
+        CustomLogger.getInstance().addSectionEnd(3, true);
     }
 
     /**
@@ -164,7 +170,6 @@ public class ParserControllerSolver<T> {
      *
      * @param markovOperation operation 1
      * @param verbose         true or false to print step by step
-     * @return the matrix key result after iter n times
      */
     public void solveMarkovPool(MarkovData markovOperation, boolean verbose) {
         try {
@@ -196,5 +201,29 @@ public class ParserControllerSolver<T> {
         } catch (Exception e) {
             CustomLogger.getInstance().addLog("Instruction no valid for matrix " + rootNode + " avoiding this gauss operation " + e.getMessage(), true);
         }
+    }
+
+    /**
+     * Solve all needed data from all vectors declared
+     *
+     * @param vectors list of vectos to solve
+     */
+    public void solveVectorsFillable(HashMap<String, GraphVector> vectors, boolean verbose) {
+        try {
+            GraphVectorSolver gSolver = new GraphVectorSolver();
+            vectors.forEach((s, vector) -> gSolver.solve(vector, verbose));
+        } catch (Exception e) {
+            CustomLogger.getInstance().addLog("Instruction no valid for vectors,  avoiding this vector solve " + e.getMessage(), true);
+        }
+    }
+
+    /**
+     * Solve all operation related to a vector, dot oper, x operation, add or sub
+     *
+     * @param rootNode main node to solve
+     * @param verbose  true or false to print step by step
+     */
+    public void solveArithmeticalVectorPool(NodeAVL<GraphVector> rootNode, boolean verbose) {
+        CustomLogger.getInstance().addLog("TODO resolve operation for vectors: " + rootNode, verbose);
     }
 }

@@ -47,10 +47,8 @@ MARKOV markov1 STATUS 5;
 ARITH A + B * B;
 ARITH A / B + (A+B);
 // EXAMPLE VECTOR TO GRAPH AND CALC COMPONENTS
-VECTOR (1,3) (5,1), (-3,1),(6,1); // define with 2 points
-VECTOR 10 -40                     // define with with length + angle
-
-// VECTOR A: 2 -4;                            // length angle
-// VECTOR B: (8, -4);                         // pointer node, origin node = 0,0
-// VECTOR C: (8, -4) (0, 81);                 // pointer node origin node
-// VECTOR D: (0, -4) (9, -5), E (0, 4), F: 12 -4;  // multiple vectors declaration
+VECTOR A: (4, 5) 2 55;                              // length angle
+VECTOR B: (8, -8);                                  // pointer node, origin node = 0,0
+VECTOR C: (8, -4) (0, 81);                          // pointer node origin node
+VECTOR D: (0, -4) (9, -5), E: (0, 4), F: 12 -4;     // multiple vectors declaration
+ARITHV ;

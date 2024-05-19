@@ -31,8 +31,10 @@ public class sym {
   public static final int LPARENTHESIS = 4;
   public static final int RPARENTHESIS = 5;
   public static final int MINUS = 8;
+  public static final int DOT = 29;
   public static final int error = 1;
   public static final int ARITH = 13;
+  public static final int ARITHV = 28;
   public static final int JORDAN = 20;
   public static final int UNKNOWN = 24;
   public static final int GAUSS = 19;
@@ -64,7 +66,9 @@ public class sym {
   "UNKNOWN",
   "STRING",
   "VECTOR",
-  "COLON"
+  "COLON",
+  "ARITHV",
+  "DOT"
   };
 }
 

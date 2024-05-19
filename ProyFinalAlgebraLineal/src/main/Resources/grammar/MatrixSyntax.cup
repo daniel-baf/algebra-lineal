@@ -85,7 +85,7 @@ parser code {:
 // terminal from lexer
 terminal LBRACKET, RBRACKET, LPARENTHESIS, RPARENTHESIS, PLUS, TIMES, MINUS, DIVIDE, COMMA, SEMI_COLON, 
          MATRIX, ARITH, INVERSE, DETERMINANT, RANK, ENCRYPT, DECRYPT, GAUSS, JORDAN, MARKOV, 
-         IDENTIFIER, NUMBER, UNKNOWN, STRING, VECTOR, COLON;
+         IDENTIFIER, NUMBER, UNKNOWN, STRING, VECTOR, COLON, ARITHV, DOT;
 
 // non terminal
 non terminal main, matrices_declaration, matrix_declaration, matrix_definition, vector_array,
@@ -94,13 +94,15 @@ non terminal main, matrices_declaration, matrix_declaration, matrix_definition, 
     gauss_declaration, gjordan_declaration, markov_declaration, arith_declaration,
     arith_expression, arith_term, arith_factor, arith_primary,
     ids_declaration, markov_ids_declaration, numbers_vector,
-    vector_declaration, vector_definition, vector_creation, vector_node, vector_decl;
+    vector_declaration, vector_definition, vector_creation, vector_node, vector_decl,
+        arith_vector_declaration, arith_vector_expression, arith_vector_term, arith_vector_factor;
 
 start with main;
 
 main::=
         matrices_declaration operations_declaration
     |   matrices_declaration
+    |   operations_declaration
 ;
 
 // MATRIX DEF ; MATRIX NEW ... 
@@ -142,8 +144,9 @@ operation_declaration::=
     |   gauss_declaration
     |   gjordan_declaration
     |   markov_declaration
-    |   arith_declaration:expression
+    |   arith_declaration
     |   vector_declaration
+    |   arith_vector_declaration
 ;
 
 inverse_declaration::=
@@ -248,24 +251,24 @@ vector_definition ::=
 
 
 vector_creation ::=
-    IDENTIFIER:id COLON vector_decl:vector_builder                                           {:  RESULT = ((GraphVectorBuilder)vector_builder).setName(id.toString()).build(); :}
+    IDENTIFIER:id COLON vector_decl:vector_builder                                           {:   RESULT = ((GraphVectorBuilder)vector_builder).setName(id.toString()).build(); :}
 ;
 
 
 vector_decl ::=
-        NUMBER:len NUMBER:angle                                                              {: RESULT = new GraphVectorBuilder()
+        NUMBER:len NUMBER:angle                                                              {:   RESULT = new GraphVectorBuilder()
                                                                                                              .setLength(Double.parseDouble(len.toString()))
                                                                                                              .setAngle(Double.parseDouble(angle.toString()));
                                                                                              :}
-    |   vector_node:destination                                                              {: RESULT = new GraphVectorBuilder()
+    |   vector_node:destination                                                              {:   RESULT = new GraphVectorBuilder()
                                                                                                              .setOriginPoint(new NodeVector(0,0))
                                                                                                              .setEndPoint((NodeVector) destination);
                                                                                              :}
-    |   vector_node:origin vector_node:destination                                          {: RESULT = new GraphVectorBuilder()
+    |   vector_node:origin vector_node:destination                                           {:   RESULT = new GraphVectorBuilder()
                                                                                                             .setOriginPoint((NodeVector) origin)
                                                                                                             .setEndPoint((NodeVector) destination);
                                                                                              :}
-    |   vector_node:origin NUMBER:len NUMBER:angle                                           {: RESULT = new GraphVectorBuilder()
+    |   vector_node:origin NUMBER:len NUMBER:angle                                           {:   RESULT = new GraphVectorBuilder()
                                                                                                             .setOriginPoint((NodeVector) origin)
                                                                                                             .setLength(Double.parseDouble(len.toString()))
                                                                                                             .setAngle(Double.parseDouble(angle.toString()));
@@ -273,5 +276,26 @@ vector_decl ::=
 ;
 
 vector_node ::=
-    LPARENTHESIS NUMBER:x COMMA NUMBER:y RPARENTHESIS                                        {: RESULT = new NodeVector(Double.parseDouble(x.toString()), Double.parseDouble(y.toString())); :}
+    LPARENTHESIS NUMBER:x COMMA NUMBER:y RPARENTHESIS                                        {:   RESULT = new NodeVector(Double.parseDouble(x.toString()), Double.parseDouble(y.toString())); :}
+;
+
+arith_vector_declaration ::=
+    ARITHV arith_vector_expression:expression SEMI_COLON                                     {:   parserController.saveInStringHashmap(CommonParserHashKey.ARITH_VECTOR, new ArrayList<NodeAVL>() {{ add((NodeAVL) expression); }});   :}
+;
+
+arith_vector_expression::=
+        arith_vector_term:expression                                                         {:   RESULT = expression;   :}
+   |    arith_vector_expression:lchild PLUS arith_vector_term:rchild                         {:   RESULT = parserUtils.generateNewNode((Object) "+", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+   |    arith_vector_expression:lchild MINUS arith_vector_term:rchild                        {:   RESULT = parserUtils.generateNewNode((Object) "-", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+;
+
+arith_vector_term ::=
+        arith_vector_factor:expression                                                       {:   RESULT = expression;   :}
+   |    arith_vector_term:lchild TIMES arith_vector_factor:rchild                            {:   RESULT = parserUtils.generateNewNode((Object) "*", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+   |    arith_vector_term:lchild DOT arith_vector_factor:rchild                              {:   RESULT = parserUtils.generateNewNode((Object) "/", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+;
+
+arith_vector_factor ::=
+        LPARENTHESIS arith_vector_expression:expression RPARENTHESIS                         {:   RESULT = parserUtils.generateNewNode((Object) "()", (NodeAVL) expression);    :}
+  |     arith_primary:expression                                                             {:   RESULT = expression;   :}
 ;
