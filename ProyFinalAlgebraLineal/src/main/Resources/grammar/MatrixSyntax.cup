@@ -292,7 +292,7 @@ arith_vector_expression::=
 arith_vector_term ::=
         arith_vector_factor:expression                                                       {:   RESULT = expression;   :}
    |    arith_vector_term:lchild TIMES arith_vector_factor:rchild                            {:   RESULT = parserUtils.generateNewNode((Object) "*", (NodeAVL) lchild, (NodeAVL) rchild);    :}
-   |    arith_vector_term:lchild DOT arith_vector_factor:rchild                              {:   RESULT = parserUtils.generateNewNode((Object) "/", (NodeAVL) lchild, (NodeAVL) rchild);    :}
+   |    arith_vector_term:lchild DOT arith_vector_factor:rchild                              {:   RESULT = parserUtils.generateNewNode((Object) ".", (NodeAVL) lchild, (NodeAVL) rchild);    :}
 ;
 
 arith_vector_factor ::=

@@ -1,7 +1,5 @@
 
 import Controller.CompilerController;
-import Domain.Vector.GraphVector;
-import Domain.Vector.GraphVectorSolver;
 import Model.Compiler.CompilerModel;
 import Model.Compiler.MatrixLexer;
 import Model.Compiler.MatrixParser;
@@ -9,24 +7,19 @@ import Model.Utils.CustomLogger;
 import View.CompilerJForm;
 
 import java.io.FileReader;
-import java.util.HashMap;
 
 /**
  * @author jefe_mayoneso
  */
 public class Main {
 
-    // create testing matrix
-    // tmp matrix
-    public Main() {
-    }
 
     public static void main(String[] args) {
         // operations object
         try {
             boolean verbose = true;
-//            runView(verbose);
-            testParser(verbose);
+            runView(verbose);
+//            testParser(verbose);
         } catch (Exception ex) {
             CustomLogger.getInstance().addLog("UNABLE TO INIT APPLICATION " + ex.getMessage(), true);
         }

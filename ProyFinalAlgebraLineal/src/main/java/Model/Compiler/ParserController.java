@@ -4,7 +4,6 @@ import Controller.ParserControllerSolver;
 import Domain.AVL.NodeAVL;
 import Domain.Markov.MarkovData;
 import Domain.Vector.GraphVector;
-import Domain.Vector.GraphVectorSolver;
 import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 
@@ -104,6 +103,7 @@ public class ParserController<T> {
      *
      * @param verbose true or false to print step by step
      */
+    @SuppressWarnings("unchecked")
     public void solve(boolean verbose) {
         ArrayList<T> tmpData;
         // print summary
@@ -178,7 +178,7 @@ public class ParserController<T> {
         ArrayList<NodeAVL<GraphVector>> operations = (ArrayList<NodeAVL<GraphVector>>) this.model.getKeysArrayListHashMap().get(CommonParserHashKey.ARITH_VECTOR);
         if (!Objects.isNull(operations)) {
             operations.forEach(vectorOperation -> {
-                this.solver.solveArithmeticalVectorPool(vectorOperation, verbose);
+                this.solver.solveArithmeticalVectorPool((NodeAVL<T>) vectorOperation, verbose);
             });
         }
     }
