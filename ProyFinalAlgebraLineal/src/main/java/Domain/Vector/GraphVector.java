@@ -1,8 +1,11 @@
 package Domain.Vector;
 
+import Model.Matrix.Matrix;
 import Model.Utils.CustomLogger;
 
-public class GraphVector {
+import java.util.Arrays;
+
+public class GraphVector implements Cloneable {
     private NodeVector originPoint;
     private NodeVector endPoint;
     private double xComponent;
@@ -80,6 +83,14 @@ public class GraphVector {
         this.name = name;
     }
 
+    public CartesianQuadrant getQuadrant() {
+        return quadrant;
+    }
+
+    public void setQuadrant(CartesianQuadrant quadrant) {
+        this.quadrant = quadrant;
+    }
+
     /**
      * Estimate the current quadrant using the components
      *
@@ -121,12 +132,27 @@ public class GraphVector {
         CustomLogger.getInstance().addLog("\t\tFixing relative angle to global angle from 0 degrees, new angle is " + this.angle, verbose);
     }
 
+
     @Override
     public String toString() {
-        return "GraphVector{" + "name=" + this.name + ", originPoint=" + originPoint + ", endPoint=" + endPoint + ", xComponent=" + xComponent + ", yComponent=" + yComponent + ", angle=" + angle + ", length=" + length + '}';
+        return "GraphVector{" + "name=" + this.name + ", originPoint=" + originPoint + ", endPoint=" + endPoint + ", xComponent=" + xComponent + ", yComponent=" + yComponent + ", angle=" + angle + ", length=" + length +  " quadrant=" + this.quadrant +  '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        GraphVector clonedVector = (GraphVector) super.clone();
+        clonedVector.setAngle(this.getAngle());
+        clonedVector.setEndPoint(this.endPoint.clone());
+        clonedVector.setOriginPoint(this.originPoint.clone());
+        clonedVector.setXComponent(this.getXComponent());
+        clonedVector.setYComponent(this.getYComponent());
+        clonedVector.setLength(this.getLength());
+        clonedVector.setName(this.getName());
+        clonedVector.setQuadrant(this.getQuadrant());
+        return clonedVector;
     }
 }
 
 enum CartesianQuadrant {
-    ONE, TWO, THREE, FOUR, NOT_OPERABLE
+    ONE, TWO, THREE, FOUR, SCALAR
 }

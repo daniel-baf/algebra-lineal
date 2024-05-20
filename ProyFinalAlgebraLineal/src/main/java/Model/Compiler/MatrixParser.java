@@ -1222,7 +1222,7 @@ class CUP$MatrixParser$actions {
 		int rchildleft = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).left;
 		int rchildright = ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()).right;
 		Object rchild = (Object)((java_cup.runtime.Symbol) CUP$MatrixParser$stack.peek()).value;
-		   RESULT = parserUtils.generateNewNode((Object) "/", (NodeAVL) lchild, (NodeAVL) rchild);    
+		   RESULT = parserUtils.generateNewNode((Object) ".", (NodeAVL) lchild, (NodeAVL) rchild);    
               CUP$MatrixParser$result = parser.getSymbolFactory().newSymbol("arith_vector_term",30, ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.elementAt(CUP$MatrixParser$top-2)), ((java_cup.runtime.Symbol)CUP$MatrixParser$stack.peek()), RESULT);
             }
           return CUP$MatrixParser$result;

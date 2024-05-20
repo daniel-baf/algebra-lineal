@@ -210,8 +210,12 @@ public class ParserControllerSolver<T> {
      */
     public void solveVectorsFillable(HashMap<String, GraphVector> vectors, boolean verbose) {
         try {
-            GraphVectorSolver gSolver = new GraphVectorSolver();
-            vectors.forEach((s, vector) -> gSolver.solve(vector, verbose));
+            GraphVectorSolver<T> gSolver = new GraphVectorSolver<>(vectors);
+            for (Map.Entry<String, GraphVector> entry : vectors.entrySet()) {
+//                String s = entry.getKey();
+                GraphVector vector = entry.getValue();
+                gSolver.preSolve(vector, verbose);
+            }
         } catch (Exception e) {
             CustomLogger.getInstance().addLog("Instruction no valid for vectors,  avoiding this vector solve " + e.getMessage(), true);
         }
@@ -223,7 +227,9 @@ public class ParserControllerSolver<T> {
      * @param rootNode main node to solve
      * @param verbose  true or false to print step by step
      */
-    public void solveArithmeticalVectorPool(NodeAVL<GraphVector> rootNode, boolean verbose) {
-        CustomLogger.getInstance().addLog("TODO resolve operation for vectors: " + rootNode, verbose);
+    public void solveArithmeticalVectorPool(NodeAVL<T> rootNode, boolean verbose) {
+        GraphVectorSolver<T> solver = new GraphVectorSolver<>(this.model.getVectors());
+        T result = solver.solve(rootNode, verbose);
+        CustomLogger.getInstance().addLog("RESULT " + result, verbose);
     }
 }

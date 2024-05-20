@@ -1,2 +1,2 @@
-VECTOR D: (0, -4) (9, -5), E: (0, 4), F: 12 -4;     // multiple vectors declaration
-ARITHV D * (E + F.D);
+VECTOR D: (0, -4) (9, -5), E: (0, 4);     // multiple vectors declaration
+ARITHV D . E;

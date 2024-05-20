@@ -21,7 +21,7 @@ public class NodeAVL<T> {
     public String toString() {
         String leftString = Objects.isNull(this.leftChild)? "NULL": this.leftChild.toString();
         String rightString = Objects.isNull(this.rightChild)? "NULL": this.rightChild.toString();
-        return String.format("Node %1$s [: {left: {%2$s} right: {%3$s}" , this.data, leftString, rightString);
+        return String.format("Node %1$s [: {left: {%2$s} right: {%3$s}]" , this.data, leftString, rightString);
     }
 
     public String getPrintable() {
@@ -59,4 +59,5 @@ public class NodeAVL<T> {
     public void setData(T data) {
         this.data = data;
     }
+
 }
