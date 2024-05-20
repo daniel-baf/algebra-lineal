@@ -1,5 +1,8 @@
 package Model.Compiler;
 
+import Domain.AVL.NodeAVL;
+import Domain.AVL.NodeAVLBuilder;
+import Domain.Vector.GraphVector;
 import Model.Matrix.Matrix;
 import Model.Matrix.MatrixEnum;
 import Model.Utils.CustomLogger;
@@ -23,9 +26,10 @@ public class ParserUtils {
 
     /**
      * Centralize creation of matrix
-     * @param identifier
-     * @param tmpMatrix
-     * @return
+     *
+     * @param identifier the id
+     * @param tmpMatrix new matrix
+     * @return final matrix
      */
     public Matrix configureFinalMatrix(String identifier, Matrix tmpMatrix) {
         tmpMatrix.setName(identifier);
@@ -36,7 +40,7 @@ public class ParserUtils {
      * Concatenate two matrices to create a single one, new matrix has the size of parent cols and the height of parent cols + child rows
      *
      * @param parentMatrix main matrix to cpy
-     * @param newRowData         matrix to merge bellow main matrix
+     * @param newRowData   matrix to merge bellow main matrix
      * @return the new matrix
      */
     public Matrix concatMatrix(Matrix parentMatrix, ArrayList<Double> newRowData) {
@@ -62,9 +66,9 @@ public class ParserUtils {
     /**
      * Cast arraylist to a vector and append the new value to current matrix, create a new matrix.
      *
-     * @param vector
-     * @param data
-     * @return
+     * @param vector initial vector of data
+     * @param data main matrix to append vector
+     * @return the new matrix
      */
     public static double[][] addVectorToLastRow(double[][] data, ArrayList<Double> vector) {
         // Create a new row with the size of the vector
@@ -89,13 +93,13 @@ public class ParserUtils {
     /**
      * Generic method to cast a vector to a matrix of 1xn
      *
-     * @param vectorRow
-     * @return
+     * @param vectorRow vector to cast
+     * @return new matrix
      */
     public Matrix generateMainMatrix(ArrayList<Double> vectorRow) {
         // cast to a new double matrix of rows 1
         Matrix resultMatrix = new Matrix("NODE");
-        resultMatrix.setMatrix(this.addVectorToLastRow(new double[0][vectorRow.size()], vectorRow));
+        resultMatrix.setMatrix(addVectorToLastRow(new double[0][vectorRow.size()], vectorRow));
         return resultMatrix;
     }
 
@@ -123,5 +127,72 @@ public class ParserUtils {
         ArrayList<Double> numbersBackup = Objects.isNull(numbers) ? new ArrayList<>() : numbers;
         numbersBackup.addAll(numbers2);
         return numbersBackup;
+    }
+
+    /**
+     * Remove comillas from string at the begginning and end of a string token
+     *
+     * @param text the text without comillas
+     * @return the new text
+     */
+    public String removeComillasToString(String text) {
+        // check length of String
+        if (text.length() <= 2) {
+            return text;
+        }
+        if (text.charAt(0) == '"' && text.charAt(text.length() - 1) == '"') {
+            return text.substring(1, text.length() - 1);
+        }
+        return text;
+    }
+
+    /**
+     * Generate a new node and append only left child
+     * @param parentData new node data
+     * @param leftChild left child
+     * @return new node
+     */
+    public NodeAVL<Object> generateNewNode(Object parentData, NodeAVL<Object> leftChild) {
+        return this.generateNewNode(parentData, leftChild, null);
+    }
+
+    /**
+     * Generates a new node and append childs to new values
+     *
+     * @param parentData data for new node merge
+     * @param leftChild  left child node, never null
+     * @param rightChild right child, can  be null
+     * @return the new node
+     */
+    public NodeAVL<Object> generateNewNode(Object parentData, NodeAVL<Object> leftChild, NodeAVL<Object> rightChild) {
+        // check new data
+        if (Objects.isNull(parentData)) {
+            CustomLogger.getInstance().addLog("Invalid arithmetical tree, parent data cannot be null", true);
+            return null; // invalid call so collapse tree
+        }
+        if (Objects.isNull(leftChild)) {
+            CustomLogger.getInstance().addLog("Invalid arithmetical tree, left child can never be null", true);
+            return null; // invalid call so collapse tree
+        }
+        // new node
+        NodeAVL<Object> newParentNode = new NodeAVLBuilder<>().setData(parentData).setLeftChild(leftChild).setRightChild(rightChild).build();
+        // update children
+        leftChild.setParent(newParentNode);
+        // check if right child exists
+        if (!Objects.isNull(rightChild)) {
+            rightChild.setParent(newParentNode);
+        }
+        return newParentNode;
+    }
+
+    public ArrayList<GraphVector> appendVector(ArrayList<GraphVector> vector, ArrayList<GraphVector> newItems) {
+        if(Objects.isNull(vector) && Objects.isNull(newItems)) {
+            return new ArrayList<>();
+        }
+        if(Objects.isNull(vector)) {
+            return newItems;
+        }
+        vector.addAll(newItems);
+        return vector;
     }
 }

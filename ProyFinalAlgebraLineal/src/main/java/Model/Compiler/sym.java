@@ -18,6 +18,7 @@ public class sym {
   public static final int MATRIX = 12;
   public static final int IDENTIFIER = 22;
   public static final int SEMI_COLON = 11;
+  public static final int COLON = 27;
   public static final int LBRACKET = 2;
   public static final int DETERMINANT = 15;
   public static final int RBRACKET = 3;
@@ -25,12 +26,15 @@ public class sym {
   public static final int COMMA = 10;
   public static final int NUMBER = 23;
   public static final int EOF = 0;
+  public static final int VECTOR = 26;
   public static final int DIVIDE = 9;
   public static final int LPARENTHESIS = 4;
   public static final int RPARENTHESIS = 5;
   public static final int MINUS = 8;
+  public static final int DOT = 29;
   public static final int error = 1;
   public static final int ARITH = 13;
+  public static final int ARITHV = 28;
   public static final int JORDAN = 20;
   public static final int UNKNOWN = 24;
   public static final int GAUSS = 19;
@@ -60,7 +64,11 @@ public class sym {
   "IDENTIFIER",
   "NUMBER",
   "UNKNOWN",
-  "STRING"
+  "STRING",
+  "VECTOR",
+  "COLON",
+  "ARITHV",
+  "DOT"
   };
 }
 

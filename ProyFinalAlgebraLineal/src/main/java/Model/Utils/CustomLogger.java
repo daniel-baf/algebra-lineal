@@ -27,6 +27,26 @@ public class CustomLogger {
         }
     }
 
+    /**
+     * Add a title to logs
+     *
+     * @param title title log
+     */
+    public void addTitleLog(String title, boolean verbose) {
+        String builder = "----------------------------------------------------------------------" +
+                String.format("\t %1$s\t", title) +
+                "----------------------------------------------------------------------";
+        this.addLog(builder, verbose);
+    }
+
+    /**
+     * Add a jumpline to diference result
+     * @param jumplines n jumplines
+     */
+    public void addSectionEnd(int jumplines, boolean verbose) {
+        this.addLog("\n".repeat(Math.max(0, jumplines)), verbose);
+    }
+
     // Method to get all logs as a string from the singleton instance
     public String getAllLogsAsString() {
         StringBuilder stringBuilder = new StringBuilder();

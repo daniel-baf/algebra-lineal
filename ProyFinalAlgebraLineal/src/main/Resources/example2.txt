@@ -1,0 +1,55 @@
+
+
+
+// DEFINE MATRICES --
+MATRIX A
+[
+    1   -1  23,
+    12  -4  0,
+    12  3   1
+];
+MATRIX B
+[
+    4   0   -4,
+    4   0   0,
+    -3  12  4
+];
+MATRIX xls
+[
+    4   0   -4 0 12,
+    4   0   0 -1 21,
+    -3  12  4 33 41,
+    0 -1 8  7 -43
+];
+MATRIX markov1
+[
+    0.21 0.40 0.39,
+    0.41 0.12 0.47,
+    0.70 0.11 0.19
+];
+MATRIX STATUS [ 0.41, 0.34, 0.25];
+// INVERSE --
+INV A, B; // HASHMAP 1
+// DETERMINANT --
+DET B, A, xls; // HASHMAP 2
+// RANK
+RANK A, B; // HASHMAP 3
+// ENCRYPT SYNTAX --
+ENCRYPT "Hola perinola, como le va"; // HASHMAP 4
+DECRYPT 53 56 440 47 48 351 3 -12 315 15 0 15;
+// GAUSS SYNTAX --
+GAUSS xls; // HASHMAP 5
+// GAUSS JORDAN --
+JORDAN xls; // HASHMAP 6
+// MARKOV SYNTAX --
+MARKOV markov1 STATUS 5;
+// ARITHMETICAL MATRIX --
+ARITH A + B * B;
+ARITH A / B + (A+B);
+// EXAMPLE VECTOR TO GRAPH AND CALC COMPONENTS
+VECTOR A: (4, 5) 2 55;                              // length angle
+VECTOR B: (8, -8);                                  // pointer node, origin node = 0,0
+VECTOR C: (8, -4) (0, 81);                          // pointer node origin node
+VECTOR D: (0, -4) (9, -5), E: (0, 4), F: 12 -4;     // multiple vectors declaration
+VECTOR D: (0, -4) (9, -5), E: (0, 4);     // multiple vectors declaration
+ARITHV D . E + ;

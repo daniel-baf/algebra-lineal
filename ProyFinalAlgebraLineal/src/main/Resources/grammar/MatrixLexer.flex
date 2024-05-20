@@ -55,9 +55,9 @@ STRING = \".*?\"
 
 
 /* IGNORE TOKENS  */
-{IGNORE}      { /*ignore this line*/ }
+{IGNORE}        { /*ignore this line*/ }
 /* Comments */
-"//"(.)*\n    { /* Ignore */ }
+"//"(.)*\n      { /* Ignore */ }
 
 // symbols
 ("[")         { return new Symbol(sym.LBRACKET, yyline+1, yycolumn+1); }
@@ -70,9 +70,13 @@ STRING = \".*?\"
 ("/")         { return new Symbol(sym.DIVIDE, yyline+1, yycolumn+1); }
 (",")         { return new Symbol(sym.COMMA, yyline+1, yycolumn+1); }
 (";")         { return new Symbol(sym.SEMI_COLON, yyline+1, yycolumn+1); }
+(":")         { return new Symbol(sym.COLON, yyline+1, yycolumn+1); }
+(".")         { return new Symbol(sym.DOT, yyline+1, yycolumn+1); }
 // reserved words
+(VECTOR)      { return new Symbol(sym.VECTOR, yyline+1, yycolumn+1); }
 (MATRIX)      { return new Symbol(sym.MATRIX, yyline+1, yycolumn+1); }
 (ARITH)       { return new Symbol(sym.ARITH, yyline+1, yycolumn+1); }
+(ARITHV)      { return new Symbol(sym.ARITHV, yyline+1, yycolumn+1); }
 (INV)         { return new Symbol(sym.INVERSE, yyline+1, yycolumn+1); }
 (DET)         { return new Symbol(sym.DETERMINANT, yyline+1, yycolumn+1); }
 (RANK)        { return new Symbol(sym.RANK, yyline+1, yycolumn+1); }
@@ -82,7 +86,7 @@ STRING = \".*?\"
 (JORDAN)      { return new Symbol(sym.JORDAN, yyline+1, yycolumn+1); }
 (MARKOV)      { return new Symbol(sym.MARKOV, yyline+1, yycolumn+1); }
 // data
-{STRING}      { return new Symbol(sym.STRING, yyline+1, yycolumn+1); }
+{STRING}      { return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext()); }
 {ID}          { return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext()); }
 {NUMBER}      { return new Symbol(sym.NUMBER, yyline+1, yycolumn+1, yytext()); }
 
